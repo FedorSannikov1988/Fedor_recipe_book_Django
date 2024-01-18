@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}
+    <title> Все заказы {{ name_client }} </title>
+{% endblock %}
+
+{% block content %}
+
+    <h1 class="color-for-title-get_all_customer_orders_and_lists_items_in_order">
+        Все заказы {{ name_client }}:
+    </h1>
+
+    {% if orders %}
+
+        <p>
+        <strong>
+            Клиент:
+        </strong> <br>
+            Имя: {{ orders.0.client.name }} <br>
+            Электронная почта: {{ orders.0.client.email }} <br>
+            Номер телефона: {{ orders.0.client.phone_number }} <br>
+            Адрес: {{ orders.0.client.address }} <br>
+            Дата и время регистрации: {{ orders.0.client.date_and_time_registration }} <br><br>
+        </p>
+
+        <ol>
+            {% for one_order in orders %}
+                <li>
+
+                    <p>
+                        Сумма заказа: {{ one_order.total_amount_order|floatformat:2 }} Р <br>
+                    </p>
+
+                    <p>
+                        Дата и время составления заказа: <br>
+                        {{ one_order.date_and_time_placing_order }} <br>
+                    </p>
+
+                    <p>
+                        Состав заказа: <br>
+
+                    <ul>
+
+                        {% for one_product in one_order.product.all %}
+
+                            <li>
+                                Название: {{ one_product.name }} <br>
+                                Цена {{ one_product.price|floatformat:2 }} Р <br>
+                                Описание: {{ one_product.description }} <br>
+                            </li>
+
+                        {% endfor %}
+
+                    </ul>
+
+                    </p>
+
+                </li>
+
+            {% endfor %}
+        </ol>
+    {% elif not orders %}
+        <p> Заказов нет </p>
+    {% endif %}
+
+{% endblock %}

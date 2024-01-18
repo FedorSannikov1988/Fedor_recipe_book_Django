@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}
+    <title> Все заказы {{ name_client }} </title>
+{% endblock %}
+
+{% block content %}
+
+    <h1 class="color-for-title-get_list_products_ordered_by_customer_from_all_his_orders">
+        Продукты заказанные {{ name_client }}:
+    </h1>
+
+    {% if products.0 or products.1 or products.2 %}
+
+        {% for list_products in products %}
+
+            {% if forloop.counter == 1 %}
+
+                <p>
+                За последную неделю (7 дней):
+                </p>
+
+            {% elif forloop.counter == 2 %}
+
+                <p>
+                За последний месяц (30 дней):
+                </p>
+
+            {% else %}
+
+                <p>
+                За последний год (365 дней):
+                </p>
+
+            {% endif %}
+
+            <ol>
+
+            {% for one_product in list_products %}
+                <li>
+                Название: <br>
+                {{ one_product.name }} <br>
+                Цена: {{ one_product.price|floatformat:2 }} Рублей <br>
+                Описание: <br>
+                {{ one_product.description }} <br>
+                </li>
+
+            {% endfor %}
+            </ol>
+
+        {% endfor %}
+
+    {% else %}
+
+        <p> Заказов нет </p>
+
+    {% endif %}
+
+{% endblock %}
