@@ -136,6 +136,10 @@ MEDIA_URL = 'media/'
 
 MEDIA_ROOT = BASE_DIR / 'media'
 
+# Model user in Project:
+
+AUTH_USER_MODEL = 'users.Users'
+
 #DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
 # Default primary key field type
