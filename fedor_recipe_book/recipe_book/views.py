@@ -1,3 +1,10 @@
 from django.shortcuts import render
 
-# Create your views here.
+
+def index(request):
+
+    context = {
+        "title": "Книга Рецептов Федора - Главная страница",
+    }
+
+    return render(request, 'recipe_book/index.html', context)

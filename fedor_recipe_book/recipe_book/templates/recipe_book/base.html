@@ -1,0 +1,81 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<html>
+<head>
+
+    <meta charset="UTF-8">
+    <!-- Mobile specific metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{% static 'pictures/favicon.png' %}">
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" >
+
+    {% block style %}
+    {% endblock %}
+
+    {% block title %}
+    {% endblock %}
+
+</head>
+
+<body>
+
+    <header>
+
+        <div class="header_base_templates__content">
+
+            <a href="{% url 'index' %}">
+                   <img class="header_base_templates__logo"
+                        id="logo"
+                        src="{% static 'pictures/logo.png' %}" alt="Логотип моего сайта">
+            </a>
+
+            <div class="header_base_templates__base_menu">
+
+                    <a class="header_base_templates__base_menu__links" href="{% url 'index' %}">
+                        <span>
+                            Главная
+                        </span>
+                    </a>
+
+                    <a class="header_base_templates__base_menu__links" href="#">
+                        <span>
+                            Контакты
+                        </span>
+                    </a>
+
+                    <a class="header_base_templates__base_menu__links" href="#">
+                        <span>
+                            Регистрация
+                        </span>
+                    </a>
+
+                    <a class="header_base_templates__base_menu__links" href="#">
+                        <span>
+                            Вход в ЛК
+                        </span>
+                    </a>
+
+            </div>
+
+        </div>
+
+    </header>
+
+    {% block content %}
+    {% endblock %}
+
+    <footer>
+        <div class="footer_base_templates__content">
+            <p class="content-footer__text"
+               id="content-footer">
+                © 2024 Книга рецептов федора
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>
