@@ -1,0 +1,39 @@
+{% extends 'recipe_book/base.html' %}
+{% load static %}
+
+{% block style %}
+    <link href="{% static 'css/сontacts.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}
+    <title> {{ title }} </title>
+{% endblock %}
+
+{% block content %}
+
+    <section>
+
+        <div class="content-for-сontacts">
+
+            <h2 class="content-for-сontacts__title">
+                Контакты
+            </h2>
+
+            <div class="wrapper-for-content-for-сontacts__img">
+                 <img class="content-for-сontacts__img"
+                                     src="{% static 'pictures/developer_photo.jpeg' %}"
+                                     alt="фотография разработчика">
+            </div>
+
+            <div class="content-for-сontacts__text">
+                <p>Санников Федор</p>
+                <p>разработчик <strong> учебного </strong> проекта</p>
+                <p>Telegram: @Fedor_Sannikov</p>
+                <p>Email: fedor.sannikov88@gmail.com</p>
+            </div>
+
+        </div>
+
+    </section>
+
+{% endblock %}

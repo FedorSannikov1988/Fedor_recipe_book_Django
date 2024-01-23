@@ -1,0 +1,63 @@
+{% extends 'recipe_book/base.html' %}
+{% load static %}
+
+{% block style %}
+    <link href="{% static 'css/recipe.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}
+    <title> {{ title }} </title>
+{% endblock %}
+
+{% block content %}
+
+    <section>
+
+        <div class="content-for-recipe">
+
+            <img class="content-for-recipe__img"
+                    {% if recipe.image %}
+                 src="{{ recipe.image.url }}"
+                    {% elif not recipe.image %}
+                 src="{% static 'pictures/no_picture_for_recipe.png' %}"
+                    {% endif %}
+                 alt="{{ recipe.title }}">
+
+            <div class="content-for-recipe__text">
+
+                <h2 class="content-for-recipe__text__title">
+                    {{ recipe.title }}
+                </h2>
+
+                <p class="content-for-recipe__text__description">
+                    Описание: <br><br>
+                    {{ recipe.description }}
+                </p>
+
+                <p class="content-for-recipe__text__cooking_time_in_minutes">
+                    Время приготовления:
+                    <strong>
+                        {{ recipe.cooking_time_in_minutes }} минут(-а)
+                    </strong>.
+                </p>
+
+                <p class="content-for-recipe__text__cooking_steps">
+                    Рецепт: <br><br>
+                    {{ recipe.cooking_steps }}
+                </p>
+
+                <p class="content-for-recipe__text__products">
+                    Необходимые продукты: <br><br>
+                    {{ recipe.products }}
+                </p>
+
+            </div>
+
+
+
+        </div>
+
+    </section>
+
+
+{% endblock %}

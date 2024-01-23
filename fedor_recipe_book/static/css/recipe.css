@@ -1,0 +1,71 @@
+.content-for-recipe {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+
+    margin-top: 50px;
+}
+
+.content-for-recipe__img {
+    width: 350px;
+    height: 350px;
+    border: 3px solid #7eb651;
+}
+
+.content-for-recipe__text {
+    margin-top: 20px;
+    max-width: 1000px;
+}
+
+.content-for-recipe__text__title {
+    color: #7eb651;
+    font-family: "Cousine-Bold";
+    font-size: 30px;
+    font-weight: 700;
+    line-height: normal;
+
+    text-align: center;
+
+    margin-bottom: 30px;
+}
+
+.content-for-recipe__text__description {
+    color: #000000;
+    font-family: "Cousine-Regular";
+    font-size: 20px;
+    font-weight: 400;
+    line-height: normal;
+
+    margin-bottom: 30px;
+}
+
+.content-for-recipe__text__cooking_steps {
+    color: #000000;
+    font-family: "Cousine-Regular";
+    font-size: 20px;
+    font-weight: 400;
+    line-height: normal;
+
+    margin-bottom: 30px;
+}
+
+.content-for-recipe__text__cooking_time_in_minutes {
+    color: #000000;
+    font-family: "Cousine-Regular";
+    font-size: 20px;
+    font-weight: 400;
+    line-height: normal;
+
+    margin-bottom: 30px;
+}
+
+.content-for-recipe__text__products {
+    color: #000000;
+    font-family: "Cousine-Regular";
+    font-size: 20px;
+    font-weight: 400;
+    line-height: normal;
+
+    margin-bottom: 30px;
+}

@@ -17,13 +17,15 @@ Including another URLconf
 from django.urls import path
 from django.contrib import admin
 from django.conf import settings
-from recipe_book.views import index
 from django.conf.urls.static import static
+from recipe_book.views import index, recipe, contacts
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name='index'),
+    path('contacts/', contacts, name='contacts'),
+    path('recipe/<int:id_recipe>', recipe, name='recipe'),
 ]
 
 

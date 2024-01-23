@@ -14,10 +14,12 @@ class Recipes(models.Model):
     #author = models.ForeignKey(Users, on_delete=models.CASCADE)
 
     def __str__(self):
-
         return f'Recipes( ' \
-               f'title: {self.title}, ' \
+               f'title: {self.title}' \
                f' )'
+
+        #return f'Recipes( ' \
+               #f'title: {self.title}, ' \
                #f'author: {self.author.email}' \
                #f' )'
 
