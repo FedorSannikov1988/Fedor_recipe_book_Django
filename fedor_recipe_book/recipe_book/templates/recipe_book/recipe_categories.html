@@ -3,6 +3,7 @@
 
 {% block style %}
     <link href="{% static 'css/index.css' %}" rel="stylesheet">
+    <link href="{% static 'css/recipe_categories.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block title %}
@@ -56,15 +57,15 @@
 
             <div class="index__only_content">
 
-            {% if five_random_recipes %}
+            {% if choose_recipe_categories.recipes.all %}
 
                 <h2 class="index__only_content__title">
-                    Пять случайных рецептов
+                     {{ choose_recipe_categories.title }}
                 </h2>
 
                 <div class="content-for-index__grid_for_product_card">
 
-                    {% for one_random_recipes in five_random_recipes %}
+                    {% for one_random_recipes in choose_recipe_categories.recipes.all %}
 
                         <div class="content-for-index__product_card">
 
@@ -105,11 +106,11 @@
 
                 </div>
 
-            {% elif not five_random_recipes %}
+            {% elif not choose_recipe_categories.recipes.all %}
 
                 <div class="index__only_content__container_for_not_content" >
                     <p class="index__only_content__not_content" >
-                        В книге пока нет рецептов.
+                        В данной категории нет рецептов.
                     </p>
                 </div>
 

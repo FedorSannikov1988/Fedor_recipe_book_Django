@@ -62,5 +62,23 @@ def recipe(request, id_recipe: int):
         "title": f"Книга Рецептов Федора - {desired_recipe.title}",
         "recipe": desired_recipe
     }
-    #return render(request, 'recipe_book/contacts.html', context)
+
     return render(request, 'recipe_book/recipe.html', context)
+
+
+def recipe_categories(request, id_recipe_categories: int):
+
+    choose_recipe_categories = \
+        get_object_or_404(RecipeCategories, id=id_recipe_categories)
+
+    all_recipe_categories = RecipeCategories.objects.all()
+
+    print(choose_recipe_categories)
+
+    context = {
+        "title": f"Книга Рецептов Федора - {choose_recipe_categories.title}",
+        "choose_recipe_categories": choose_recipe_categories,
+        "all_recipe_categories": all_recipe_categories
+    }
+
+    return render(request, 'recipe_book/recipe_categories.html', context)

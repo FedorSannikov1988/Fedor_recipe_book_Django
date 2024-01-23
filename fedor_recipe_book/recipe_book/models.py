@@ -33,6 +33,6 @@ class RecipeCategories(models.Model):
         recipes_count: int = self.recipes.count()
 
         return f'RecipeCategories( ' \
-               f'title: {self.title},' \
+               f'title: {self.title}, ' \
                f'recipes count: {recipes_count}' \
                f' )'
