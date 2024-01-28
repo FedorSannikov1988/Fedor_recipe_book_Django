@@ -1,0 +1,187 @@
+{% extends 'recipe_book/base.html' %}
+{% load static %}
+
+{% block style %}
+    <link href="{% static 'css/index.css' %}" rel="stylesheet">
+    <link href="{% static 'css/recipe_categories.css' %}" rel="stylesheet">
+    <link href="{% static 'css/recipe_search.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}
+    <title> {{ title }} </title>
+{% endblock %}
+
+{% block content %}
+
+    <section>
+
+        <div class="recipe_search__all_content">
+
+            <div class="recipe_search__form_search">
+                <form class="recipe_search__form_search__form"
+                      method="GET" action="{% url 'recipe_search' %}">
+                    <input class="recipe_search__form_search__form__input"
+                           type="text" value="" size="50" autocomplete="off" placeholder="Поиск рецепта по названию ... " name="question">
+                    <button class="recipe_search__form_search__form__button"
+                            type="submit"> Поиск </button>
+                </form>
+            </div>
+
+            <div class="index__only_content">
+
+                {% if found_recipes_paginator %}
+
+                    <div class="content-for-index__paginator">
+
+                        <p class="content-for-index__paginator__counter_all_recipes">
+                                Всего найдено рецептов
+                            <strong>
+                                {{ counter_found_recipes }}
+                            </strong>
+                        </p>
+
+                        <p class="content-for-index__paginator__switching_pages">
+
+                            {% if found_recipes_paginator.has_previous %}
+
+                                <a class="content-for-index__paginator__switching_pages__links"
+                                    href="{% url 'recipe_search__page_number' search_query_from_page_number=question page_number=found_recipes_paginator.number|add:-1 %}">
+                                    <button>
+                                        <
+                                    </button>
+                                </a>
+
+                            {% endif %}
+
+                            {{ found_recipes_paginator.number }}
+                            стр. из
+                            {{ total_pages }}
+                            стр.
+
+                            {% if found_recipes_paginator.has_next %}
+
+                                <a class="content-for-index__paginator__switching_pages__links"
+                                    href="{% url 'recipe_search__page_number' search_query_from_page_number=question page_number=found_recipes_paginator.number|add:1 %}">
+
+                                    <button>
+                                        >
+                                    </button>
+                                </a>
+
+                            {% endif %}
+
+                        </p>
+
+                    </div>
+
+                    <div class="content-for-index__grid_for_product_card">
+
+                        {% for one_recipe in found_recipes_paginator %}
+
+                            <div class="content-for-index__product_card">
+
+                                <a class="content-for-index__product_card__img__links"
+                                   href="{% url 'recipe' one_recipe.id %}">
+
+                                    <img class="content-for-index__product_card__img"
+
+                                            {% if one_recipe.image %}
+                                                 src="{{ one_recipe.image.url }}"
+                                            {% elif not one_recipe.image %}
+                                                 src="{% static 'pictures/no_picture_for_recipe.png' %}"
+                                            {% endif %}
+                                                 alt="{{ one_recipe.title }}">
+                                </a>
+                                        {% if one_recipe.title %}
+                                            <div class="content-for-index___container_for_product_card__title">
+                                                <a class="content-for-index___container_for_product_card__title__links"
+                                                   href="{% url 'recipe' one_recipe.id %}">
+                                                    <p class="content-for-index__product_card__title">
+                                                        {{ one_recipe.title }}
+                                                    </p>
+                                                </a>
+                                            </div>
+                                        {% endif %}
+
+                                        {% if one_recipe.description %}
+                                            <div class="content-for-index__container_for_product_card__description">
+                                                <p class="content-for-index__product_card__description">
+                                                    {{ one_recipe.description }}
+                                                </p>
+                                            </div>
+                                        {% endif %}
+
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                    <div class="content-for-index__paginator">
+
+                        <p class="content-for-index__paginator__counter_all_recipes">
+                                Всего найдено рецептов
+                            <strong>
+                                {{ counter_found_recipes }}
+                            </strong>
+                        </p>
+
+                        <p class="content-for-index__paginator__switching_pages">
+
+                            {% if found_recipes_paginator.has_previous %}
+
+                                <a class="content-for-index__paginator__switching_pages__links"
+                                    href="{% url 'recipe_search__page_number' search_query_from_page_number=question page_number=found_recipes_paginator.number|add:-1 %}">
+                                    <button>
+                                        <
+                                    </button>
+                                </a>
+
+                            {% endif %}
+
+                            {{ found_recipes_paginator.number }}
+                            стр. из
+                            {{ total_pages }}
+                            стр.
+
+                            {% if found_recipes_paginator.has_next %}
+
+                                <a class="content-for-index__paginator__switching_pages__links"
+                                    href="{% url 'recipe_search__page_number' search_query_from_page_number=question page_number=found_recipes_paginator.number|add:1 %}">
+
+                                    <button>
+                                        >
+                                    </button>
+                                </a>
+
+                            {% endif %}
+
+                        </p>
+
+                    </div>
+
+                {% elif not found_recipes_paginator and not q %}
+
+                    <div class="recipe_search__dont_search">
+
+                    </div>
+
+                {% elif not found_recipes_paginator and q %}
+
+                    <div class="index__only_content__container_for_not_content" >
+                        <p class="index__only_content__not_content" >
+                             Рецепты не найдены.
+                        </p>
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+{% endblock %}

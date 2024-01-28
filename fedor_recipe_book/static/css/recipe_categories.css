@@ -1,0 +1,45 @@
+.content-for-index__paginator {
+    color: #000000;
+
+    border: none;
+    border-radius: 5px;
+
+    --box-shadow:
+		0 16px 24px 2px rgba(33,37,41,.04),
+		0 6px 30px 5px rgba(33,37,41,.08),
+		0 8px 10px -5px rgba(33,37,41,.3);
+    box-shadow: var(--box-shadow);
+
+    background-color: white;
+
+    font-family: "Cousine-Regular";
+    font-size: 12px;
+    font-weight: 400;
+    line-height: normal;
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    margin-top: 50px;
+    margin-bottom: 50px;
+
+    height: 40px;
+}
+
+.content-for-index__paginator__counter_all_recipes {
+    margin-right: 240px;
+}
+
+.content-for-index__paginator__switching_pages__links {
+    text-decoration: none;
+}
+
+.content-for-index__paginator__switching_pages__links:hover {
+    color: #7eb651;
+    font-weight: bold;
+}
+
+.content-for-index__paginator__switching_pages {
+    margin-right: 20px;
+}

@@ -35,6 +35,7 @@ ALLOWED_HOSTS = [
     '192.168.0.239',
 ]
 
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -114,7 +115,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'UTC'
 
@@ -128,13 +129,15 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-STATICFILES_DIRS = [BASE_DIR / 'static', ]
+#STATIC_ROOT = BASE_DIR / 'static/'
+
+STATICFILES_DIRS = [BASE_DIR / 'static/', ]
 
 # Media files:
 
 MEDIA_URL = 'media/'
 
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = BASE_DIR / 'media/'
 
 # Model user in Project:
 

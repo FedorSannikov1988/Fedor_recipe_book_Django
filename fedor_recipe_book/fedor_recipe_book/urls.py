@@ -18,7 +18,11 @@ from django.urls import path
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
-from recipe_book.views import index, recipe, contacts, recipe_categories
+from recipe_book.views import index, \
+                              recipe, \
+                              contacts, \
+                              recipe_search, \
+                              recipe_categories
 
 
 urlpatterns = [
@@ -26,8 +30,20 @@ urlpatterns = [
     path('', index, name='index'),
     path('contacts/', contacts, name='contacts'),
     path('recipe/<int:id_recipe>', recipe, name='recipe'),
+
     path('recipe_categories/<int:id_recipe_categories>',
          recipe_categories, name='recipe_categories'),
+
+    path('recipe_categories/page/<int:id_recipe_categories>/<int:page_number>/',
+         recipe_categories, name='recipe_categories__page_number'),
+
+    path("recipe_search/", recipe_search, name='recipe_search'),
+
+    #path("recipe_search/page/<str:search_query_from_page_number>/<int:page_number>/",
+    #     recipe_search, name='recipe_search__page_number'),
+
+    path('recipe_search/page/<str:search_query_from_page_number>/<int:page_number>/',
+         recipe_search, name='recipe_search__page_number'),
 ]
 
 

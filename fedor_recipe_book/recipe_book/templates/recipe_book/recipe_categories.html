@@ -57,45 +57,80 @@
 
             <div class="index__only_content">
 
-            {% if choose_recipe_categories.recipes.all %}
+            {% if recipe_categories_paginator %}
 
                 <h2 class="index__only_content__title">
-                     {{ choose_recipe_categories.title }}
+                     {{ name_selected_category }}
                 </h2>
+
+                <div class="content-for-index__paginator">
+
+                    <p class="content-for-index__paginator__counter_all_recipes">
+                            Всего рецептов в категории {{ counter_all_recipes }}
+                    </p>
+
+                    <p class="content-for-index__paginator__switching_pages">
+
+                        {% if recipe_categories_paginator.has_previous %}
+
+                            <a class="content-for-index__paginator__switching_pages__links"
+                                   href="{% url 'recipe_categories__page_number' id_recipe_categories=1 page_number=recipe_categories_paginator.number|add:-1 %}">
+                                <
+                            </a>
+
+                        {% endif %}
+
+                        {{ recipe_categories_paginator.number }}
+                        стр. из
+                        {{ total_pages }}
+                        стр.
+
+                        {% if recipe_categories_paginator.has_next %}
+
+                            <a class="content-for-index__paginator__switching_pages__links"
+                                   href="{% url 'recipe_categories__page_number' id_recipe_categories=id_recipe_categories page_number=recipe_categories_paginator.number|add:1 %}">
+                                >
+                            </a>
+
+                        {% endif %}
+
+                    </p>
+
+                </div>
 
                 <div class="content-for-index__grid_for_product_card">
 
-                    {% for one_random_recipes in choose_recipe_categories.recipes.all %}
+                    {% for one_recipe in recipe_categories_paginator %}
 
                         <div class="content-for-index__product_card">
 
                             <a class="content-for-index__product_card__img__links"
-                               href="{% url 'recipe' one_random_recipes.id %}">
+                               href="{% url 'recipe' one_recipe.id %}">
 
                                 <img class="content-for-index__product_card__img"
 
-                                        {% if one_random_recipes.image %}
-                                             src="{{ one_random_recipes.image.url }}"
-                                        {% elif not one_random_recipes.image %}
+                                        {% if one_recipe.image %}
+                                             src="{{ one_recipe.image.url }}"
+                                        {% elif not one_recipe.image %}
                                              src="{% static 'pictures/no_picture_for_recipe.png' %}"
                                         {% endif %}
-                                             alt="{{ one_random_recipes.title }}">
+                                             alt="{{ one_recipe.title }}">
                             </a>
-                                    {% if one_random_recipes.title %}
+                                    {% if one_recipe.title %}
                                         <div class="content-for-index___container_for_product_card__title">
                                             <a class="content-for-index___container_for_product_card__title__links"
-                                               href="{% url 'recipe' one_random_recipes.id %}">
+                                               href="{% url 'recipe' one_recipe.id %}">
                                                 <p class="content-for-index__product_card__title">
-                                                    {{ one_random_recipes.title }}
+                                                    {{ one_recipe.title }}
                                                 </p>
                                             </a>
                                         </div>
                                     {% endif %}
 
-                                    {% if one_random_recipes.description %}
+                                    {% if one_recipe.description %}
                                         <div class="content-for-index__container_for_product_card__description">
                                             <p class="content-for-index__product_card__description">
-                                                {{ one_random_recipes.description }}
+                                                {{ one_recipe.description }}
                                             </p>
                                         </div>
                                     {% endif %}
@@ -106,7 +141,42 @@
 
                 </div>
 
-            {% elif not choose_recipe_categories.recipes.all %}
+                <div class="content-for-index__paginator">
+
+                    <p class="content-for-index__paginator__counter_all_recipes">
+                            Всего рецептов в категории {{ counter_all_recipes }}
+                    </p>
+
+                    <p class="content-for-index__paginator__switching_pages">
+
+                        {% if recipe_categories_paginator.has_previous %}
+
+                            <a class="content-for-index__paginator__switching_pages__links"
+                                   href="{% url 'recipe_categories__page_number' id_recipe_categories=id_recipe_categories page_number=recipe_categories_paginator.number|add:-1 %}">
+                                <
+                            </a>
+
+                        {% endif %}
+
+                        {{ recipe_categories_paginator.number }}
+                        стр. из
+                        {{ total_pages }}
+                        стр.
+
+                        {% if recipe_categories_paginator.has_next %}
+
+                            <a class="content-for-index__paginator__switching_pages__links"
+                                   href="{% url 'recipe_categories__page_number' id_recipe_categories=id_recipe_categories page_number=recipe_categories_paginator.number|add:1 %}">
+                                >
+                            </a>
+
+                        {% endif %}
+
+                    </p>
+
+                </div>
+
+            {% elif not recipe_categories_paginator %}
 
                 <div class="index__only_content__container_for_not_content" >
                     <p class="index__only_content__not_content" >

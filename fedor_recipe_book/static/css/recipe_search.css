@@ -1,0 +1,45 @@
+.recipe_search__all_content {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center
+}
+
+.recipe_search__form_search {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-top: 50px;
+}
+
+.recipe_search__form_search__form {
+    display: flex;
+}
+
+.recipe_search__form_search__form__input {
+    font-family: "Cousine-Regular";
+    font-size: 15px;
+    font-weight: 400;
+    line-height: normal;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.recipe_search__form_search__form__button {
+    font-family: "Cousine-Regular";
+    font-size: 15px;
+    font-weight: 400;
+    line-height: normal;
+    padding: 10px 20px
+}
+
+.recipe_search__form_search__form__button:hover {
+    color: white;
+    background-color: #7eb651;
+    border: solid 2px #7eb651;
+}
+
+.recipe_search__dont_search {
+    height: 100vh;
+}
