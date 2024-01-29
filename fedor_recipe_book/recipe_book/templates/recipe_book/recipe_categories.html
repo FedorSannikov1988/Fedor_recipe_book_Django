@@ -66,7 +66,10 @@
                 <div class="content-for-index__paginator">
 
                     <p class="content-for-index__paginator__counter_all_recipes">
-                            Всего рецептов в категории {{ counter_all_recipes }}
+                            Всего рецептов в категории
+                        <strong>
+                            {{ counter_all_recipes }}
+                        </strong>
                     </p>
 
                     <p class="content-for-index__paginator__switching_pages">
@@ -75,7 +78,9 @@
 
                             <a class="content-for-index__paginator__switching_pages__links"
                                    href="{% url 'recipe_categories__page_number' id_recipe_categories=1 page_number=recipe_categories_paginator.number|add:-1 %}">
-                                <
+                                <button class="content-for-index__paginator__switching_pages__links__button">
+                                    <
+                                </button>
                             </a>
 
                         {% endif %}
@@ -89,7 +94,9 @@
 
                             <a class="content-for-index__paginator__switching_pages__links"
                                    href="{% url 'recipe_categories__page_number' id_recipe_categories=id_recipe_categories page_number=recipe_categories_paginator.number|add:1 %}">
-                                >
+                                <button class="content-for-index__paginator__switching_pages__links__button">
+                                    >
+                                </button>
                             </a>
 
                         {% endif %}
@@ -144,7 +151,10 @@
                 <div class="content-for-index__paginator">
 
                     <p class="content-for-index__paginator__counter_all_recipes">
-                            Всего рецептов в категории {{ counter_all_recipes }}
+                            Всего рецептов в категории
+                        <strong>
+                            {{ counter_all_recipes }}
+                        </strong>
                     </p>
 
                     <p class="content-for-index__paginator__switching_pages">
@@ -153,7 +163,9 @@
 
                             <a class="content-for-index__paginator__switching_pages__links"
                                    href="{% url 'recipe_categories__page_number' id_recipe_categories=id_recipe_categories page_number=recipe_categories_paginator.number|add:-1 %}">
-                                <
+                                <button class="content-for-index__paginator__switching_pages__links__button">
+                                    <
+                                </button>
                             </a>
 
                         {% endif %}
@@ -167,7 +179,9 @@
 
                             <a class="content-for-index__paginator__switching_pages__links"
                                    href="{% url 'recipe_categories__page_number' id_recipe_categories=id_recipe_categories page_number=recipe_categories_paginator.number|add:1 %}">
-                                >
+                                <button class="content-for-index__paginator__switching_pages__links__button">
+                                    >
+                                </button>
                             </a>
 
                         {% endif %}

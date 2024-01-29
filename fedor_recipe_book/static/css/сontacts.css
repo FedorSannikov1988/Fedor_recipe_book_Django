@@ -42,3 +42,27 @@
     flex-direction: column;
     align-items: center;
 }
+
+.content-for-сontacts__link_repository {
+    text-decoration: none;
+    color: inherit;
+}
+
+.content-for-сontacts__link_repository:hover {
+    color: #7eb651;
+}
+
+/* 768px - 1439px */
+
+@media screen and (max-width: 1439px) {
+
+}
+
+/* 375px - 767px */
+
+@media screen and (max-width: 767px) {
+
+    .content-for-сontacts__text {
+        font-size: 16px;
+    }
+}

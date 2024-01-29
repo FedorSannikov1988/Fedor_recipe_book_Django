@@ -35,11 +35,52 @@
     text-decoration: none;
 }
 
-.content-for-index__paginator__switching_pages__links:hover {
-    color: #7eb651;
-    font-weight: bold;
+.content-for-index__paginator__switching_pages__links__button {
+    font-family: "Cousine-Regular";
+    font-size: 12px;
+    font-weight: 400;
+    line-height: normal;
+
+    padding: 5px 10px
+}
+
+.content-for-index__paginator__switching_pages__links__button:hover {
+    color: white;
+    background-color: #7eb651;
+    border: solid 2px #7eb651;
 }
 
 .content-for-index__paginator__switching_pages {
     margin-right: 20px;
+}
+
+/* 768px - 1439px */
+
+@media screen and (max-width: 1439px) {
+
+    .content-for-index__paginator__counter_all_recipes {
+        margin-right: 40px;
+    }
+
+}
+
+/* 375px - 767px */
+
+@media screen and (max-width: 767px) {
+
+    .content-for-index__paginator {
+        justify-content: center;
+        flex-direction: column;
+        height: 70px;
+    }
+
+    .content-for-index__paginator__counter_all_recipes {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .content-for-index__paginator__switching_pages {
+        margin-right: 0;
+    }
+
 }

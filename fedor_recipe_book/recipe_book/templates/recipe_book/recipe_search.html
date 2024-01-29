@@ -23,9 +23,12 @@
                     <input class="recipe_search__form_search__form__input"
                            type="text" value="" size="50" autocomplete="off" placeholder="Поиск рецепта по названию ... " name="question">
                     <button class="recipe_search__form_search__form__button"
-                            type="submit"> Поиск </button>
+                            type="submit">
+                        Поиск
+                    </button>
                 </form>
             </div>
+
 
             <div class="index__only_content">
 
@@ -46,7 +49,7 @@
 
                                 <a class="content-for-index__paginator__switching_pages__links"
                                     href="{% url 'recipe_search__page_number' search_query_from_page_number=question page_number=found_recipes_paginator.number|add:-1 %}">
-                                    <button>
+                                    <button class="content-for-index__paginator__switching_pages__links__button">
                                         <
                                     </button>
                                 </a>
@@ -62,8 +65,7 @@
 
                                 <a class="content-for-index__paginator__switching_pages__links"
                                     href="{% url 'recipe_search__page_number' search_query_from_page_number=question page_number=found_recipes_paginator.number|add:1 %}">
-
-                                    <button>
+                                    <button class="content-for-index__paginator__switching_pages__links__button">
                                         >
                                     </button>
                                 </a>
@@ -132,7 +134,7 @@
 
                                 <a class="content-for-index__paginator__switching_pages__links"
                                     href="{% url 'recipe_search__page_number' search_query_from_page_number=question page_number=found_recipes_paginator.number|add:-1 %}">
-                                    <button>
+                                    <button class="content-for-index__paginator__switching_pages__links__button">
                                         <
                                     </button>
                                 </a>
@@ -148,8 +150,7 @@
 
                                 <a class="content-for-index__paginator__switching_pages__links"
                                     href="{% url 'recipe_search__page_number' search_query_from_page_number=question page_number=found_recipes_paginator.number|add:1 %}">
-
-                                    <button>
+                                    <button class="content-for-index__paginator__switching_pages__links__button">
                                         >
                                     </button>
                                 </a>
@@ -177,7 +178,6 @@
                 {% endif %}
 
             </div>
-
 
         </div>
 

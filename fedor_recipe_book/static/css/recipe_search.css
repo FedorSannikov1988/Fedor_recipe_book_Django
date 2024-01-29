@@ -31,6 +31,7 @@
     font-size: 15px;
     font-weight: 400;
     line-height: normal;
+
     padding: 10px 20px
 }
 
@@ -42,4 +43,20 @@
 
 .recipe_search__dont_search {
     height: 100vh;
+}
+
+/* 768px - 1439px */
+
+@media screen and (max-width: 1439px) {
+
+}
+
+/* 375px - 767px */
+
+@media screen and (max-width: 767px) {
+
+    .recipe_search__form_search__form__input {
+        width: 250px;
+    }
+
 }

@@ -69,3 +69,29 @@
 
     margin-bottom: 30px;
 }
+
+/* 768px - 1439px */
+
+@media screen and (max-width: 1439px) {
+
+    .content-for-recipe {
+        gap: 30px;
+        margin-top: 50px;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .content-for-recipe__text {
+        margin-top: 0;
+        max-width: 768px;
+    }
+}
+
+/* 375px - 767px */
+
+@media screen and (max-width: 767px) {
+
+    .content-for-recipe__text {
+        max-width: 355px;
+    }
+}
