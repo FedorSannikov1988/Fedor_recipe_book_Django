@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404
 from recipe_book.models import RecipeCategories, Recipes
 
 
-NUMBER_CARDS_PER_PAGE: int = 1
+NUMBER_CARDS_PER_PAGE: int = 6
 NUMBER_RECIPES_ON_MAIN_PAGE: int = 5
 
 
@@ -147,3 +147,7 @@ def recipe_search(request,
     }
 
     return render(request, 'recipe_book/recipe_search.html', context)
+
+
+def add_recipe(request):
+    pass

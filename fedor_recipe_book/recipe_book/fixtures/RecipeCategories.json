@@ -1,0 +1,50 @@
+[
+  {
+	"model": "recipe_book.recipecategories",
+	"pk": 1,
+	"fields": {
+	  "title": "Первые блюда",
+	  "recipes": []
+	}
+  },
+  {
+	"model": "recipe_book.recipecategories",
+	"pk": 2,
+	"fields": {
+	  "title": "Вторые блюда",
+	  "recipes": []
+	}
+  },
+  {
+	"model": "recipe_book.recipecategories",
+	"pk": 3,
+	"fields": {
+	  "title": "Салаты",
+	  "recipes": []
+	}
+  },
+  {
+	"model": "recipe_book.recipecategories",
+	"pk": 4,
+	"fields": {
+	  "title": "Десерты",
+	  "recipes": []
+	}
+  },
+  {
+	"model": "recipe_book.recipecategories",
+	"pk": 5,
+	"fields": {
+	  "title": "Выпечка",
+	  "recipes": []
+	}
+  },
+  {
+	"model": "recipe_book.recipecategories",
+	"pk": 6,
+	"fields": {
+	  "title": "Напитки",
+	  "recipes": []
+	}
+  }
+]
