@@ -13,7 +13,9 @@ class UserRegistration(forms.Form):
     ]
 
     first_name = \
-        forms.CharField(min_length=1,
+        forms.CharField(
+                        required=False,
+                        min_length=1,
                         max_length=50,
                         label='Имя',
                         widget=forms.TextInput(
@@ -22,7 +24,9 @@ class UserRegistration(forms.Form):
     )
 
     last_name = \
-        forms.CharField(min_length=1,
+        forms.CharField(
+                        required=False,
+                        min_length=1,
                         max_length=50,
                         label='Фамилия',
                         widget=forms.TextInput(
@@ -32,6 +36,7 @@ class UserRegistration(forms.Form):
 
     email = \
         forms.EmailField(
+                        required=True,
                         label='Электронная почта',
                         widget=forms.EmailInput(
                             attrs={'class': 'form_user_registration_necessary',
@@ -40,6 +45,7 @@ class UserRegistration(forms.Form):
 
     gender = \
         forms.ChoiceField(
+                        required=True,
                         label='Пол (обязательное поле)',
                         choices=GENDER_CHOICES,
                         widget=forms.RadioSelect(
@@ -47,8 +53,9 @@ class UserRegistration(forms.Form):
     )
 
     birthday = forms.DateField(
-                               label="День рождения (обязательное поле)",
-                               initial=current_date_string,
-                               widget=forms.DateInput(
-                                  attrs={'class': 'form_user_registration_necessary_birthday',
-                                         'type': 'date'}))
+                        required=True,
+                        label="День рождения (обязательное поле)",
+                        initial=current_date_string,
+                        widget=forms.DateInput(
+                            attrs={'class': 'form_user_registration_necessary_birthday',
+                                    'type': 'date'}))

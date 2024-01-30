@@ -121,6 +121,23 @@ body {
     line-height: normal;
 }
 
+.alert_message {
+    font-family: "Cousine-Regular";
+    font-size: 16px;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.alert-error {
+    color: red;
+     text-align: center;
+}
+
+.alert-success {
+    color: #7eb651;
+     text-align: center;
+}
+
 /* 768px - 1439px */
 
 @media screen and (max-width: 1439px) {

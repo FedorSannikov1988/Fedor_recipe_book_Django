@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block style %}
-    <link href="{% static 'css/user_registration.css' %}" rel="stylesheet">
+    <link href="{% static 'css/account_activation.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block title %}
@@ -13,25 +13,9 @@
 
     <section>
 
-        <div class="content-for-user_registration">
+        <div class="content-for-account_activation">
 
-            <h2 class="content-for-user_registration__title">
-                Регистрация пользователя
-            </h2>
-
-            <div class="content-for-user_registration__form">
-                <form action="{% url 'users:user_registration' %}" method="post">
-                    {% csrf_token %}
-                    {{ form.as_div }}
-                    <button
-                    class="content-for-user_registration__form__button"
-                    type="submit">
-                        Зарегестрироваться
-                    </button>
-                </form>
-            </div>
-
-            <div class="content-for-user_registration__alert_message">
+            <div class="content-for-account_activation__alert_message">
 
                 <div class="alert_message">
                     {% if messages %}
@@ -58,10 +42,6 @@
                 </div>
 
             </div>
-
-
-
-
 
         </div>
 

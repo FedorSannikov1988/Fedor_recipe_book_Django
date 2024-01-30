@@ -88,6 +88,11 @@ fieldset {
     border: none;
 }
 
+.content-for-user_registration__alert_message {
+    width: 360px;
+    margin-top: 50px;
+}
+
 /* 768px - 1439px */
 
 @media screen and (max-width: 1439px) {

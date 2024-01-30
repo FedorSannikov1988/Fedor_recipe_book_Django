@@ -23,11 +23,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('django_key')
+SECRET_KEY: str = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 #DEBUG = False
+
+DOMAIN_NAME = "http://127.0.0.1:8000"
 
 #ALLOWED_HOSTS = []
 ALLOWED_HOSTS = [
@@ -35,6 +37,20 @@ ALLOWED_HOSTS = [
     '192.168.0.239',
 ]
 
+#Email
+
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_HOST: str = os.getenv('EMAIL_HOST')
+
+EMAIL_PORT: int = int(os.getenv('EMAIL_PORT'))
+
+EMAIL_HOST_USER: str = os.getenv('EMAIL_HOST_USER')
+
+EMAIL_HOST_PASSWORD: str = os.getenv('EMAIL_HOST_PASSWORD')
+
+EMAIL_USE_TLS = True
 
 # Application definition
 
@@ -141,7 +157,16 @@ MEDIA_ROOT = BASE_DIR / 'media/'
 
 # Model user in Project:
 
+# User
 AUTH_USER_MODEL = 'users.Users'
+
+LOWER_AGE_YEARS: int = 18
+
+UPPER_AGE_YEARS: int = 100
+
+TIME_TO_ACTIVATE_ACCOUNT_HOURS: int = 1
+
+DURATION_PASSWORD_RECOVERY_LINK_MINUTES: int = 60
 
 #DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
