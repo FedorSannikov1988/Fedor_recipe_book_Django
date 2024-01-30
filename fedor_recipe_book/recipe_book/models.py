@@ -1,7 +1,10 @@
 from django.db import models
-from users.models import Users
+#from users.models import Users
 from django.core.validators import MinValueValidator, \
                                    MinLengthValidator
+
+
+app_label = 'recipe_book'
 
 
 class Recipes(models.Model):

@@ -14,9 +14,9 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.urls import path
 from django.contrib import admin
 from django.conf import settings
+from django.urls import path, include
 from django.conf.urls.static import static
 from recipe_book.views import index, \
                               recipe, \
@@ -40,6 +40,8 @@ urlpatterns = [
     path("recipe_search/", recipe_search, name='recipe_search'),
     path('recipe_search/page/<str:search_query_from_page_number>/<int:page_number>/',
          recipe_search, name='recipe_search__page_number'),
+
+    path('users/', include('users.urls', namespace='users')),
 ]
 
 

@@ -99,7 +99,7 @@
                         </a>
 
                         <a class="header_base_templates__base_menu__links_in_mobile_menu"
-                           href="#">
+                           href="{% url 'users:user_registration' %}">
                             <span>
                                 Регистрация
                             </span>
@@ -128,7 +128,8 @@
                         </span>
                     </a>
 
-                    <a class="header_base_templates__base_menu__links" href="#">
+                    <a class="header_base_templates__base_menu__links"
+                       href="{% url 'users:user_registration' %}">
                         <span>
                             Регистрация
                         </span>
@@ -162,5 +163,8 @@
 
     <!-- JavaScript -->
     <script src="{% static 'js/base.js' %}"></script>
+
+    {% block javascript %}
+    {% endblock %}
 
 </html>
