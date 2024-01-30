@@ -18,6 +18,8 @@ def user_registration(request):
 
         if form.is_valid():
 
+            #form.save(commit=True)
+
             first_name = form.cleaned_data['first_name']
             last_name = form.cleaned_data['last_name']
             email = form.cleaned_data['email']

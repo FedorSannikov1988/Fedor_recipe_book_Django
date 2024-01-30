@@ -1,8 +1,11 @@
 import datetime
 from django import forms
+from users.models import Users
+from django.contrib.auth.forms import UserCreationForm
 
 
-class UserRegistration(forms.Form):
+#class UserRegistration(forms.Form):
+class UserRegistration(UserCreationForm):
 
     current_date = datetime.date.today()
     current_date_string = current_date.strftime("%Y-%m-%d")
@@ -59,3 +62,23 @@ class UserRegistration(forms.Form):
                         widget=forms.DateInput(
                             attrs={'class': 'form_user_registration_necessary_birthday',
                                     'type': 'date'}))
+
+    password1 = forms.CharField(
+                        required=True,
+                        label="Пароль",
+                        widget=forms.PasswordInput(
+                            attrs={'class': 'form_user_registration_necessary',
+                                   'placeholder': 'Пароль'}))
+
+    password2 = forms.CharField(
+                        required=True,
+                        label="Подтверждение пароля",
+                        widget=forms.PasswordInput(
+                            attrs={'class': 'form_user_registration_necessary',
+                                   'placeholder': 'Подтверждение пароля'}))
+
+    class Meta(UserCreationForm.Meta):
+        #model = Users
+        fields = ['first_name', 'last_name',
+                  'email', 'gender', 'birthday',
+                  'password1', 'password2']
