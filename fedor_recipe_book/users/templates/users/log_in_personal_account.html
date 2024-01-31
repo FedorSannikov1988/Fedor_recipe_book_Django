@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block style %}
-    <link href="{% static 'css/user_registration.css' %}" rel="stylesheet">
+    <link href="{% static 'css/log_in_personal_account.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block title %}
@@ -13,26 +13,42 @@
 
     <section>
 
-        <div class="content-for-user_registration">
+        <div class="content-for-log_in_personal_account">
 
-            <h2 class="content-for-user_registration__title">
-                Регистрация пользователя
+            <h2 class="content-for-log_in_personal_account__title">
+                Вход в персональный аккаунт
             </h2>
-        <div class="content-for-user_registration__form__container">
-            <div class="content-for-user_registration__form">
-                <form action="{% url 'users:user_registration' %}" method="post">
+
+            <div class="content-for-log_in_personal_account__form">
+                <form action="{% url 'users:log_in_personal_account' %}" method="post">
                     {% csrf_token %}
                     {{ form.as_div }}
-                    <button
-                    class="content-for-user_registration__form__button"
-                    type="submit">
-                        Зарегестрироваться
-                    </button>
-                </form>
-            </div>
-        </div>
 
-            <div class="content-for-user_registration__alert_message">
+                    <a class="content-for-log_in_personal_account__form__link"
+                           href="{% url 'users:user_registration' %}">
+                            <span>
+                                Регистрация
+                            </span>
+                    </a> <br>
+                    <a class="content-for-log_in_personal_account__form__link"
+                           href="{% url 'users:forgot_password' %}">
+                            <span>
+                                Забыли пароль ?
+                            </span>
+                    </a> <br>
+
+                    <button
+                    class="content-for-log_in_personal_account__form__button"
+                    type="submit">
+                        Войти
+                    </button>
+
+                </form>
+
+
+            </div>
+
+            <div class="content-for-log_in_personal_account__alert_message">
 
                 <div class="alert_message">
                     {% if messages %}

@@ -130,12 +130,17 @@ body {
 
 .alert-error {
     color: red;
-     text-align: center;
+    text-align: center;
 }
 
 .alert-success {
     color: #7eb651;
-     text-align: center;
+    text-align: center;
+}
+
+.errorlist {
+    color: red;
+    width: 330px;
 }
 
 /* 768px - 1439px */

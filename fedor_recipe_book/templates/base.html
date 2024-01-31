@@ -106,7 +106,7 @@
                         </a>
 
                         <a class="header_base_templates__base_menu__links_in_mobile_menu"
-                           href="#">
+                           href="{% url 'users:log_in_personal_account' %}">
                             <span>
                                 Вход в ЛК
                             </span>
@@ -135,7 +135,8 @@
                         </span>
                     </a>
 
-                    <a class="header_base_templates__base_menu__links" href="#">
+                    <a class="header_base_templates__base_menu__links"
+                       href="{% url 'users:log_in_personal_account' %}">
                         <span>
                             Вход в ЛК
                         </span>

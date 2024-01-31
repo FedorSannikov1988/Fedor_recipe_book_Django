@@ -222,6 +222,16 @@
         font-size: 20px;
     }
 
+    .index__only_content__container_for_not_content {
+        width: 350px;
+    }
+
+    .index__only_content__not_content {
+        font-size: 20px;
+        align-items: center;
+        text-align: center;
+    }
+
     .content-for-index__grid_for_product_card {
         grid-template-columns: repeat(1, 280px);
         grid-column-gap: 0;
