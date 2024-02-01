@@ -1,8 +1,7 @@
 """
 This module is responsible for working with files inside the application.
 """
-from pathlib import Path, \
-                    PurePath
+from pathlib import Path
 
 
 class WorkingWithFiles:
@@ -22,7 +21,7 @@ class WorkingWithFiles:
     file.delete_file()
     path = WorkingWithFiles.generating_path_file_in_folder__user_photos('photo.jpg')
     """
-    def __init__(self, path_to_file: Path):
+    def __init__(self, path_to_file: Path | str):
         self.__path_to_file = path_to_file
 
     def delete_file(self) -> None:
@@ -42,20 +41,3 @@ class WorkingWithFiles:
 
         if file_path.exists():
             file_path.unlink()
-
-    @staticmethod
-    def generating_path_file_in_folder__user_photos(name_file: str) -> Path:
-        """
-        Static method to generate the path to a file in the 'user_photos' folder.
-
-        Parameters:
-        - name_file: str - the name of the file
-
-        Returns:
-        - Path - the path to the file
-
-        Description:
-        This method generates the path to a file in the 'user_photos' folder.
-        The path is generated using the current working directory and the provided file name.
-        """
-        return PurePath.joinpath(Path.cwd(), 'user_photos', name_file)

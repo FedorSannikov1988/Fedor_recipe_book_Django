@@ -28,29 +28,29 @@ class Users(AbstractUser):
                f'superuser: {self.is_superuser}' \
                f' )'
 
-    def sending_email_activate_account(self):
+    def sending_email_recover_password(self):
 
         timestamp: str = \
             WorkingWithTimeInsideApp().get_data_and_time()
 
         token: str = \
-            WorkingWithToken().get_token(data={'destiny': 'user_registration',
+            WorkingWithToken().get_token(data={'destiny': 'password_recovery',
                                                 'email': self.email,
                                                 'date_and_time': timestamp})
 
-        half_link = reverse("users:account_activation",
+        half_link = reverse("users:entering_new_password",
                             kwargs={"token": token})
 
         activate_account_link = f"{settings.DOMAIN_NAME}{half_link}"
 
         subject = \
-            f"Активация аккаунта на {settings.DOMAIN_NAME}"
+            f"Восстановление пароля на {settings.DOMAIN_NAME}"
 
         message = \
-            f"Для активация аккаунта " \
+            f"Для восстановления пароля " \
             f"перейдите по ссылке: {activate_account_link} ." \
-            f" Cсылка активна {settings.TIME_TO_ACTIVATE_ACCOUNT_HOURS} " \
-            f"часов с момента отправки данного письма."
+            f" Cсылка активна {settings.DURATION_PASSWORD_RECOVERY_LINK_MINUTES} " \
+            f"минут с момента отправки данного письма."
 
         send_mail(
             subject=subject,

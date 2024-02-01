@@ -1,0 +1,168 @@
+.content-for-personal_account {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.content-for-personal_account__title {
+    color: #7eb651;
+    font-family: "Cousine-Bold";
+    font-size: 50px;
+    font-weight: 700;
+    line-height: normal;
+
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.wrapper-for-personal_account__img {
+    border-radius: 50%;
+    border: 2px solid #000000;
+
+    overflow: hidden;
+    width: 350px;
+    height: 350px;
+
+    margin-bottom: 100px;
+}
+
+.content-for-personal_account__img {
+    width:100%;
+    height:100%;
+    object-fit: cover;
+}
+
+.form_user_personal_account_upload_user_photo {
+    color: transparent;
+    width: 150px;
+}
+
+.form_user_personal_account_upload_user_photo::-webkit-file-upload-button {
+  visibility: hidden;
+}
+
+.form_user_personal_account_upload_user_photo::before {
+  content: ' Выберите файл ';
+  color: black;
+  display: inline-block;
+  background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);
+  border: 1px solid #999;
+  border-radius: 3px;
+  padding: 5px 8px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  text-shadow: 1px 1px #fff;
+  font-weight: 700;
+  font-size: 10pt;
+}
+
+.form_user_personal_account_upload_user_photo:hover::before {
+  border-color: black;
+}
+
+.form_user_personal_account_upload_user_photo:active {
+  outline: 0;
+}
+
+.form_user_personal_account_upload_user_photo:active::before {
+  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
+
+.content-for-personal_account__information_about_user {
+    color: #000000;
+    font-family: "Cousine-Regular";
+    font-size: 12px;
+    font-weight: 400;
+    line-height: normal;
+
+    display: flex;
+    gap: 40px;
+}
+
+.content-for-personal_account__personal_information {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.content-for-personal_account__personal_information__title {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.form_user_personal_account_сhange_user_information {
+    display: block;
+    width: 300px;
+    height: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 15px;
+}
+
+fieldset {
+    margin-bottom: 15px;
+}
+
+.form_user_personal_account_сhange_user_information_birthday {
+    display: block;
+    width: 200px;
+    height: 30px;
+    padding-left: 110px;
+    padding-right: 10px;
+    margin-bottom: 15px;
+}
+
+.content-for-personal_account__personal_information__button_submit {
+    color: #000;
+
+    font-family: "Cousine-Regular";
+    font-size: 12px;
+    font-weight: 400;
+    line-height: normal;
+
+    width: 100px;
+    height: 20px;
+
+    background: #F8F8F8FF;
+    border: 1px solid #000000;
+    border-radius: 5px 5px 5px 5px;
+
+    cursor: pointer;
+
+    transition: 500ms;
+
+    margin-left: 110px;
+}
+
+.content-for-personal_account__personal_information__button_submit:hover {
+    color: white;
+    background: #7eb651;
+    border: none;
+}
+
+.content-for-personal_account__сontact_information {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.content-for-personal_account__сontact_information__title {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+/* 768px - 1439px */
+
+@media screen and (max-width: 1439px) {
+
+}
+
+/* 375px - 767px */
+
+@media screen and (max-width: 767px) {
+
+}

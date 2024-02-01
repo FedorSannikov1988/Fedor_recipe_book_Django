@@ -1,13 +1,21 @@
+from pathlib import Path
 from users.models import Users
 from django.conf import settings
 from smtplib import SMTPException
 from django.db import DatabaseError
-from django.shortcuts import render
-from users.forms import UserRegistration, \
-    UserLogInPersonalAccount, EnteringEmail
+from users.forms import EnteringEmail, \
+                        UploadUserPhoto, \
+                        UserRegistration, \
+                        ChangeUserInformation, \
+                        UserLogInPersonalAccount, \
+                        EnteringNewPasswordToRecover
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.messages import success, error
 from django.contrib.auth import authenticate, login
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.decorators import login_required
 from fedor_recipe_book.utilities import WorkingWithToken, \
+                                        WorkingWithFiles, \
                                         WorkingWithTimeInsideApp
 
 
@@ -156,9 +164,8 @@ def log_in_personal_account(request):
             user = authenticate(email=email,
                                 password=password)
             if user:
-                print("Пользователь вошол в аккаунт !")
-                #login(request, user)
-                #return HttpResponseRedirect(reverse('users:account'))
+                login(request, user)
+                return redirect('users:personal_account')
             else:
                 if Users.objects.filter(email=email).exists():
                     message_error_for_user: str = \
@@ -190,7 +197,32 @@ def forgot_password(request):
         form = EnteringEmail(request.POST)
 
         if form.is_valid():
-            pass
+
+            email = form.cleaned_data['email']
+
+            search_user = Users.objects.filter(email=email).first()
+
+            if search_user and search_user.is_active:
+
+                search_user.sending_email_recover_password()
+
+                message_success_for_user: str = \
+                    f"На электронную почту {email} " \
+                    f"отправлено письмо содержащее " \
+                    f"ссылку для востановления пароля."
+                success(request, message_success_for_user)
+
+            elif search_user and not search_user.is_active:
+
+                message_error_for_user: str = \
+                    "Учетная запись не активирована."
+                error(request, message_error_for_user)
+
+            else:
+                message_error_for_user: str = \
+                    f"Учетной записи с таким адресом " \
+                    f"электронной почты не существует."
+                error(request, message_error_for_user)
 
     else:
         form = EnteringEmail()
@@ -200,3 +232,172 @@ def forgot_password(request):
         "form": form
     }
     return render(request, 'users/forgot_password.html', context)
+
+
+def entering_new_password(request, token: str):
+
+    form = None
+
+    data: dict = \
+        WorkingWithToken().get_data_from_token(token)
+
+    destiny: str = \
+        data.get('destiny')
+
+    email: str = \
+        data.get('email')
+
+    date_and_time_receipt_request: str = \
+        data.get('date_and_time')
+
+    if email and destiny and date_and_time_receipt_request:
+
+        if destiny != 'password_recovery':
+
+            message_error_for_user: str = \
+                "Cсылка не предназначена для" \
+                "восстановления пароля."
+            error(request, message_error_for_user)
+
+        elif WorkingWithTimeInsideApp().checking_time_password_recovery_request(
+                time_receipt_request=date_and_time_receipt_request) \
+                and destiny == 'password_recovery' \
+                and request.method == 'GET':
+
+            form = EnteringNewPasswordToRecover()
+
+        elif WorkingWithTimeInsideApp().checking_time_password_recovery_request(
+                time_receipt_request=date_and_time_receipt_request) \
+                and destiny == 'password_recovery' \
+                and request.method == 'POST':
+
+            form = EnteringNewPasswordToRecover(request.POST)
+
+            if form.is_valid():
+
+                search_user = Users.objects.get(email=email)
+
+                if search_user and search_user.is_active:
+
+                    new_password = form.cleaned_data['password2']
+                    search_user.set_password(new_password)
+
+                    try:
+                        search_user.save()
+
+                        message_success_for_user: str = \
+                            "Ваш пароль изминен."
+                        success(request, message_success_for_user)
+                        return redirect('users:log_in_personal_account')
+
+                    except DatabaseError:
+
+                        message_error_for_user: str = \
+                            "Произошла неизвестная ошибка " \
+                            "при работе с базой данных." \
+                            "Обратитесь к администратору ресурса."
+                        error(request, message_error_for_user)
+
+                elif search_user and not search_user.is_active:
+
+                    message_error_for_user: str = \
+                        "Аккаунт пользователя не активен."
+                    error(request, message_error_for_user)
+
+                else:
+                    message_error_for_user: str = \
+                        "Пользователь не найден."
+                    error(request, message_error_for_user)
+
+        else:
+
+            message_error_for_user: str = \
+                f'Ваша ссылка для восстановления пароля просрочена.' \
+                f'Ссылка актуальна ' \
+                f'{settings.DURATION_PASSWORD_RECOVERY_LINK_MINUTES} минут.'
+            error(request, message_error_for_user)
+
+    else:
+
+        message_error_for_user: str = \
+            "Ваша ссылка не валидна " \
+            "(Вы потеряли часть текста ссылки)."
+        error(request, message_error_for_user)
+
+    context = {
+        "title": f"Книга Рецептов Федора - Ввод нового пароля",
+        "token": token,
+        "form": form
+    }
+    return render(request, 'users/entering_new_password.html', context)
+
+
+@login_required
+def personal_account(request):
+
+    email = request.user.email
+
+    user = get_object_or_404(Users, email=email)
+
+    all_fields_form_change_user_information = \
+        list(ChangeUserInformation().fields.keys())
+
+    print(request.POST)
+
+    if request.method == 'POST' and \
+            all(field in request.POST for field in
+                all_fields_form_change_user_information):
+
+        form_change_user_information = \
+            ChangeUserInformation(request.POST)
+
+        if form_change_user_information.is_valid():
+
+            user.first_name = form_change_user_information.cleaned_data['first_name']
+            user.last_name = form_change_user_information.cleaned_data['last_name']
+            user.gender = form_change_user_information.cleaned_data['gender']
+            user.birthday = form_change_user_information.cleaned_data['birthday']
+
+            user.save()
+
+        context = {
+            "title": f"Книга Рецептов Федора - Личный кабинет",
+            "form_change_user_information": form_change_user_information,
+            "form_upload_user_photo": UploadUserPhoto(),
+        }
+        return render(request, 'users/personal_account.html', context)
+
+    elif request.method == 'POST' and \
+            'image' in request.FILES:
+
+        form_upload_user_photo = \
+            UploadUserPhoto(data=request.POST,
+                            files=request.FILES)
+
+        if form_upload_user_photo.is_valid():
+
+            image_file = request.FILES['image']
+
+            if user.image:
+
+                WorkingWithFiles(path_to_file=
+                                 user.image.path).delete_file()
+
+                user.image.save(image_file.name, image_file)
+
+    form_change_user_information = \
+        ChangeUserInformation(
+             initial={
+                'first_name': user.first_name,
+                'last_name': user.last_name,
+                'gender': user.gender,
+                'birthday': str(user.birthday)
+    })
+
+    context = {
+        "title": f"Книга Рецептов Федора - Личный кабинет",
+        "form_change_user_information": form_change_user_information,
+        "form_upload_user_photo": UploadUserPhoto(),
+        "user": user
+    }
+    return render(request, 'users/personal_account.html', context)

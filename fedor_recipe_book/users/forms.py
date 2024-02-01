@@ -213,3 +213,114 @@ class EnteringEmail(forms.Form):
                             attrs={'class': 'form_entering_email',
                                    'placeholder': 'Адрес электронной почты'}),
     )
+
+
+class EnteringNewPasswordToRecover(UserCreationForm):
+
+    password1 = forms.CharField(
+                        required=True,
+                        label="Новый пароль",
+                        widget=forms.PasswordInput(
+                            attrs={'class': 'form_user_new_password_to_recover',
+                                   'placeholder': 'Пароль'}))
+
+    password2 = forms.CharField(
+                        required=True,
+                        label="Подтверждение пароля",
+                        widget=forms.PasswordInput(
+                            attrs={'class': 'form_user_new_password_to_recover',
+                                   'placeholder': 'Подтверждение пароля'}))
+
+    class Meta(UserCreationForm.Meta):
+        model = Users
+        fields = ['password1', 'password2']
+
+
+class ChangeUserInformation(forms.Form):
+
+    GENDER_CHOICES = [
+        ('M', 'Мужчина'),
+        ('F', 'Женщина'),
+    ]
+
+    first_name = \
+        forms.CharField(
+                        required=False,
+                        min_length=1,
+                        max_length=50,
+                        label='Имя',
+                        widget=forms.TextInput(
+                            attrs={'class': 'form_user_personal_account_сhange_user_information',
+                                   'placeholder': 'Имя (не обязательное поле)', 'name': 'test'}),
+    )
+
+    last_name = \
+        forms.CharField(
+                        required=False,
+                        min_length=1,
+                        max_length=50,
+                        label='Фамилия',
+                        widget=forms.TextInput(
+                            attrs={'class': 'form_user_personal_account_сhange_user_information',
+                                   'placeholder': 'Фамилию (не обязательное поле)'}),
+    )
+
+    gender = \
+        forms.ChoiceField(
+                        required=True,
+                        label='Пол (обязательное поле)',
+                        choices=GENDER_CHOICES,
+                        widget=forms.RadioSelect(
+                            attrs={'class': 'form_user_personal_account_сhange_user_information_gender'}),
+    )
+
+    birthday = forms.DateField(
+                        required=True,
+                        label="День рождения (обязательное поле)",
+                        widget=forms.DateInput(
+                            attrs={'class': 'form_user_personal_account_сhange_user_information_birthday',
+                                    'type': 'date'}))
+
+    def clean_first_name(self):
+        first_name = self.cleaned_data.get('first_name')
+        pattern = r'^[а-яА-ЯёЁ]+$'
+        if not WorkingWithRegularExpressions.\
+                checking_string(string=first_name,
+                                pattern=pattern):
+            message_error_for_user: str = \
+                "Имя может состоять только из букв" \
+                "русского алфавита (не какой латиницы " \
+                "цифр или пробелов)."
+            raise forms.ValidationError(message_error_for_user)
+        return first_name
+
+    def clean_last_name(self):
+        last_name = self.cleaned_data.get('last_name')
+        pattern = r'^[а-яА-ЯёЁ]+$'
+        if not WorkingWithRegularExpressions.\
+                checking_string(string=last_name,
+                                pattern=pattern):
+            message_error_for_user: str = \
+                "Фамилия может состоять только из букв" \
+                "русского алфавита (не какой латиницы " \
+                "цифр или пробелов)."
+            raise forms.ValidationError(message_error_for_user)
+        return last_name
+
+    def clean_birthday(self):
+        birthday = self.cleaned_data.get('birthday')
+
+        if not WorkingWithTimeInsideApp().\
+                checking_user_age(date_birth=birthday):
+            message_error_for_user: str = \
+                f"Зарегестрироваться может пользователь от " \
+                f"{settings.LOWER_AGE_YEARS} до " \
+                f"{settings.UPPER_AGE_YEARS} лет"
+            raise forms.ValidationError(message_error_for_user)
+        return birthday
+
+
+class UploadUserPhoto(forms.Form):
+    image = forms.ImageField(required=False,
+                             widget=forms.FileInput(
+                                 attrs={'class': 'form_user_personal_account_upload_user_photo'}))

@@ -52,7 +52,7 @@ def contacts(request):
         "title": "Книга Рецептов Федора - Контакты разработчика",
     }
 
-    return render(request, 'recipe_book/contacts.html', context)
+    return render(request, 'recipe_book/personal_account.html', context)
 
 
 def recipe(request, id_recipe: int):

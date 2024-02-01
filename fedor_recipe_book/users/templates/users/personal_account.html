@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+    <link href="{% static 'css/personal_account.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}
+    <title> {{ title }} </title>
+{% endblock %}
+
+{% block content %}
+
+    <section>
+
+        <div class="content-for-personal_account">
+
+            <h2 class="content-for-personal_account__title">
+                Личный кабинет
+            </h2>
+
+            <div class="wrapper-for-personal_account__img">
+                 <img class="content-for-personal_account__img"
+
+                      {% if user.image  %}
+
+                        src="{{ user.image.url }}"
+
+                      {% elif not user.image and request.user.gender == 'M' %}
+
+                        src="{% static 'pictures/no_photos_man.png' %}"
+
+                      {% elif not request.user.image and request.user.gender == 'F' %}
+
+                        src="{% static 'pictures/no_photos_woman.png' %}"
+
+                      {% endif %}
+
+                      alt="фотография пользователя {{ request.user.email }}">
+            </div>
+
+            <div>
+                <form action="{% url 'users:personal_account' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form_upload_user_photo.image }}
+                    <button type="submit">Загрузить</button>
+                </form>
+            </div>
+
+                <form action="{% url 'users:personal_account' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="text" name="first_name_test" value="Фёдор" class="form_user_personal_account_сhange_user_information" placeholder="Имя (не обязательное поле)" maxlength="50" minlength="1" id="id_first_name">
+                    <button type="submit">Тест</button>
+                </form>
+
+            <div class="content-for-personal_account__information_about_user" >
+
+                <div class="content-for-personal_account__personal_information" >
+
+                    <p class="content-for-personal_account__personal_information__title">
+                        Личная информация
+                    </p>
+
+                    <form action="{% url 'users:personal_account' %}" method="post">
+                        {% csrf_token %}
+                        {{ form_change_user_information.as_div }}
+                        <button
+                        class="content-for-personal_account__personal_information__button_submit"
+                        type="submit">
+                            Изменить
+                        </button>
+                    </form>
+
+                </div>
+
+                <div class="content-for-personal_account__сontact_information" >
+                    <p class="content-for-personal_account__сontact_information__title">
+                        Контактная информация
+                    </p>
+
+                    <div>
+
+                        <label for="id_email">Электронная почта:</label>
+                        <input type="text" name="email" value="{{ request.user.email }}"
+                               class="form_user_personal_account_сhange_user_information"
+                               placeholder="Электронная почта" maxlength="50" minlength="1"
+                               id="id_email" readonly>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+{% endblock %}
