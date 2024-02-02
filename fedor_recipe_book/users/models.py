@@ -18,7 +18,7 @@ class Users(AbstractUser):
     birthday = models.DateField()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username', 'password']
+    REQUIRED_FIELDS = ['username', 'birthday', 'password']
 
     def __str__(self):
         return f'User( ' \
@@ -59,3 +59,5 @@ class Users(AbstractUser):
             recipient_list=[self.email],
             fail_silently=False,
         )
+
+

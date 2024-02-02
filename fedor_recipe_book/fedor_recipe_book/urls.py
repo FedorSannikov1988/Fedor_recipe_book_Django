@@ -21,6 +21,7 @@ from django.conf.urls.static import static
 from recipe_book.views import index, \
                               recipe, \
                               contacts, \
+                              add_recipe, \
                               recipe_search, \
                               recipe_categories
 

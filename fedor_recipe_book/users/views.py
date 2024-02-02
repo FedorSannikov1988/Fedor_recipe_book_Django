@@ -1,4 +1,3 @@
-from pathlib import Path
 from users.models import Users
 from django.conf import settings
 from smtplib import SMTPException
@@ -6,13 +5,17 @@ from django.db import DatabaseError
 from users.forms import EnteringEmail, \
                         UploadUserPhoto, \
                         UserRegistration, \
+                        ChangeUserPassword, \
                         ChangeUserInformation, \
                         UserLogInPersonalAccount, \
                         EnteringNewPasswordToRecover
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.messages import success, error
-from django.contrib.auth import authenticate, login
-from django.contrib.auth import update_session_auth_hash
+from django.shortcuts import render, \
+                             redirect
+from django.contrib.messages import error, \
+                                    success
+from django.contrib.auth import login, \
+                                logout, \
+                                authenticate
 from django.contrib.auth.decorators import login_required
 from fedor_recipe_book.utilities import WorkingWithToken, \
                                         WorkingWithFiles, \
@@ -20,7 +23,6 @@ from fedor_recipe_book.utilities import WorkingWithToken, \
 
 
 def user_registration(request):
-
     if request.method == 'POST':
 
         form = UserRegistration(request.POST)
@@ -69,7 +71,6 @@ def user_registration(request):
 
 
 def account_activation(request, token: str):
-
     data: dict = \
         WorkingWithToken().get_data_from_token(token)
 
@@ -85,7 +86,7 @@ def account_activation(request, token: str):
     if email and destiny and date_and_time_registration_user:
 
         if WorkingWithTimeInsideApp().checking_date_and_time_registration_user(
-            date_and_time_registration_user=date_and_time_registration_user) \
+                date_and_time_registration_user=date_and_time_registration_user) \
                 and destiny == 'user_registration':
 
             user_search = Users.objects.filter(email=email).first()
@@ -123,7 +124,7 @@ def account_activation(request, token: str):
                 error(request, message_error_for_user)
 
         elif WorkingWithTimeInsideApp().checking_date_and_time_registration_user(
-            date_and_time_registration_user=date_and_time_registration_user) \
+                date_and_time_registration_user=date_and_time_registration_user) \
                 and destiny != 'user_registration':
 
             message_error_for_user: str = \
@@ -153,7 +154,6 @@ def account_activation(request, token: str):
 
 
 def log_in_personal_account(request):
-
     if request.method == 'POST':
 
         form = UserLogInPersonalAccount(request.POST)
@@ -175,7 +175,7 @@ def log_in_personal_account(request):
                 else:
                     message_error_for_user: str = \
                         'Учетной записи с таким именем ' \
-                         'пользователя (email) нет в базе ' \
+                        'пользователя (email) нет в базе ' \
                         'данных.'
                 error(request, message_error_for_user)
 
@@ -191,7 +191,6 @@ def log_in_personal_account(request):
 
 
 def forgot_password(request):
-
     if request.method == 'POST':
 
         form = EnteringEmail(request.POST)
@@ -235,7 +234,6 @@ def forgot_password(request):
 
 
 def entering_new_password(request, token: str):
-
     form = None
 
     data: dict = \
@@ -337,16 +335,17 @@ def personal_account(request):
 
     email = request.user.email
 
-    user = get_object_or_404(Users, email=email)
+    user = Users.objects.get(email=email)
 
     all_fields_form_change_user_information = \
         list(ChangeUserInformation().fields.keys())
 
-    print(request.POST)
+    all_fields_form_change_user_password = \
+        list(ChangeUserPassword(user=user).fields.keys())
 
     if request.method == 'POST' and \
-            all(field in request.POST for field in
-                all_fields_form_change_user_information):
+        all(field in request.POST for field in
+            all_fields_form_change_user_information):
 
         form_change_user_information = \
             ChangeUserInformation(request.POST)
@@ -360,12 +359,27 @@ def personal_account(request):
 
             user.save()
 
-        context = {
-            "title": f"Книга Рецептов Федора - Личный кабинет",
-            "form_change_user_information": form_change_user_information,
-            "form_upload_user_photo": UploadUserPhoto(),
-        }
-        return render(request, 'users/personal_account.html', context)
+        else:
+            error_message_output(request,
+                                 form_change_user_information.errors)
+
+    elif request.method == 'POST' and \
+        all(field in request.POST for field in
+            all_fields_form_change_user_password):
+
+        form_change_user_password = \
+            ChangeUserPassword(user=request.user, data=request.POST)
+
+        if form_change_user_password.is_valid():
+            form_change_user_password.save()
+
+        elif not form_change_user_password.is_valid():
+            error_message_output(request,
+                                 form_change_user_password.errors)
+        else:
+            message_success_for_user: str = \
+                "Ваш пароль изминен."
+            success(request, message_success_for_user)
 
     elif request.method == 'POST' and \
             'image' in request.FILES:
@@ -379,25 +393,60 @@ def personal_account(request):
             image_file = request.FILES['image']
 
             if user.image:
-
                 WorkingWithFiles(path_to_file=
                                  user.image.path).delete_file()
 
-                user.image.save(image_file.name, image_file)
+            user.image.save(image_file.name, image_file)
+        else:
+            error_message_output(request,
+                                 form_upload_user_photo.errors)
+
+    elif request.method == 'POST' and \
+            'delete_user_photo' in request.POST:
+
+        if user.image:
+            WorkingWithFiles(path_to_file=
+                             user.image.path).delete_file()
+            user.image.delete()
+
+    elif request.method == 'POST' and \
+            'delete_user_account' in request.POST:
+
+        user.is_active = False
+        user.save()
+        logout(request)
+        return redirect('index')
 
     form_change_user_information = \
         ChangeUserInformation(
-             initial={
+            initial={
                 'first_name': user.first_name,
                 'last_name': user.last_name,
                 'gender': user.gender,
                 'birthday': str(user.birthday)
-    })
+            })
 
     context = {
-        "title": f"Книга Рецептов Федора - Личный кабинет",
+        "title": f"Книга Рецептов Федора - Личный кабинет {user.email}",
         "form_change_user_information": form_change_user_information,
+        "form_change_user_password": ChangeUserPassword(user=user),
         "form_upload_user_photo": UploadUserPhoto(),
         "user": user
     }
     return render(request, 'users/personal_account.html', context)
+
+
+def error_message_output(request, errors) -> None:
+
+    all_errors: errors = ''
+
+    for title_field_where_error in list(errors.keys()):
+        all_errors += errors.get(title_field_where_error)
+
+    error(request, all_errors)
+
+
+@login_required
+def exit_personal_account(request):
+    logout(request)
+    return redirect('index')

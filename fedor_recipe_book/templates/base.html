@@ -85,13 +85,6 @@
                         </a>
 
                         <a class="header_base_templates__base_menu__links_in_mobile_menu"
-                           href="{% url 'contacts' %}">
-                            <span>
-                                Контакты
-                            </span>
-                        </a>
-
-                        <a class="header_base_templates__base_menu__links_in_mobile_menu"
                            href="#">
                             <span>
                                 Добавить рецепт
@@ -99,20 +92,66 @@
                         </a>
 
                         <a class="header_base_templates__base_menu__links_in_mobile_menu"
-                           href="{% url 'users:user_registration' %}">
+                           href="{% url 'contacts' %}">
                             <span>
-                                Регистрация
+                                Контакты
                             </span>
                         </a>
 
-                        <a class="header_base_templates__base_menu__links_in_mobile_menu"
-                           href="{% url 'users:log_in_personal_account' %}">
-                            <span>
-                                Вход в ЛК
-                            </span>
-                        </a>
+                        {% if request.user.is_authenticated %}
+
+                            <a class="header_base_templates__base_menu__links_in_mobile_menu"
+                               href="{% url 'users:personal_account' %}">
+                                <span>
+                                    Личный кабинет
+                                </span>
+                            </a>
+
+                            <a class="header_base_templates__base_menu__links_in_mobile_menu"
+                               href="{% url 'users:exit_personal_account' %}">
+                                <span>
+                                    Выйти из ЛК
+                                </span>
+                            </a>
+
+                        {% else %}
+
+                            <a class="header_base_templates__base_menu__links_in_mobile_menu"
+                               href="{% url 'users:user_registration' %}">
+                                <span>
+                                    Регистрация
+                                </span>
+                            </a>
+
+                            <a class="header_base_templates__base_menu__links_in_mobile_menu"
+                               href="{% url 'users:log_in_personal_account' %}">
+                                <span>
+                                    Вход в ЛК
+                                </span>
+                            </a>
+
+                        {% endif %}
+
+                        {% if request.user.is_authenticated and request.user.is_superuser or request.user.is_staff %}
+
+                            <a class="header_base_templates__base_menu__links_in_mobile_menu"
+                               href="{% url 'admin:index' %}">
+                                <span>
+                                    Панель Администратора
+                                </span>
+                            </a>
+
+                        {% endif %}
+
 
                     </div>
+
+                    <a class="header_base_templates__base_menu__links"
+                       href="#">
+                        <span>
+                            Добавить рецепт
+                        </span>
+                    </a>
 
                     <a class="header_base_templates__base_menu__links"
                        href="{% url 'contacts' %}">
@@ -121,12 +160,24 @@
                         </span>
                     </a>
 
+
+                {% if request.user.is_authenticated %}
+
                     <a class="header_base_templates__base_menu__links"
-                       href="#">
+                       href="{% url 'users:personal_account' %}">
                         <span>
-                            Добавить рецепт
+                            Личный кабинет
                         </span>
                     </a>
+
+                    <a class="header_base_templates__base_menu__links"
+                       href="{% url 'users:exit_personal_account' %}">
+                        <span>
+                            Выйти из ЛК
+                        </span>
+                    </a>
+
+                {% else %}
 
                     <a class="header_base_templates__base_menu__links"
                        href="{% url 'users:user_registration' %}">
@@ -141,6 +192,20 @@
                             Вход в ЛК
                         </span>
                     </a>
+
+                {% endif %}
+
+                {% if request.user.is_authenticated and request.user.is_superuser or request.user.is_staff %}
+
+                    <a class="header_base_templates__base_menu__links"
+                       href="{% url 'admin:index' %}">
+                        <span>
+                            Панель Администратора
+                        </span>
+                    </a>
+
+                {% endif %}
+
 
             </div>
 

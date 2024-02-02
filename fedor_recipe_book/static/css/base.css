@@ -70,6 +70,7 @@ body {
     text-decoration: none;
     color: inherit;
     transition: 500ms;
+    text-align: center;
 }
 
 .header_base_templates__base_menu__links:hover {
@@ -96,7 +97,7 @@ body {
     background-color: #FFF;
 
     width: 232px;
-    height: 250px;
+    height: 300px;
 
     z-index: 2;
 

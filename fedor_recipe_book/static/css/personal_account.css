@@ -24,7 +24,7 @@
     width: 350px;
     height: 350px;
 
-    margin-bottom: 100px;
+    margin-bottom: 50px;
 }
 
 .content-for-personal_account__img {
@@ -33,9 +33,14 @@
     object-fit: cover;
 }
 
+.content-for-personal_account__operations_with_photos {
+    display: flex;
+    margin-bottom: 25px;
+}
+
 .form_user_personal_account_upload_user_photo {
     color: transparent;
-    width: 150px;
+    width: 125px;
 }
 
 .form_user_personal_account_upload_user_photo::-webkit-file-upload-button {
@@ -43,32 +48,88 @@
 }
 
 .form_user_personal_account_upload_user_photo::before {
-  content: ' Выберите файл ';
-  color: black;
-  display: inline-block;
-  background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);
-  border: 1px solid #999;
-  border-radius: 3px;
-  padding: 5px 8px;
-  outline: none;
-  white-space: nowrap;
-  -webkit-user-select: none;
-  cursor: pointer;
-  text-shadow: 1px 1px #fff;
-  font-weight: 700;
-  font-size: 10pt;
+    font-family: "Cousine-Regular";
+    font-size: 12px;
+    font-weight: 400;
+    line-height: normal;
+
+    content: 'Выберите файл';
+    color: black;
+    display: inline-block;
+    background: -webkit-linear-gradient(top, #ffffff, #ffffff);
+    border: 1px solid #000000;
+    border-radius: 4px;
+    padding: 5px 8px;
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    cursor: pointer;
 }
 
 .form_user_personal_account_upload_user_photo:hover::before {
-  border-color: black;
+    border-color: #7eb651;
+    background: -webkit-linear-gradient(top, #7eb651, #7eb651);
+    color: white;
 }
 
 .form_user_personal_account_upload_user_photo:active {
-  outline: 0;
+    outline: 0;
 }
 
 .form_user_personal_account_upload_user_photo:active::before {
-  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+    background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
+
+.form_user_personal_account_upload_user_photo__button {
+    color: black;
+    font-family: "Cousine-Regular";
+    font-size: 12px;
+    font-weight: 400;
+
+    background: white;
+    border: 1px solid #000000;
+    border-radius: 4px;
+    padding: 5px 8px;
+    cursor: pointer;
+}
+
+.form_user_personal_account_upload_user_photo__button_delete {
+    color: black;
+    font-family: "Cousine-Regular";
+    font-size: 12px;
+    font-weight: 400;
+
+    background: white;
+    border: 1px solid #000000;
+    border-radius: 4px;
+    padding: 5px 8px;
+    cursor: pointer;
+    margin-left: 20px;
+}
+
+.form_user_personal_account_upload_user_photo__button_delete:hover {
+    border-color: #e71313;
+    background: #e71313;
+    color: white;
+}
+
+.form_user_personal_account_upload_user_photo__button {
+    color: black;
+    font-family: "Cousine-Regular";
+    font-size: 12px;
+    font-weight: 400;
+
+    background: white;
+    border: 1px solid #000000;
+    border-radius: 4px;
+    padding: 5px 8px;
+    cursor: pointer;
+}
+
+.form_user_personal_account_upload_user_photo__button:hover {
+    border-color: #7eb651;
+    background: #7eb651;
+    color: white;
 }
 
 .content-for-personal_account__information_about_user {
@@ -78,8 +139,13 @@
     font-weight: 400;
     line-height: normal;
 
-    display: flex;
-    gap: 40px;
+    display: grid;
+    grid-template-columns: repeat(2, 320px);
+    grid-column-gap: 25px;
+    grid-row-gap: 25px;
+
+    margin-top: 50px;
+    margin-bottom: 150px;
 }
 
 .content-for-personal_account__personal_information {
@@ -155,6 +221,98 @@ fieldset {
     margin-bottom: 20px;
 }
 
+.content-for-personal_account__change_password {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.content-for-personal_account__change_password__title {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.form_user_personal_account_change_user_password {
+    display: block;
+    width: 300px;
+    height: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 15px;
+}
+
+.content-for-personal_account__change_password__button_submit {
+    color: #000;
+
+    font-family: "Cousine-Regular";
+    font-size: 12px;
+    font-weight: 400;
+    line-height: normal;
+
+    width: 100px;
+    height: 20px;
+
+    background: #F8F8F8FF;
+    border: 1px solid #000000;
+    border-radius: 5px 5px 5px 5px;
+
+    cursor: pointer;
+
+    transition: 500ms;
+
+    margin-left: 110px;
+}
+
+.content-for-personal_account__change_password__button_submit:hover {
+    color: white;
+    background: #7eb651;
+    border: none;
+}
+
+.content-for-personal_account__delete_an_account {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.content-for-personal_account__delete_an_account__title {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.content-for-personal_account__delete_an_account__button_submit {
+    color: #000;
+
+    font-family: "Cousine-Regular";
+    font-size: 12px;
+    font-weight: 400;
+    line-height: normal;
+
+    width: 100px;
+    height: 20px;
+
+    background: #F8F8F8FF;
+    border: 1px solid #000000;
+    border-radius: 5px 5px 5px 5px;
+
+    cursor: pointer;
+
+    transition: 500ms;
+}
+
+.content-for-personal_account__delete_an_account__button_submit:hover {
+    color: white;
+    background: #e71313;
+    border: 1px solid #e71313;
+}
+
+.content-for-log_in_personal_account__alert_message {
+    width: 350px;
+    margin-bottom: 50px;
+    margin-top: 50px;
+}
+
 /* 768px - 1439px */
 
 @media screen and (max-width: 1439px) {
@@ -164,5 +322,24 @@ fieldset {
 /* 375px - 767px */
 
 @media screen and (max-width: 767px) {
+
+    .content-for-personal_account__title {
+        font-size: 25px;
+    }
+
+    .content-for-personal_account__operations_with_photos {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .form_user_personal_account_upload_user_photo__button_delete {
+        margin-left: 0;
+    }
+
+    .content-for-personal_account__information_about_user {
+        grid-template-columns: repeat(1, 320px);
+        margin-top: 0;
+    }
 
 }

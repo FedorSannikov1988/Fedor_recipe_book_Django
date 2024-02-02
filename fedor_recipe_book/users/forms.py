@@ -4,7 +4,8 @@ from users.models import Users
 from django.urls import reverse
 from django.conf import settings
 from django.core.mail import send_mail
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, \
+                                      PasswordChangeForm
 from fedor_recipe_book.utilities import WorkingWithToken, \
                                         WorkingWithTimeInsideApp, \
                                         WorkingWithRegularExpressions
@@ -324,3 +325,27 @@ class UploadUserPhoto(forms.Form):
     image = forms.ImageField(required=False,
                              widget=forms.FileInput(
                                  attrs={'class': 'form_user_personal_account_upload_user_photo'}))
+
+
+class ChangeUserPassword(PasswordChangeForm):
+
+    old_password = forms.CharField(
+                        required=True,
+                        label="Старый пароль",
+                        widget=forms.PasswordInput(
+                            attrs={'class': 'form_user_personal_account_change_user_password',
+                                   'placeholder': 'Старый пароль'}))
+
+    new_password1 = forms.CharField(
+                        required=True,
+                        label="Новый пароль",
+                        widget=forms.PasswordInput(
+                            attrs={'class': 'form_user_personal_account_change_user_password',
+                                   'placeholder': 'Новый пароль'}))
+
+    new_password2 = forms.CharField(
+                        required=True,
+                        label="Подтверждение нового пароля",
+                        widget=forms.PasswordInput(
+                            attrs={'class': 'form_user_personal_account_change_user_password',
+                                   'placeholder': 'Подтверждение нового пароля'}))

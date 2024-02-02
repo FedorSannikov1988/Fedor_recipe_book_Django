@@ -36,22 +36,56 @@
 
                       {% endif %}
 
-                      alt="фотография пользователя {{ request.user.email }}">
+                      alt="фотография пользователя {{ user.email }}">
             </div>
 
-            <div>
+            <div class="content-for-personal_account__operations_with_photos">
+
                 <form action="{% url 'users:personal_account' %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form_upload_user_photo.image }}
-                    <button type="submit">Загрузить</button>
+                    <button class="form_user_personal_account_upload_user_photo__button"
+                            type="submit">
+                        Загрузить
+                    </button>
                 </form>
+
+                <form  action="{% url 'users:personal_account' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="hidden" name="delete_user_photo" value="{{ user.email }}">
+                    <button class="form_user_personal_account_upload_user_photo__button_delete"
+                            type="submit">
+                        Удалить фотографию
+                    </button>
+                </form>
+
             </div>
 
-                <form action="{% url 'users:personal_account' %}" method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <input type="text" name="first_name_test" value="Фёдор" class="form_user_personal_account_сhange_user_information" placeholder="Имя (не обязательное поле)" maxlength="50" minlength="1" id="id_first_name">
-                    <button type="submit">Тест</button>
-                </form>
+            <div class="content-for-log_in_personal_account__alert_message">
+                <div class="alert_message">
+                    {% if messages %}
+                        {% for message in messages %}
+
+                            {% if "error" in message.tags %}
+                                <div class="alert-error">
+                                    <p>
+                                        {{ message }}
+                                    </p>
+                                </div>
+                            {% endif %}
+
+                            {% if "success" in message.tags %}
+                                <div class="alert-success">
+                                    <p>
+                                        {{ message }}
+                                    </p>
+                                </div>
+                            {% endif %}
+
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
 
             <div class="content-for-personal_account__information_about_user" >
 
@@ -74,12 +108,12 @@
                 </div>
 
                 <div class="content-for-personal_account__сontact_information" >
+
                     <p class="content-for-personal_account__сontact_information__title">
                         Контактная информация
                     </p>
 
                     <div>
-
                         <label for="id_email">Электронная почта:</label>
                         <input type="text" name="email" value="{{ request.user.email }}"
                                class="form_user_personal_account_сhange_user_information"
@@ -89,10 +123,50 @@
 
                 </div>
 
+                <div class="content-for-personal_account__change_password" >
+
+                    <p class="content-for-personal_account__change_password__title">
+                        Сменить пароль
+                    </p>
+
+                    <form action="{% url 'users:personal_account' %}" method="post">
+                        {% csrf_token %}
+                        {{ form_change_user_password.as_div }}
+                            <button
+                                class="content-for-personal_account__change_password__button_submit"
+                                type="submit">
+                                Изменить
+                            </button>
+                    </form>
+
+                </div>
+
+                <div class="content-for-personal_account__delete_an_account">
+
+                    <p class="content-for-personal_account__delete_an_account__title">
+                        Удалить аккаунт
+                    </p>
+
+                    <form id="form_for_delete_user_account" action="{% url 'users:personal_account' %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="delete_user_account" value="{{ user.email }}">
+                            <button
+                                    onclick="confirmAction(event)"
+                                    class="content-for-personal_account__delete_an_account__button_submit"
+                                    type="submit">
+                                Удалить
+                            </button>
+                    </form>
+                </div>
+
             </div>
 
         </div>
 
     </section>
 
+{% endblock %}
+
+{% block javascript %}
+    <script src="{% static 'js/personal_account.js' %}"></script>
 {% endblock %}

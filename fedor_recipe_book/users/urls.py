@@ -3,6 +3,7 @@ from users.views import forgot_password, \
                         personal_account, \
                         user_registration, \
                         account_activation, \
+                        exit_personal_account, \
                         entering_new_password, \
                         log_in_personal_account
 
@@ -21,4 +22,6 @@ urlpatterns = [
          entering_new_password, name='entering_new_password'),
     path("personal_account/",
          personal_account, name='personal_account'),
+    path("exit_personal_account/",
+         exit_personal_account, name='exit_personal_account'),
 ]
