@@ -1,7 +1,7 @@
 import random
 from django.core.paginator import Paginator
-from django.shortcuts import render, get_object_or_404
 from recipe_book.models import RecipeCategories, Recipes
+from django.shortcuts import get_object_or_404, redirect, render
 
 
 NUMBER_CARDS_PER_PAGE: int = 6
@@ -150,4 +150,6 @@ def recipe_search(request,
 
 
 def add_recipe(request):
-    pass
+
+    if not request.user.is_authenticated:
+        return redirect('users:log_in_personal_account')

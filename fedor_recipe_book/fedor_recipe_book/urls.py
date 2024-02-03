@@ -43,6 +43,8 @@ urlpatterns = [
          recipe_search, name='recipe_search__page_number'),
 
     path('users/', include('users.urls', namespace='users')),
+
+    path('add_recipe/', add_recipe, name='add_recipe'),
 ]
 
 
