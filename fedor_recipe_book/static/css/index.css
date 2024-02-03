@@ -197,11 +197,17 @@
     }
 
     .content-for-index__product_card {
-        width: 280px;
+        width: 767px;
     }
 
     .content-for-index__container_for_product_card__description {
         width: 280px;
+    }
+
+    .index__only_content__container_for_not_content {
+        width: 550px;
+        align-items: center;
+        text-align: center;
     }
 }
 

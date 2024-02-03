@@ -90,7 +90,7 @@ class UserRegistration(UserCreationForm):
                 checking_string(string=first_name,
                                 pattern=pattern):
             message_error_for_user: str = \
-                "Имя может состоять только из букв" \
+                "Имя может состоять только из букв " \
                 "русского алфавита (не какой латиницы " \
                 "цифр или пробелов)."
             raise forms.ValidationError(message_error_for_user)
@@ -103,7 +103,7 @@ class UserRegistration(UserCreationForm):
                 checking_string(string=last_name,
                                 pattern=pattern):
             message_error_for_user: str = \
-                "Фамилия может состоять только из букв" \
+                "Фамилия может состоять только из букв " \
                 "русского алфавита (не какой латиницы " \
                 "цифр или пробелов)."
             raise forms.ValidationError(message_error_for_user)
@@ -322,6 +322,7 @@ class ChangeUserInformation(forms.Form):
 
 
 class UploadUserPhoto(forms.Form):
+
     image = forms.ImageField(required=False,
                              widget=forms.FileInput(
                                  attrs={'class': 'form_user_personal_account_upload_user_photo'}))

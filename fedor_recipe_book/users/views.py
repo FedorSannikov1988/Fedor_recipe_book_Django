@@ -15,14 +15,16 @@ from django.contrib.messages import error, \
                                     success
 from django.contrib.auth import login, \
                                 logout, \
-                                authenticate
-from django.contrib.auth.decorators import login_required
+                                authenticate, \
+                                update_session_auth_hash
 from fedor_recipe_book.utilities import WorkingWithToken, \
                                         WorkingWithFiles, \
                                         WorkingWithTimeInsideApp
+from django.contrib.auth.decorators import login_required
 
 
 def user_registration(request):
+
     if request.method == 'POST':
 
         form = UserRegistration(request.POST)
@@ -34,7 +36,11 @@ def user_registration(request):
             try:
 
                 form.sending_email_activate_account()
-                form.save(commit=True)
+                form.save()
+
+                new_user = Users.objects.get(email=email)
+                new_user.is_active = False
+                new_user.save()
 
                 message_success_for_user: str = \
                     f'На {email} отправлено письмо для ' \
@@ -71,6 +77,7 @@ def user_registration(request):
 
 
 def account_activation(request, token: str):
+
     data: dict = \
         WorkingWithToken().get_data_from_token(token)
 
@@ -154,6 +161,7 @@ def account_activation(request, token: str):
 
 
 def log_in_personal_account(request):
+
     if request.method == 'POST':
 
         form = UserLogInPersonalAccount(request.POST)
@@ -191,6 +199,7 @@ def log_in_personal_account(request):
 
 
 def forgot_password(request):
+
     if request.method == 'POST':
 
         form = EnteringEmail(request.POST)
@@ -234,6 +243,7 @@ def forgot_password(request):
 
 
 def entering_new_password(request, token: str):
+
     form = None
 
     data: dict = \
@@ -371,15 +381,18 @@ def personal_account(request):
             ChangeUserPassword(user=request.user, data=request.POST)
 
         if form_change_user_password.is_valid():
+
             form_change_user_password.save()
 
-        elif not form_change_user_password.is_valid():
-            error_message_output(request,
-                                 form_change_user_password.errors)
-        else:
             message_success_for_user: str = \
                 "Ваш пароль изминен."
             success(request, message_success_for_user)
+
+            update_session_auth_hash(request, request.user)
+
+        else:
+            error_message_output(request,
+                                 form_change_user_password.errors)
 
     elif request.method == 'POST' and \
             'image' in request.FILES:
