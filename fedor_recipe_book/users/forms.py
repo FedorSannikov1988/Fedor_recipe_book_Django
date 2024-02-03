@@ -289,7 +289,7 @@ class ChangeUserInformation(forms.Form):
                 checking_string(string=first_name,
                                 pattern=pattern):
             message_error_for_user: str = \
-                "Имя может состоять только из букв" \
+                "Имя может состоять только из букв " \
                 "русского алфавита (не какой латиницы " \
                 "цифр или пробелов)."
             raise forms.ValidationError(message_error_for_user)
@@ -302,7 +302,7 @@ class ChangeUserInformation(forms.Form):
                 checking_string(string=last_name,
                                 pattern=pattern):
             message_error_for_user: str = \
-                "Фамилия может состоять только из букв" \
+                "Фамилия может состоять только из букв " \
                 "русского алфавита (не какой латиницы " \
                 "цифр или пробелов)."
             raise forms.ValidationError(message_error_for_user)

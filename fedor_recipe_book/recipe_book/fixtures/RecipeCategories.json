@@ -46,5 +46,14 @@
 	  "title": "Напитки",
 	  "recipes": []
 	}
+  },
+  {
+	"model": "recipe_book.recipecategories",
+	"pk": 7,
+	"fields": {
+	  "title": "Без категории",
+	  "recipes": []
+	}
   }
+
 ]

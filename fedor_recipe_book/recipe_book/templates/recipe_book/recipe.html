@@ -11,51 +11,72 @@
 
 {% block content %}
 
-    <section>
+        <section>
 
-        <div class="content-for-recipe">
-
-            <img class="content-for-recipe__img"
-                    {% if recipe.image %}
-                 src="{{ recipe.image.url }}"
-                    {% elif not recipe.image %}
-                 src="{% static 'pictures/no_picture_for_recipe.png' %}"
-                    {% endif %}
-                 alt="{{ recipe.title }}">
-
-            <div class="content-for-recipe__text">
+            <div class="content-for-recipe">
 
                 <h2 class="content-for-recipe__text__title">
                     {{ recipe.title }}
                 </h2>
 
-                <p class="content-for-recipe__text__description">
-                    Описание: <br><br>
-                    {{ recipe.description }}
-                </p>
+                <div class="content-for-recipe__all_recipe">
 
-                <p class="content-for-recipe__text__cooking_time_in_minutes">
-                    Время приготовления:
-                    <strong>
-                        {{ recipe.cooking_time_in_minutes }} минут(-а)
-                    </strong>.
-                </p>
+                    <img class="content-for-recipe__img"
+                              {% if recipe.image %}
+                         src="{{ recipe.image.url }}"
+                              {% elif not recipe.image %}
+                         src="{% static 'pictures/no_picture_for_recipe.png' %}"
+                              {% endif %}
+                         alt="{{ recipe.title }}">
 
-                <p class="content-for-recipe__text__cooking_steps">
-                    Рецепт: <br><br>
-                    {{ recipe.cooking_steps }}
-                </p>
+                    <div class="content-for-recipe__text">
 
-                <p class="content-for-recipe__text__products">
-                    Необходимые продукты: <br><br>
-                    {{ recipe.products }}
-                </p>
+                        <span class="content-for-recipe__text__author">
+                            <strong>
+                                Автор рецепта:
+                            </strong>
+                            {{ recipe.author.email }}
+                        </span>
+
+                        <p class="content-for-recipe__text__cooking_time_in_minutes">
+                            <strong>
+                                Время приготовления:
+                            </strong>
+                            {{ recipe.cooking_time_in_minutes }}
+                            минут(-а).
+                        </p>
+
+                        <p class="content-for-recipe__text__products">
+                            <strong>
+                                Необходимые продукты:
+                            </strong>
+                            <br><br>
+                            {{ recipe.products }}
+                        </p>
+
+                        <p class="content-for-recipe__text__description">
+                            <strong>
+                                Описание:
+                            </strong>
+                            <br><br>
+                            {{ recipe.description }}
+                        </p>
+
+                        <p class="content-for-recipe__text__cooking_steps">
+                            <strong>
+                                Рецепт:
+                            </strong>
+                            <br><br>
+                            {{ recipe.cooking_steps }}
+                        </p>
+
+                    </div>
+
+                </div>
 
             </div>
 
-        </div>
-
-    </section>
+        </section>
 
 
 {% endblock %}

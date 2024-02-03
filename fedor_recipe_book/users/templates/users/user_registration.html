@@ -18,19 +18,20 @@
             <h2 class="content-for-user_registration__title">
                 Регистрация пользователя
             </h2>
-        <div class="content-for-user_registration__form__container">
-            <div class="content-for-user_registration__form">
-                <form action="{% url 'users:user_registration' %}" method="post">
-                    {% csrf_token %}
-                    {{ form.as_div }}
-                    <button
-                    class="content-for-user_registration__form__button"
-                    type="submit">
-                        Зарегестрироваться
-                    </button>
-                </form>
+
+            <div class="content-for-user_registration__form__container">
+                <div class="content-for-user_registration__form">
+                    <form action="{% url 'users:user_registration' %}" method="post">
+                        {% csrf_token %}
+                        {{ form.as_div }}
+                        <button
+                        class="content-for-user_registration__form__button"
+                        type="submit">
+                            Зарегестрироваться
+                        </button>
+                    </form>
+                </div>
             </div>
-        </div>
 
             <div class="content-for-user_registration__alert_message">
 

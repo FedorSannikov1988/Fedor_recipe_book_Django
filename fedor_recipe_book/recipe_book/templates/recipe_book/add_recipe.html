@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+    <link href="{% static 'css/add_recipe.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}
+    <title> {{ title }} </title>
+{% endblock %}
+
+{% block content %}
+
+    <section>
+
+        <div class="content-for-add_recipe">
+
+            <h2 class="content-for-add_recipe__title">
+                Добавить рецепт в книгу
+            </h2>
+
+            <div class="content-for-add_recipe__form__container">
+                <div class="content-for-add_recipe__form">
+                    <form action="{% url 'add_recipe' %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.as_div }}
+                        <button
+                        class="content-for-add_recipe__form__button__submit"
+                        type="submit">
+                            Отправить
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+{% endblock %}

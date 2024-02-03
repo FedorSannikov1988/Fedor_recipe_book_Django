@@ -1,0 +1,177 @@
+.content-for-add_recipe {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.content-for-add_recipe__title {
+    color: #7eb651;
+    font-family: "Cousine-Bold";
+    font-size: 50px;
+    font-weight: 700;
+    line-height: normal;
+
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.content-for-add_recipe__form {
+    color: #000;
+    font-family: "Cousine-Regular";
+    font-size: 14px;
+    font-weight: 400;
+    line-height: normal;
+    margin-bottom: 200px;
+}
+
+.form_add_one_recipes__drop-down_list {
+    display: block;
+    width: 320px;
+    height: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 15px;
+}
+
+.form_add_one_recipes__description {
+    display: block;
+    width: 300px;
+    height: 120px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 15px;
+}
+
+.form_add_one_recipes__cooking_steps {
+    display: block;
+    width: 300px;
+    height: 200px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 15px;
+}
+
+.form_add_one_recipes__cooking_time_in_minutes {
+    display: block;
+    width: 75px;
+    height: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 15px;
+    margin-left: 110px;
+    margin-top: 20px;
+}
+
+.form_add_one_recipes__image {
+    display: block;
+    color: transparent;
+    width: 125px;
+    margin-left: 105px;
+    margin-top: 20px;
+}
+
+.form_add_one_recipes__image::-webkit-file-upload-button {
+  visibility: hidden;
+}
+
+.form_add_one_recipes__image::before {
+    font-family: "Cousine-Regular";
+    font-size: 12px;
+    font-weight: 400;
+    line-height: normal;
+
+    content: 'Выберите файл';
+    color: black;
+    display: inline-block;
+    background: -webkit-linear-gradient(top, #ffffff, #ffffff);
+    border: 1px solid #000000;
+    border-radius: 4px;
+    padding: 5px 8px;
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    cursor: pointer;
+}
+
+.form_add_one_recipes__image:hover::before {
+    border-color: #7eb651;
+    background: -webkit-linear-gradient(top, #7eb651, #7eb651);
+    color: white;
+}
+
+.form_add_one_recipes__image:active {
+    outline: 0;
+}
+
+.form_add_one_recipes__image:active::before {
+    background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
+
+.form_add_one_recipes__image__button {
+    color: black;
+    font-family: "Cousine-Regular";
+    font-size: 12px;
+    font-weight: 400;
+
+    background: white;
+    border: 1px solid #000000;
+    border-radius: 4px;
+    padding: 5px 8px;
+    cursor: pointer;
+}
+
+.form_add_one_recipes {
+    display: block;
+    width: 300px;
+    height: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 15px;
+}
+
+.content-for-add_recipe__form__button__submit {
+    color: #000;
+
+    font-family: "Cousine-Regular";
+    font-size: 12px;
+    font-weight: 400;
+    line-height: normal;
+
+    width: 150px;
+    height: 35px;
+
+    background: #F8F8F8FF;
+    border: 1px solid #000000;
+    border-radius: 40px 40px 40px 40px;
+
+    cursor: pointer;
+
+    transition: 500ms;
+
+    margin-left: 85px;
+    margin-top: 30px;
+}
+
+.content-for-add_recipe__form__button__submit:hover {
+    color: white;
+    background: #7eb651;
+    border: none;
+}
+
+/* 768px - 1439px */
+
+@media screen and (max-width: 1439px) {
+
+}
+
+/* 375px - 767px */
+
+@media screen and (max-width: 767px) {
+
+    .content-for-add_recipe__title {
+        font-size: 22px;
+        width: 360px;
+        text-align: center;
+    }
+}

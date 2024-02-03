@@ -1,5 +1,5 @@
 from django.db import models
-#from users.models import Users
+from users.models import Users
 from django.core.validators import MinValueValidator, \
                                    MinLengthValidator
 
@@ -14,17 +14,13 @@ class Recipes(models.Model):
     products = models.TextField(blank=True, null=True)
     cooking_time_in_minutes = models.IntegerField(validators=[MinValueValidator(1)])
     image = models.ImageField(upload_to='photos_cooked_recipes/', blank=True, null=True)
-    #author = models.ForeignKey(Users, on_delete=models.CASCADE)
+    author = models.ForeignKey(Users, on_delete=models.CASCADE)
 
     def __str__(self):
         return f'Recipes( ' \
-               f'title: {self.title}' \
+               f'title: {self.title}, ' \
+               f'author: {self.author.email}' \
                f' )'
-
-        #return f'Recipes( ' \
-               #f'title: {self.title}, ' \
-               #f'author: {self.author.email}' \
-               #f' )'
 
 
 class RecipeCategories(models.Model):
@@ -32,10 +28,4 @@ class RecipeCategories(models.Model):
     recipes = models.ManyToManyField(Recipes)
 
     def __str__(self):
-
-        recipes_count: int = self.recipes.count()
-
-        return f'RecipeCategories( ' \
-               f'title: {self.title}, ' \
-               f'recipes count: {recipes_count}' \
-               f' )'
+        return f'{self.title}'

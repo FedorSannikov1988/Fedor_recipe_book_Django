@@ -1,5 +1,7 @@
 import random
+from users.models import Users
 from django.core.paginator import Paginator
+from recipe_book.forms import AddOneRecipes
 from recipe_book.models import RecipeCategories, Recipes
 from django.shortcuts import get_object_or_404, redirect, render
 
@@ -153,3 +155,56 @@ def add_recipe(request):
 
     if not request.user.is_authenticated:
         return redirect('users:log_in_personal_account')
+
+    if request.method == 'POST':
+
+        form = AddOneRecipes(request.POST, request.FILES)
+
+        if form.is_valid():
+
+            title = form.cleaned_data["title"]
+            description = form.cleaned_data["description"]
+            cooking_steps = form.cleaned_data["cooking_steps"]
+            products = form.cleaned_data["products"]
+            cooking_time_in_minutes = form.cleaned_data["cooking_time_in_minutes"]
+
+            author = Users.objects.get(email=request.user.email)
+
+            recipe = Recipes(title=title,
+                             author=author,
+                             products=products,
+                             description=description,
+                             cooking_steps=cooking_steps,
+                             cooking_time_in_minutes=
+                             cooking_time_in_minutes)
+
+            recipe.save()
+
+            if 'image' in request.FILES:
+                image_file = request.FILES['image']
+                recipe.image.save(image_file.name, image_file)
+
+            recipe_categories = \
+                form.cleaned_data["recipe_categories"]
+
+            if recipe_categories:
+                recipe_category = \
+                    RecipeCategories.objects.get(title=recipe_categories)
+            else:
+                recipe_category = \
+                    RecipeCategories.objects.get(title='Без категории')
+
+            recipe_category.recipes.add(recipe)
+
+            form = AddOneRecipes()
+
+    else:
+
+        form = AddOneRecipes()
+
+    context = {
+        "title": f"Книга Рецептов Федора - Добавить рецепт",
+        "form":form
+    }
+
+    return render(request, 'recipe_book/add_recipe.html', context)
