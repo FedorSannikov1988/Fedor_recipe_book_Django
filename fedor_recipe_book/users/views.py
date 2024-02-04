@@ -2,7 +2,8 @@ from users.models import Users
 from django.conf import settings
 from smtplib import SMTPException
 from django.db import DatabaseError
-from users.forms import EnteringEmail, \
+from users.forms import ChooseRecipe, \
+                        EnteringEmail, \
                         UploadUserPhoto, \
                         UserRegistration, \
                         ChangeUserPassword, \
@@ -348,13 +349,14 @@ def personal_account(request):
 
     user = Users.objects.get(email=email)
 
-    Recipes.objects.get(author=user)
-
     all_fields_form_change_user_information = \
-        list(ChangeUserInformation().fields.keys())
+        get_all_fields_in_form(ChangeUserInformation())
 
     all_fields_form_change_user_password = \
-        list(ChangeUserPassword(user=user).fields.keys())
+        get_all_fields_in_form(ChangeUserPassword(user=user))
+
+    all_fields_form_choose_recipe = \
+        get_all_fields_in_form(ChooseRecipe())
 
     if request.method == 'POST' and \
         all(field in request.POST for field in
@@ -433,6 +435,42 @@ def personal_account(request):
         logout(request)
         return redirect('index')
 
+    elif request.method == 'POST' and \
+            all(field in request.POST for field in
+                all_fields_form_choose_recipe):
+
+        form_choose_recipe = \
+            ChooseRecipe(email_user=user.email,
+                         data=request.POST)
+
+        if form_choose_recipe.is_valid():
+
+            choose_recipe = \
+                form_choose_recipe.cleaned_data['choose_recipe']
+
+            select_an_action = \
+                form_choose_recipe.cleaned_data['select_an_action']
+
+            if select_an_action == 'delete_recipe':
+
+                 search_recipe = \
+                     Recipes.objects.get(id=int(choose_recipe[0]))
+
+                 if search_recipe:
+
+                     search_recipe.delete()
+
+                     message_success_for_user: str = \
+                         "Рецепт удален"
+                     success(request, message_success_for_user)
+
+            elif select_an_action == 'change_recipe':
+                pass
+
+        else:
+            error_message_output(request,
+                                 form_choose_recipe.errors)
+
     form_change_user_information = \
         ChangeUserInformation(
             initial={
@@ -447,6 +485,7 @@ def personal_account(request):
         "form_change_user_information": form_change_user_information,
         "form_change_user_password": ChangeUserPassword(user=user),
         "form_upload_user_photo": UploadUserPhoto(),
+        "form_choose_recipe": ChooseRecipe(email_user=user.email),
         "user": user
     }
     return render(request, 'users/personal_account.html', context)
@@ -460,6 +499,10 @@ def error_message_output(request, errors) -> None:
         all_errors += errors.get(title_field_where_error)
 
     error(request, all_errors)
+
+
+def get_all_fields_in_form(form) -> list:
+    return list(form.fields.keys())
 
 
 @login_required

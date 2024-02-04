@@ -172,6 +172,10 @@
     text-align: center;
 }
 
+.content-for-add_recipe__instructions_for_making_recipe {
+
+}
+
 /* 768px - 1439px */
 
 @media screen and (max-width: 1439px) {

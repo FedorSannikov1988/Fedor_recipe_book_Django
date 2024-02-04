@@ -1,5 +1,7 @@
 import datetime
 from django import forms
+
+from recipe_book.models import Recipes
 from users.models import Users
 from django.urls import reverse
 from django.conf import settings
@@ -350,3 +352,45 @@ class ChangeUserPassword(PasswordChangeForm):
                         widget=forms.PasswordInput(
                             attrs={'class': 'form_user_personal_account_change_user_password',
                                    'placeholder': 'Подтверждение нового пароля'}))
+
+
+class ChooseRecipe(forms.Form):
+
+    def __init__(self, email_user: str = '', data=None):
+        super().__init__(data)
+
+        self.fields['choose_recipe'] = forms.MultipleChoiceField(
+                                    required=True,
+                                    label='Выши рецепты:',
+                                    widget=forms.CheckboxSelectMultiple(
+                                        attrs={'class':
+                                                'content-for-personal_account__form_choose_recipe__choose_recipe'}),
+                                    #widget=forms.SelectMultiple(attrs={'class': 'test'}),
+                                    choices=self.get_choices(email_user=email_user)
+        )
+
+    @staticmethod
+    def get_choices(email_user: str) -> list:
+
+        if email_user:
+            user = Users.objects.get(email=email_user)
+
+            recipes_user = Recipes.objects.filter(author=user).all()
+
+            return [{one_recipe.pk, one_recipe.title} for one_recipe in recipes_user]
+        else:
+            return []
+
+    ACTION = [
+        ('delete_recipe', 'Удалить'),
+        ('change_recipe', 'Изменить'),
+    ]
+
+    select_an_action = \
+        forms.ChoiceField(
+                        required=True,
+                        label='Действик',
+                        choices=ACTION,
+                        widget=forms.RadioSelect(
+                            attrs={'class': 'content-for-personal_account__form_choose_recipe__select_an_action'}),
+    )
