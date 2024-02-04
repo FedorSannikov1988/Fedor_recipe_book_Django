@@ -365,7 +365,9 @@ class ChooseRecipe(forms.Form):
                                     widget=forms.CheckboxSelectMultiple(
                                         attrs={'class':
                                                 'content-for-personal_account__form_choose_recipe__choose_recipe'}),
-                                    #widget=forms.SelectMultiple(attrs={'class': 'test'}),
+                                    #widget=forms.SelectMultiple(
+                                        #attrs={'class':
+                                        #        'content-for-personal_account__form_choose_recipe__choose_recipe'}),
                                     choices=self.get_choices(email_user=email_user)
         )
 
