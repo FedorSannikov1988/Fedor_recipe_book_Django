@@ -2,6 +2,7 @@ import random
 from users.models import Users
 from django.core.paginator import Paginator
 from recipe_book.forms import AddOneRecipes
+from django.contrib.messages import success, error
 from recipe_book.models import RecipeCategories, Recipes
 from django.shortcuts import get_object_or_404, redirect, render
 
@@ -154,6 +155,12 @@ def recipe_search(request,
 def add_recipe(request):
 
     if not request.user.is_authenticated:
+
+        message_error_for_user: str = \
+            "Оставить рецепт может только авторизованный, " \
+            "а значит зарегестрированный пользователь."
+        error(request, message_error_for_user)
+
         return redirect('users:log_in_personal_account')
 
     if request.method == 'POST':
@@ -204,7 +211,7 @@ def add_recipe(request):
 
     context = {
         "title": f"Книга Рецептов Федора - Добавить рецепт",
-        "form":form
+        "form": form
     }
 
     return render(request, 'recipe_book/add_recipe.html', context)

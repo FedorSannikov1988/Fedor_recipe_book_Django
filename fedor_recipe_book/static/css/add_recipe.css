@@ -159,6 +159,19 @@
     border: none;
 }
 
+.content-for-add_recipe__warning {
+    width: 360px;
+    margin-bottom: 40px;
+
+    color: #7eb651;
+    font-family: "Cousine-BoldItalic";
+    font-size: 20px;
+    font-weight: 700;
+    line-height: normal;
+
+    text-align: center;
+}
+
 /* 768px - 1439px */
 
 @media screen and (max-width: 1439px) {
