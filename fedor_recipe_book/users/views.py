@@ -11,6 +11,7 @@ from users.forms import EnteringEmail, \
                         EnteringNewPasswordToRecover
 from django.shortcuts import render, \
                              redirect
+from recipe_book.models import Recipes
 from django.contrib.messages import error, \
                                     success
 from django.contrib.auth import login, \
@@ -346,6 +347,8 @@ def personal_account(request):
     email = request.user.email
 
     user = Users.objects.get(email=email)
+
+    Recipes.objects.get(author=user)
 
     all_fields_form_change_user_information = \
         list(ChangeUserInformation().fields.keys())
