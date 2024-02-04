@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+    <link href="{% static 'css/editing_recipe.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}
+    <title> {{ title }} </title>
+{% endblock %}
+
+{% block content %}
+
+    <section>
+
+        <div class="content-for-editing_recipe">
+
+            <h2 class="content-for-editing_recipe__title">
+                Редактировать рецепт
+            </h2>
+
+            <div class="content-for-editing_recipe__form__container">
+                <div class="content-for-editing_recipe__form">
+                    <form action="{% url 'users:editing_recipe' recipe_id %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.as_div }}
+
+
+                        <div class="content-for-editing_recipe__form__wrapper">
+
+                            <a href="{% url 'users:personal_account' %}" class="content-for-editing_recipe__form__button__submit__link">
+                                <button
+                                        type="button"
+                                        class="content-for-editing_recipe__form__button__submit">
+                                    Назад
+                                </button>
+                            </a>
+
+                            <button
+                            class="content-for-editing_recipe__form__button__submit__edit"
+                            type="submit">
+                                Редактировать
+                            </button>
+
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+{% endblock %}

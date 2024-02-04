@@ -1,5 +1,6 @@
 from django.urls import path
-from users.views import forgot_password, \
+from users.views import editing_recipe, \
+                        forgot_password, \
                         personal_account, \
                         user_registration, \
                         account_activation, \
@@ -7,7 +8,9 @@ from users.views import forgot_password, \
                         entering_new_password, \
                         log_in_personal_account
 
+
 app_name = 'users'
+
 
 urlpatterns = [
     path("user_registration/",
@@ -24,4 +27,6 @@ urlpatterns = [
          personal_account, name='personal_account'),
     path("exit_personal_account/",
          exit_personal_account, name='exit_personal_account'),
+    path("editing_recipe/<int:recipe_id>/",
+         editing_recipe, name='editing_recipe'),
 ]
