@@ -2,6 +2,7 @@ import random
 from users.models import Users
 from django.core.paginator import Paginator
 from recipe_book.forms import AddOneRecipes
+from django.utils.safestring import mark_safe
 from django.contrib.messages import success, error
 from recipe_book.models import RecipeCategories, Recipes
 from django.shortcuts import get_object_or_404, redirect, render
@@ -63,12 +64,28 @@ def recipe(request, id_recipe: int):
     desired_recipe = \
         get_object_or_404(Recipes, id=id_recipe)
 
+    description = preparing_text(text=
+                                   desired_recipe.description)
+    cooking_steps = preparing_text(text=
+                                   desired_recipe.cooking_steps)
+    products = preparing_text(text=
+                              desired_recipe.products)
+
     context = {
         "title": f"Книга Рецептов Федора - {desired_recipe.title}",
-        "recipe": desired_recipe
+        "recipe": desired_recipe,
+        "description": description,
+        "cooking_steps": cooking_steps,
+        "products": products
     }
 
     return render(request, 'recipe_book/recipe.html', context)
+
+
+def preparing_text(text:  str) -> str:
+    return mark_safe(text.replace("<", "").replace(">", "*/").
+                          replace("{", "").replace("}", "*/").
+                          replace("\n", "<br>"))
 
 
 def recipe_categories(request,

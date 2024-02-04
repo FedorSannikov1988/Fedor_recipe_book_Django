@@ -48,7 +48,8 @@ def user_registration(request):
                 new_user.save()
 
                 message_success_for_user: str = \
-                    f'На {email} отправлено письмо для ' \
+                    f'На {email} отправлено письмо с ' \
+                    f'{settings.EMAIL_HOST_USER} для ' \
                     f'активации аккаунта.'
                 success(request, message_success_for_user)
 
@@ -63,9 +64,10 @@ def user_registration(request):
             except SMTPException:
 
                 message_error_for_user: str = \
-                    "Пользователь создан, но" \
-                    "не получилось отправить письмо " \
-                    "для активации аккаунта."
+                    f"Пользователь создан, но" \
+                    f"не получилось отправить письмо c" \
+                    f"{settings.EMAIL_HOST_USER}" \
+                    f"для активации аккаунта."
                 error(request, message_error_for_user)
 
             form = UserRegistration()
@@ -183,8 +185,7 @@ def log_in_personal_account(request):
                 if Users.objects.filter(email=email).exists():
                     message_error_for_user: str = \
                         'Неверный пароль или ' \
-                        'учетная запись не ' \
-                        'активирована.'
+                        'учетная запись не активирована.'
                 else:
                     message_error_for_user: str = \
                         'Учетной записи с таким именем ' \
@@ -220,7 +221,8 @@ def forgot_password(request):
                 search_user.sending_email_recover_password()
 
                 message_success_for_user: str = \
-                    f"На электронную почту {email} " \
+                    f"На электронную почту {email} c " \
+                    f"{settings.EMAIL_HOST_USER} " \
                     f"отправлено письмо содержащее " \
                     f"ссылку для востановления пароля."
                 success(request, message_success_for_user)
@@ -233,8 +235,8 @@ def forgot_password(request):
 
             else:
                 message_error_for_user: str = \
-                    f"Учетной записи с таким адресом " \
-                    f"электронной почты не существует."
+                    "Учетной записи с таким адресом " \
+                    "электронной почты не существует."
                 error(request, message_error_for_user)
 
     else:

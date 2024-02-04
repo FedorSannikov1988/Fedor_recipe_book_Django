@@ -379,7 +379,7 @@ class ChooseRecipe(forms.Form):
 
             recipes_user = Recipes.objects.filter(author=user).all()
 
-            return [{one_recipe.pk, one_recipe.title} for one_recipe in recipes_user]
+            return [(one_recipe.pk, one_recipe.title) for one_recipe in recipes_user]
         else:
             return []
 

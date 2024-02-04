@@ -97,6 +97,28 @@
 
     width: 320px;
     height: 470px;
+
+    position: relative;
+}
+
+.content-for-index__container_for_product_card__time {
+
+    color: #e71313;
+    font-family: "Cousine-Regular";
+    font-size: 20px;
+    font-weight: 400;
+    line-height: normal;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: absolute;
+
+    top: 20px;
+    right: 15px;
+
+    z-index: 2;
 }
 
 .content-for-index__product_card__img__links {

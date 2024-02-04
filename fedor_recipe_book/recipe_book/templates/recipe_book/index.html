@@ -91,6 +91,14 @@
                                         </div>
                                     {% endif %}
 
+                                <div class="content-for-index__container_for_product_card__time">
+                                    <p>
+                                        <strong>
+                                            {{ one_random_recipes.cooking_time_in_minutes }} мин.
+                                        </strong>
+                                    </p>
+                                </div>
+
                                     {% if one_random_recipes.description %}
                                         <div class="content-for-index__container_for_product_card__description">
                                             <p class="content-for-index__product_card__description">
@@ -104,8 +112,6 @@
                     {% endfor %}
 
                 </div>
-
-
 
             {% elif not five_random_recipes %}
 

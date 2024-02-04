@@ -31,6 +31,7 @@ handler403 = 'recipe_book.views.my_custom_view_for_403'
 handler404 = 'recipe_book.views.my_custom_view_for_404'
 handler500 = 'recipe_book.views.my_custom_view_for_500'
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
 

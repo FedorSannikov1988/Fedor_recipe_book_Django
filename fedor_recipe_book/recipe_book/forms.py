@@ -62,7 +62,7 @@ class AddOneRecipes(forms.Form):
     cooking_time_in_minutes = \
         forms.IntegerField(
                         required=True,
-                        label='Время приготовления (обязательное поле)',
+                        label='Время готовки минут (обязательное поле)',
                         widget=forms.NumberInput(
                             attrs={'class': 'form_add_one_recipes__cooking_time_in_minutes', 'min': 1})
     )
