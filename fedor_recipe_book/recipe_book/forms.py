@@ -151,3 +151,18 @@ class AddOneRecipesV2(forms.Form):
                             attrs={'class': 'form_add_one_recipes__image'})
 
     )
+
+
+class AddOneCommentOnRecipe(forms.Form):
+
+    comment = \
+        forms.CharField(
+                        required=True,
+                        min_length=1,
+                        max_length=2000,
+                        label='Оставить комментарий',
+                        widget=forms.Textarea(
+                            attrs={'class': 'content-for-recipe__form_add_one_comment',
+                                   'placeholder': 'Введите комментарий не более '
+                                                  '2000 символов'}),
+    )

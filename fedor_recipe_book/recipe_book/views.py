@@ -2,12 +2,14 @@ import random
 from users.models import Users
 from django.core.paginator import Paginator
 from recipe_book.forms import AddOneRecipes, \
-                              AddOneRecipesV2
+                              AddOneRecipesV2, \
+                              AddOneCommentOnRecipe
 from django.utils.safestring import mark_safe
 from django.contrib.messages import error, \
                                     success
 from recipe_book.models import Recipes, \
-                               RecipeCategories
+                               RecipeCategories, \
+                               CommentsOnRecipe
 from django.shortcuts import render, \
                              redirect, \
                              get_object_or_404
@@ -70,20 +72,60 @@ def recipe(request, id_recipe: int):
         get_object_or_404(Recipes, id=id_recipe)
 
     description = preparing_text(text=
-                                   desired_recipe.description)
+                                 desired_recipe.description)
+
     cooking_steps = preparing_text(text=
                                    desired_recipe.cooking_steps)
+
     products = preparing_text(text=
                               desired_recipe.products)
+
+    if request.method == 'POST':
+
+        if not request.user.is_authenticated:
+            message_error_for_user: str = \
+                "Оставить комментарий может только авторизованный, " \
+                "а значит зарегестрированный пользователь."
+            error(request, message_error_for_user)
+
+            return redirect('users:log_in_personal_account')
+
+        form = AddOneCommentOnRecipe(request.POST)
+
+        if form.is_valid():
+
+            comment = form.cleaned_data["comment"]
+
+            author = Users.objects.get(email=request.user.email)
+
+            comment = CommentsOnRecipe(
+                author=author,
+                recipe=desired_recipe,
+                comment=comment
+            )
+
+            comment.save()
+
+            form = AddOneCommentOnRecipe()
+
+    else:
+
+        form = AddOneCommentOnRecipe()
+
+    comments_on_recipe = \
+        CommentsOnRecipe.objects.\
+            filter(recipe=desired_recipe).\
+            all().order_by('-id')
 
     context = {
         "title": f"Книга Рецептов Федора - {desired_recipe.title}",
         "recipe": desired_recipe,
         "description": description,
         "cooking_steps": cooking_steps,
-        "products": products
+        "products": products,
+        "comments_on_recipe": comments_on_recipe,
+        "form": form
     }
-
     return render(request, 'recipe_book/recipe.html', context)
 
 

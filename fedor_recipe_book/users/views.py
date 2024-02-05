@@ -3,17 +3,19 @@ from django.conf import settings
 from smtplib import SMTPException
 from django.db import DatabaseError
 from users.forms import ChooseRecipe, \
-                        EnteringEmail, \
-                        UploadUserPhoto, \
-                        UserRegistration, \
-                        ChangeUserPassword, \
-                        ChangeUserInformation, \
-                        UserLogInPersonalAccount, \
-                        EnteringNewPasswordToRecover
+    EnteringEmail, \
+    ChooseComment, \
+    UploadUserPhoto, \
+    UserRegistration, \
+    ChangeUserPassword, \
+    ChangeUserInformation, \
+    UserLogInPersonalAccount, \
+    EnteringNewPasswordToRecover
 from django.shortcuts import render, \
                              redirect, \
                              get_object_or_404
 from recipe_book.models import Recipes, \
+                               CommentsOnRecipe, \
                                RecipeCategories
 from django.contrib.messages import error, \
                                     success
@@ -366,6 +368,9 @@ def personal_account(request):
     all_fields_form_choose_recipe = \
         get_all_fields_in_form(ChooseRecipe())
 
+    all_fields_form_choose_comment = \
+        get_all_fields_in_form(ChooseComment())
+
     if request.method == 'POST' and \
         all(field in request.POST for field in
             all_fields_form_change_user_information):
@@ -457,12 +462,12 @@ def personal_account(request):
                 form_choose_recipe.cleaned_data['choose_recipe']
 
             select_an_action = \
-                form_choose_recipe.cleaned_data['select_an_action']
+                form_choose_recipe.cleaned_data['select_an_action_for_recipe']
 
             if select_an_action == 'delete_recipe':
 
                  search_recipe = \
-                     Recipes.objects.get(id=int(choose_recipe[0]))
+                     Recipes.objects.get(id=int(choose_recipe))
 
                  if search_recipe:
 
@@ -478,11 +483,47 @@ def personal_account(request):
 
             elif select_an_action == 'change_recipe':
 
-                return redirect('users:editing_recipe_v2', recipe_id=int(choose_recipe[0]))
+                return redirect('users:editing_recipe_v2', recipe_id=int(choose_recipe))
 
         else:
             error_message_output(request,
                                  form_choose_recipe.errors)
+
+    elif request.method == 'POST' and \
+            all(field in request.POST for field in
+                all_fields_form_choose_comment):
+
+        form_choose_comment = \
+            ChooseComment(email_user=user.email,
+                          data=request.POST)
+
+        if form_choose_comment.is_valid():
+
+            choose_comment = \
+                form_choose_comment.cleaned_data['choose_comment']
+
+            select_an_action = \
+                form_choose_comment.cleaned_data['select_an_action_for_comment']
+
+            if select_an_action == 'delete_comment':
+
+                 search_comment = \
+                     CommentsOnRecipe.objects.get(id=int(choose_comment))
+
+                 if search_comment:
+                     search_comment.delete()
+
+                     message_success_for_user: str = \
+                         "Комментарий удален"
+                     error(request, message_success_for_user)
+            elif select_an_action == 'change_comment':
+                print("меняем рецепт")
+                pass
+                #return redirect('users:editing_recipe_v2', recipe_id=int(choose_comment))
+
+        else:
+            error_message_output(request,
+                                 form_choose_comment.errors)
 
     form_change_user_information = \
         ChangeUserInformation(
@@ -499,6 +540,7 @@ def personal_account(request):
         "form_change_user_password": ChangeUserPassword(user=user),
         "form_upload_user_photo": UploadUserPhoto(),
         "form_choose_recipe": ChooseRecipe(email_user=user.email),
+        "form_choose_comment": ChooseComment(email_user=user.email),
         "all_recipes_user": all_recipes_user,
         "user": user
     }
@@ -601,15 +643,12 @@ def editing_recipe_v2(request, recipe_id: int):
     recipe = \
         get_object_or_404(Recipes, id=recipe_id)
 
-
     if request.method == 'POST':
 
         form = \
             AddOneRecipesV2(request.POST, request.FILES)
 
         if form.is_valid():
-
-
 
             recipe.title = form.cleaned_data["title"]
             recipe.description = form.cleaned_data["description"]

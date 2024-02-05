@@ -29,3 +29,14 @@ class RecipeCategories(models.Model):
 
     def __str__(self):
         return f'{self.title}'
+
+
+class CommentsOnRecipe(models.Model):
+    author = models.ForeignKey(Users, on_delete=models.CASCADE)
+    recipe = models.ForeignKey(Recipes, on_delete=models.CASCADE)
+    comment = models.TextField(max_length=2000)
+    date_creation = models.DateField(auto_now_add=True)
+    date_change = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.comment} '

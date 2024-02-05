@@ -81,6 +81,60 @@
 
             </div>
 
+            <hr>
+
+            <div class="content-for-recipe__form_add_one_comment_wrapper">
+
+                    <form class="content-for-recipe__form_add_one_comment_form"
+                          action="{% url 'recipe' recipe.id %}" method="post">
+                        {% csrf_token %}
+                        {{ form.as_div }}
+                        <button
+                            class="content-for-recipe__form_add_one_comment__button_submit"
+                            type="submit">
+                                Оставить
+                        </button>
+                    </form>
+
+            </div>
+
+            <div class="content-for-recipe__all_comments_on_recipe">
+
+                {% for one_comment_on_recipe in comments_on_recipe %}
+
+                    <div class="content-for-recipe__one_comment_wrapper">
+
+                        <p class="content-for-recipe__one_comment_wrapper_text" >
+                            Оставлен: {{ one_comment_on_recipe.date_creation }}
+                            &nbsp;
+                            Изминен: {{ one_comment_on_recipe.date_change }}
+                        </p>
+
+                        <div id="id_comment_{{ one_comment_on_recipe.id }}"  class="content-for-recipe__one_comment">
+                            <p>
+                                {{ one_comment_on_recipe.comment }}
+                            </p>
+                        </div>
+
+                        <div class="content-for-recipe__one_comment_time">
+
+                            <a class="content-for-recipe__text__author__link"
+                               href="{% url 'users:information_about_author' one_comment_on_recipe.author.id %}">
+
+                                <p class="content-for-recipe__one_comment_wrapper_text">
+                                    Автор: {{ one_comment_on_recipe.author.email }}
+                                </p>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
         </section>
 
 

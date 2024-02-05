@@ -1,7 +1,7 @@
 import datetime
 from django import forms
-
-from recipe_book.models import Recipes
+from recipe_book.models import Recipes, \
+                               CommentsOnRecipe
 from users.models import Users
 from django.urls import reverse
 from django.conf import settings
@@ -359,15 +359,12 @@ class ChooseRecipe(forms.Form):
     def __init__(self, email_user: str = '', data=None):
         super().__init__(data)
 
-        self.fields['choose_recipe'] = forms.MultipleChoiceField(
+        self.fields['choose_recipe'] = forms.ChoiceField(
                                     required=True,
                                     label='Выши рецепты:',
-                                    widget=forms.CheckboxSelectMultiple(
+                                    widget=forms.RadioSelect(
                                         attrs={'class':
                                                 'content-for-personal_account__form_choose_recipe__choose_recipe'}),
-                                    #widget=forms.SelectMultiple(
-                                        #attrs={'class':
-                                        #        'content-for-personal_account__form_choose_recipe__choose_recipe'}),
                                     choices=self.get_choices(email_user=email_user)
         )
 
@@ -388,10 +385,58 @@ class ChooseRecipe(forms.Form):
         ('change_recipe', 'Изменить'),
     ]
 
-    select_an_action = \
+    select_an_action_for_recipe = \
         forms.ChoiceField(
                         required=True,
-                        label='Действик',
+                        label='Действие',
+                        choices=ACTION,
+                        widget=forms.RadioSelect(
+                            attrs={'class': 'content-for-personal_account__form_choose_recipe__select_an_action'}),
+    )
+
+
+class ChooseComment(forms.Form):
+
+    def __init__(self, email_user: str = '', data=None):
+        super().__init__(data)
+
+        self.fields['choose_comment'] = forms.ChoiceField(
+                                    required=True,
+                                    label='Выши комментарии:',
+                                    widget=forms.RadioSelect(
+                                        attrs={'class':
+                                                'content-for-personal_account__form_choose_recipe__choose_recipe'}),
+                                    choices=self.get_choices(email_user=email_user)
+        )
+
+    @staticmethod
+    def get_choices(email_user: str) -> list:
+
+        if email_user:
+            user = Users.objects.get(email=email_user)
+
+            comments_user = CommentsOnRecipe.objects.filter(author=user).all()
+
+            return [(one_comment_user.id, ChooseComment.generating_string(one_comment_user))
+                    for one_comment_user in comments_user]
+        else:
+            return []
+
+    @staticmethod
+    def generating_string(one_comment_user) -> str:
+        return str(one_comment_user.date_creation.strftime("%d.%m.%Y")) + " - " + \
+               str(one_comment_user.recipe.title) + " - " + \
+               str(one_comment_user.comment)[:30] + "..."
+
+    ACTION = [
+        ('delete_comment', 'Удалить'),
+        ('change_comment', 'Изменить'),
+    ]
+
+    select_an_action_for_comment = \
+        forms.ChoiceField(
+                        required=True,
+                        label='Действие',
                         choices=ACTION,
                         widget=forms.RadioSelect(
                             attrs={'class': 'content-for-personal_account__form_choose_recipe__select_an_action'}),
