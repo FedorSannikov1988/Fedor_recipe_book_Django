@@ -21,7 +21,8 @@ from django.contrib.auth import login, \
                                 logout, \
                                 authenticate, \
                                 update_session_auth_hash
-from recipe_book.forms import AddOneRecipes
+from recipe_book.forms import AddOneRecipes, \
+                              AddOneRecipesV2
 from fedor_recipe_book.utilities import WorkingWithToken, \
                                         WorkingWithFiles, \
                                         WorkingWithTimeInsideApp
@@ -465,6 +466,10 @@ def personal_account(request):
 
                  if search_recipe:
 
+                     if search_recipe.image:
+                         WorkingWithFiles(path_to_file=
+                                          search_recipe.image.path).delete_file()
+
                      search_recipe.delete()
 
                      message_success_for_user: str = \
@@ -473,7 +478,7 @@ def personal_account(request):
 
             elif select_an_action == 'change_recipe':
 
-                return redirect('users:editing_recipe', recipe_id=int(choose_recipe[0]))
+                return redirect('users:editing_recipe_v2', recipe_id=int(choose_recipe[0]))
 
         else:
             error_message_output(request,
@@ -588,6 +593,87 @@ def editing_recipe(request, recipe_id: int):
     }
 
     return render(request, 'users/editing_recipe.html', context)
+
+
+@login_required
+def editing_recipe_v2(request, recipe_id: int):
+
+    recipe = \
+        get_object_or_404(Recipes, id=recipe_id)
+
+
+    if request.method == 'POST':
+
+        form = \
+            AddOneRecipesV2(request.POST, request.FILES)
+
+        if form.is_valid():
+
+
+
+            recipe.title = form.cleaned_data["title"]
+            recipe.description = form.cleaned_data["description"]
+            recipe.cooking_steps = form.cleaned_data["cooking_steps"]
+            recipe.products = form.cleaned_data["products"]
+            recipe.cooking_time_in_minutes = form.cleaned_data["cooking_time_in_minutes"]
+
+            recipe.save()
+
+            if 'image' in request.FILES:
+                image_file = request.FILES['image']
+
+                if recipe.image:
+                    WorkingWithFiles(path_to_file=
+                                     recipe.image.path).delete_file()
+
+                recipe.image.save(image_file.name, image_file)
+
+            categories_recipe = \
+                RecipeCategories.objects.filter(recipes=recipe).all()
+
+            for one_categories_recipe in categories_recipe:
+                one_categories_recipe.recipes.remove(recipe)
+
+            received_recipe_categories = \
+                form.cleaned_data["recipe_categories"]
+
+            lisl_recipe_categories: list = []
+
+            if received_recipe_categories:
+                for one_recipe_categories in received_recipe_categories:
+                    lisl_recipe_categories.append(
+                        RecipeCategories.objects.get(id=
+                                                     int(one_recipe_categories))
+                    )
+            else:
+                lisl_recipe_categories.append(
+                    RecipeCategories.objects.get(title=
+                                                 'Без категории')
+                )
+
+            for one_recipe_categories in lisl_recipe_categories:
+                one_recipe_categories.recipes.add(recipe)
+
+            return redirect('users:personal_account')
+
+    else:
+
+        form = AddOneRecipesV2(
+            initial={
+                'title': recipe.title,
+                'description': recipe.description,
+                'cooking_steps': recipe.cooking_steps,
+                'products': recipe.products,
+                'cooking_time_in_minutes': recipe.cooking_time_in_minutes,
+            })
+
+    context = {
+        "title": "Книга Рецептов Федора - Личный кабинет - Редактирование рецепта",
+        "recipe_id": recipe_id,
+        "form": form
+    }
+
+    return render(request, 'users/editing_recipe_v2.html', context)
 
 
 def information_about_author(request, user_id: int):
