@@ -368,6 +368,25 @@ fieldset {
     border: none;
 }
 
+.content-for-personal_account__form_choose_recipe__choose_recipe__wrapper:last-child {
+    margin-top: 34px;
+}
+
+.content-for-personal_account__form_choose_recipe__choose_recipe__link {
+    text-decoration: none;
+    color: inherit;
+    transition: 250ms;
+}
+
+.content-for-personal_account__form_choose_recipe__choose_recipe__link:hover {
+    color: #e71313;
+}
+
+.content-for-personal_account__form_choose_recipe__choose_recipe__wrapper dl a dd {
+    margin-bottom: 3px;
+}
+
+
 /* 768px - 1439px */
 
 @media screen and (max-width: 1439px) {

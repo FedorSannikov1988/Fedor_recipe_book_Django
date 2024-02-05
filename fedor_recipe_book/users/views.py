@@ -354,6 +354,8 @@ def personal_account(request):
 
     user = Users.objects.get(email=email)
 
+    all_recipes_user = Recipes.objects.filter(author=user).all()
+
     all_fields_form_change_user_information = \
         get_all_fields_in_form(ChangeUserInformation())
 
@@ -492,6 +494,7 @@ def personal_account(request):
         "form_change_user_password": ChangeUserPassword(user=user),
         "form_upload_user_photo": UploadUserPhoto(),
         "form_choose_recipe": ChooseRecipe(email_user=user.email),
+        "all_recipes_user": all_recipes_user,
         "user": user
     }
     return render(request, 'users/personal_account.html', context)

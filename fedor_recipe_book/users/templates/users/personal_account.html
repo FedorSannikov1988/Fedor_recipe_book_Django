@@ -159,7 +159,9 @@
                     </form>
                 </div>
 
-                <div class="content-for-personal_account__form_choose_recipe">
+                {% if all_recipes_user %}
+
+                    <div class="content-for-personal_account__form_choose_recipe">
 
                     <p class="content-for-personal_account__form_choose_recipe__title">
                         Редактировать или удалить рецепт
@@ -183,10 +185,37 @@
                                 Выполнить
                             </button>
                         </div>
+
                     </form>
 
                 </div>
 
+                    <div class="content-for-personal_account__form_choose_recipe">
+
+                        <p class="content-for-personal_account__form_choose_recipe__title">
+                            Cсылки на Ваши рецепты
+                        </p>
+
+                        <div class="content-for-personal_account__form_choose_recipe__choose_recipe__wrapper">
+
+                            <dl>
+                                {% for one_recipe_user in all_recipes_user %}
+
+                                    <a class="content-for-personal_account__form_choose_recipe__choose_recipe__link"
+                                       href="{% url 'recipe' one_recipe_user.id %}">
+
+                                        <dd> {{ one_recipe_user.title }} </dd>
+
+                                    </a>
+
+                                {% endfor %}
+                            </dl>
+
+                        </div>
+
+                    </div>
+
+                {% endif %}
             </div>
 
         </div>
