@@ -588,3 +588,19 @@ def editing_recipe(request, recipe_id: int):
     }
 
     return render(request, 'users/editing_recipe.html', context)
+
+
+def information_about_author(request, user_id: int):
+
+    user = \
+        get_object_or_404(Users, id=user_id)
+
+    all_recipes_user = \
+        Recipes.objects.filter(author=user).all()
+
+    context = {
+        "title": f"Книга Рецептов Федора - Информация о {user.email}",
+        "all_recipes_user": all_recipes_user,
+        "user": user
+    }
+    return render(request, 'users/information_about_author.html', context)

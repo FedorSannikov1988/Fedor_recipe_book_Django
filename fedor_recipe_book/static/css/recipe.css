@@ -61,6 +61,16 @@
     margin-bottom: 30px;
 }
 
+.content-for-recipe__text__author__link {
+    text-decoration: none;
+    color: inherit;
+    transition: 200ms;
+}
+
+.content-for-recipe__text__author__link:hover {
+    color: #7eb651;
+}
+
 .content-for-recipe__text__cooking_time_in_minutes {
     color: #000000;
     font-family: "Cousine-Regular";

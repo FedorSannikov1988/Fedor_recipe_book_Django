@@ -31,12 +31,17 @@
 
                     <div class="content-for-recipe__text">
 
-                        <span class="content-for-recipe__text__author">
+                        <p class="content-for-recipe__text__author">
                             <strong>
                                 Автор рецепта:
                             </strong>
-                            {{ recipe.author.email }}
-                        </span>
+
+                            <a class="content-for-recipe__text__author__link"
+                               href="{% url 'users:information_about_author' recipe.author.id %}">
+                                {{ recipe.author.email }}
+                            </a>
+
+                        </p>
 
                         <p class="content-for-recipe__text__cooking_time_in_minutes">
                             <strong>

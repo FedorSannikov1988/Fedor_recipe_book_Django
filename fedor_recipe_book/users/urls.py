@@ -6,7 +6,8 @@ from users.views import editing_recipe, \
                         account_activation, \
                         exit_personal_account, \
                         entering_new_password, \
-                        log_in_personal_account
+                        log_in_personal_account, \
+                        information_about_author
 
 
 app_name = 'users'
@@ -29,4 +30,6 @@ urlpatterns = [
          exit_personal_account, name='exit_personal_account'),
     path("editing_recipe/<int:recipe_id>/",
          editing_recipe, name='editing_recipe'),
+    path("information_about_author/<int:user_id>/",
+         information_about_author, name='information_about_author'),
 ]

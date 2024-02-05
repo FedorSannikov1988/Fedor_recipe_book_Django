@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+    <link href="{% static 'css/personal_account.css' %}" rel="stylesheet">
+    <link href="{% static 'css/information_about_author.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}
+    <title> {{ title }} </title>
+{% endblock %}
+
+{% block content %}
+
+    <section>
+
+        <div class="content-for-personal_account">
+
+            <h2 class="content-for-personal_account__title">
+                Информация о <br> {{ user.email }}
+            </h2>
+
+            <div class="wrapper-for-personal_account__img">
+                 <img class="content-for-personal_account__img"
+
+                      {% if user.image  %}
+
+                        src="{{ user.image.url }}"
+
+                      {% elif not user.image and request.user.gender == 'M' %}
+
+                        src="{% static 'pictures/no_photos_man.png' %}"
+
+                      {% elif not request.user.image and request.user.gender == 'F' %}
+
+                        src="{% static 'pictures/no_photos_woman.png' %}"
+
+                      {% endif %}
+
+                      alt="фотография пользователя {{ user.email }}">
+            </div>
+
+            <div class="content-for-personal_account__information_about_user" >
+
+                <div class="content-for-personal_account__personal_information" >
+
+                    <p class="content-for-personal_account__personal_information__title">
+                        Личная информация
+                    </p>
+
+                    <div>
+                        <label for="id_first_name">Имя:</label>
+                        <input type="text" value="{{ user.first_name }}"
+                               class="form_user_personal_account_сhange_user_information"
+                               placeholder="Не введено" maxlength="50" minlength="1"
+                               id="id_first_name" readonly>
+                    </div>
+
+                    <div>
+                        <label for="id_last_name">Фамилия:</label>
+                        <input type="text" value="{{ user.last_name }}"
+                               class="form_user_personal_account_сhange_user_information"
+                               placeholder="Не введена" maxlength="50" minlength="1"
+                               id="id_last_name" readonly>
+                    </div>
+
+                    <div>
+                        <label for="id_gender">Пол:</label>
+                        <input type="text"
+                               {% if user.gender == "M" %} value="Мужчина"
+                               {% elif user.gender == "F" %} value="Женщина"
+                               {% else %} value="Оно"
+                               {% endif %}
+                               class="form_user_personal_account_сhange_user_information"
+                               placeholder="?- оно -?" maxlength="50" minlength="1"
+                               id="id_gender" readonly>
+                    </div>
+
+                    <div>
+                        <label for="id_birthday">День рождения:</label>
+                        <input type="text"
+                               value=" {{ user.birthday }}"
+                               class="form_user_personal_account_сhange_user_information"
+                               placeholder="Бессмертный" maxlength="50" minlength="1"
+                               id="id_birthday" readonly>
+                    </div>
+
+                </div>
+
+                <div class="content-for-personal_account__сontact_information" >
+
+                    <p class="content-for-personal_account__сontact_information__title">
+                        Контактная информация
+                    </p>
+
+                    <div>
+                        <label for="id_email">Электронная почта:</label>
+                        <input type="text" name="email" value="{{ user.email }}"
+                               class="form_user_personal_account_сhange_user_information"
+                               placeholder="Электронная почта" maxlength="50" minlength="1"
+                               id="id_email" readonly>
+                    </div>
+
+                </div>
+
+                {% if all_recipes_user %}
+
+                    <div class="content-for-personal_account__form_choose_recipe">
+
+                        <p class="content-for-personal_account__form_choose_recipe__title">
+                            Рецепты пользователя
+                        </p>
+
+                        <div class="content-for-personal_account__form_choose_recipe__choose_recipe__wrapper">
+
+                            <dl>
+                                {% for one_recipe_user in all_recipes_user %}
+
+                                    <a class="content-for-personal_account__form_choose_recipe__choose_recipe__link"
+                                       href="{% url 'recipe' one_recipe_user.id %}">
+
+                                        <dd> {{ one_recipe_user.title }} </dd>
+
+                                    </a>
+
+                                {% endfor %}
+                            </dl>
+
+                        </div>
+
+                    </div>
+
+                {% endif %}
+            </div>
+
+        </div>
+
+    </section>
+
+{% endblock %}
