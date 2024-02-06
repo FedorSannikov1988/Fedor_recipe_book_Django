@@ -34,6 +34,10 @@
 
                         src="{% static 'pictures/no_photos_woman.png' %}"
 
+                      {% elif not user.image and user.is_superuser or user.is_staff %}
+
+                      src="{% static 'pictures/admin2.png' %}"
+
                       {% endif %}
 
                       alt="фотография пользователя {{ user.email }}">
