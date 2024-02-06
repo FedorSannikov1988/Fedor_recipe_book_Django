@@ -77,7 +77,7 @@
                         {% if recipe_categories_paginator.has_previous %}
 
                             <a class="content-for-index__paginator__switching_pages__links"
-                                   href="{% url 'recipe_categories__page_number' id_recipe_categories=1 page_number=recipe_categories_paginator.number|add:-1 %}">
+                                   href="{% url 'recipe_categories__page_number' id_recipe_categories=id_recipe_categories page_number=recipe_categories_paginator.number|add:-1 %}">
                                 <button class="content-for-index__paginator__switching_pages__links__button">
                                     <
                                 </button>

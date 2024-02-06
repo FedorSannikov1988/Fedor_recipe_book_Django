@@ -1,15 +1,22 @@
 from django import forms
+from django.db import OperationalError
 from recipe_book.models import RecipeCategories
 
 
 class AddOneRecipes(forms.Form):
 
+    try:
+        for_queryset = \
+            RecipeCategories.objects.all()
+
+    except OperationalError:
+        for_queryset = RecipeCategories.objects.none()
+
     recipe_categories = \
         forms.ModelChoiceField(
-                        initial=RecipeCategories.objects.get(title='Без категории'),
                         required=False,
                         label='Категория (не обязательное поле):',
-                        queryset=RecipeCategories.objects.all(),
+                        queryset=for_queryset,
                         empty_label='выберите категорию',
                         widget=forms.Select(
                             attrs={'class': 'form_add_one_recipes__drop-down_list'}),
@@ -79,10 +86,13 @@ class AddOneRecipes(forms.Form):
 
 class AddOneRecipesV2(forms.Form):
 
-    all_categories_recipes = RecipeCategories.objects.all()
+    try:
+        all_categories_recipes = RecipeCategories.objects.all()
 
-    all_categories_recipes_for_choices: list = \
-        [(one_categories.pk, one_categories.title) for one_categories in all_categories_recipes]
+        all_categories_recipes_for_choices: list = \
+            [(one_categories.pk, one_categories.title) for one_categories in all_categories_recipes]
+    except OperationalError:
+        all_categories_recipes_for_choices = []
 
     recipe_categories = forms.MultipleChoiceField(
                                                   required=False,

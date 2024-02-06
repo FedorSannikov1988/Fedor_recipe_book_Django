@@ -1,5 +1,6 @@
 import datetime
 from django import forms
+from django.db import OperationalError
 from recipe_book.models import Recipes, \
                                CommentsOnRecipe
 from users.models import Users
@@ -90,7 +91,7 @@ class UserRegistration(UserCreationForm):
         pattern = r'^[а-яА-ЯёЁ]+$'
         if not WorkingWithRegularExpressions.\
                 checking_string(string=first_name,
-                                pattern=pattern):
+                                pattern=pattern) and not first_name == "":
             message_error_for_user: str = \
                 "Имя может состоять только из букв " \
                 "русского алфавита (не какой латиницы " \
@@ -100,10 +101,11 @@ class UserRegistration(UserCreationForm):
 
     def clean_last_name(self):
         last_name = self.cleaned_data.get('last_name')
+
         pattern = r'^[а-яА-ЯёЁ]+$'
         if not WorkingWithRegularExpressions.\
                 checking_string(string=last_name,
-                                pattern=pattern):
+                                pattern=pattern) and not last_name == "":
             message_error_for_user: str = \
                 "Фамилия может состоять только из букв " \
                 "русского алфавита (не какой латиницы " \
@@ -293,7 +295,7 @@ class ChangeUserInformation(forms.Form):
             message_error_for_user: str = \
                 "Имя может состоять только из букв " \
                 "русского алфавита (не какой латиницы " \
-                "цифр или пробелов)."
+                "цифр или пробелов между буквами)."
             raise forms.ValidationError(message_error_for_user)
         return first_name
 
@@ -306,7 +308,7 @@ class ChangeUserInformation(forms.Form):
             message_error_for_user: str = \
                 "Фамилия может состоять только из букв " \
                 "русского алфавита (не какой латиницы " \
-                "цифр или пробелов)."
+                "цифр или пробелов между буквами)."
             raise forms.ValidationError(message_error_for_user)
         return last_name
 
@@ -372,11 +374,18 @@ class ChooseRecipe(forms.Form):
     def get_choices(email_user: str) -> list:
 
         if email_user:
-            user = Users.objects.get(email=email_user)
 
-            recipes_user = Recipes.objects.filter(author=user).all()
+            try:
+                user = Users.objects.get(email=email_user)
 
-            return [(one_recipe.pk, one_recipe.title) for one_recipe in recipes_user]
+                recipes_user = Recipes.objects.filter(author=user).all()
+
+                result = [(one_recipe.pk, one_recipe.title) for one_recipe in recipes_user]
+
+            except OperationalError:
+                result = []
+
+            return result
         else:
             return []
 
@@ -414,20 +423,29 @@ class ChooseComment(forms.Form):
     def get_choices(email_user: str) -> list:
 
         if email_user:
-            user = Users.objects.get(email=email_user)
 
-            comments_user = CommentsOnRecipe.objects.filter(author=user).all()
+            try:
+                user = Users.objects.get(email=email_user)
 
-            return [(one_comment_user.id, ChooseComment.generating_string(one_comment_user))
-                    for one_comment_user in comments_user]
+                comments_user = CommentsOnRecipe.objects.filter(author=user).all()
+
+                result =  \
+                    [(one_comment_user.id, ChooseComment.generating_string(one_comment_user))
+                     for one_comment_user in comments_user]
+
+            except OperationalError:
+                result = []
+
+            return result
         else:
             return []
 
     @staticmethod
     def generating_string(one_comment_user) -> str:
-        return str(one_comment_user.date_creation.strftime("%d.%m.%Y")) + " - " + \
-               str(one_comment_user.recipe.title) + " - " + \
-               str(one_comment_user.comment)[:30] + "..."
+        return "Рецепт: " + str(one_comment_user.recipe.title) + " - " + \
+               "Создан: " + str(one_comment_user.date_creation.strftime("%d.%m.%Y")) + " - " + \
+               "Изминен: " + str(one_comment_user.date_change.strftime("%d.%m.%Y")) + " - " + \
+               "Комментарий: " + str(one_comment_user.comment)
 
     ACTION = [
         ('go_over_comment', 'Перейти'),
