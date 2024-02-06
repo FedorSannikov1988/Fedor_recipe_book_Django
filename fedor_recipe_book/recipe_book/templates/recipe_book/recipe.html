@@ -21,6 +21,8 @@
 
                 <div class="content-for-recipe__all_recipe">
 
+                <div>
+
                     <img class="content-for-recipe__img"
                               {% if recipe.image %}
                          src="{{ recipe.image.url }}"
@@ -28,6 +30,23 @@
                          src="{% static 'pictures/no_picture_for_recipe.png' %}"
                               {% endif %}
                          alt="{{ recipe.title }}">
+
+                    <div class="content-for-recipe_categories">
+                        Категории: &nbsp;&nbsp;&nbsp;&nbsp;
+                        {% for one_recipe_categories in recipe_categories %}
+
+                            <a class="content-for-recipe_categories__link"
+                                    href="{% url 'recipe_categories' one_recipe_categories.id %}">
+                            <button class="content-for-recipe_categories__button">
+                                {{ one_recipe_categories.title }}
+                            </button>
+
+                            </a> &nbsp;&nbsp;
+
+                        {% endfor %}
+                    </div>
+
+                </div>
 
                     <div class="content-for-recipe__text">
 

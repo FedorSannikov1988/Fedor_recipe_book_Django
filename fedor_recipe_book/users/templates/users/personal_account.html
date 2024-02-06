@@ -26,11 +26,11 @@
 
                         src="{{ user.image.url }}"
 
-                      {% elif not user.image and request.user.gender == 'M' %}
+                      {% elif not user.image and user.gender == 'M' %}
 
                         src="{% static 'pictures/no_photos_man.png' %}"
 
-                      {% elif not request.user.image and request.user.gender == 'F' %}
+                      {% elif not user.image and user.gender == 'F' %}
 
                         src="{% static 'pictures/no_photos_woman.png' %}"
 

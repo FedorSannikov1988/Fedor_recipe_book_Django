@@ -84,7 +84,6 @@ def user_registration(request):
         "title": f"Книга Рецептов Федора - Регистрация Пользователя",
         "form": form
     }
-
     return render(request, 'users/user_registration.html', context)
 
 
@@ -662,7 +661,6 @@ def editing_recipe_v2(request, recipe_id: int):
         "recipe_id": recipe_id,
         "form": form
     }
-
     return render(request, 'users/editing_recipe_v2.html', context)
 
 
@@ -717,5 +715,4 @@ def editing_comment(request, comment_id: int):
         "comment_id": comment_id,
         "form": form
     }
-
     return render(request, 'users/editing_comment.html', context)

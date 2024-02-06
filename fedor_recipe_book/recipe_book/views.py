@@ -69,7 +69,8 @@ def recipe(request, id_recipe: int):
     desired_recipe = \
         get_object_or_404(Recipes, id=id_recipe)
 
-    #RecipeCategories.objects.all()
+    recipe_categories = \
+        RecipeCategories.objects.filter(recipes=desired_recipe).all()
 
     description = preparing_text(text=
                                  desired_recipe.description)
@@ -124,6 +125,7 @@ def recipe(request, id_recipe: int):
         "cooking_steps": cooking_steps,
         "products": products,
         "comments_on_recipe": comments_on_recipe,
+        "recipe_categories": recipe_categories,
         "form": form
     }
     return render(request, 'recipe_book/recipe.html', context)
