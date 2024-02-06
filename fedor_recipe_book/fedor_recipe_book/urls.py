@@ -21,7 +21,6 @@ from django.conf.urls.static import static
 from recipe_book.views import index, \
                               recipe, \
                               contacts, \
-                              add_recipe, \
                               add_recipe_v2, \
                               recipe_search, \
                               recipe_categories
@@ -51,9 +50,6 @@ urlpatterns = [
 
     path('users/', include('users.urls', namespace='users')),
 
-    #I made two versions on purpose:
-    #path('add_recipe/', add_recipe, name='add_recipe'),
-    #I'm using version #2:
     path('add_recipe_v2/', add_recipe_v2, name='add_recipe_v2'),
 ]
 

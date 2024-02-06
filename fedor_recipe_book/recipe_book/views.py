@@ -1,15 +1,13 @@
 import random
 from users.models import Users
-from django.core.paginator import Paginator
-from recipe_book.forms import AddOneRecipes, \
-                              AddOneRecipesV2, \
-                              AddOneCommentOnRecipe
-from django.utils.safestring import mark_safe
-from django.contrib.messages import error, \
-                                    success
 from recipe_book.models import Recipes, \
                                RecipeCategories, \
                                CommentsOnRecipe
+from django.contrib.messages import error
+from django.core.paginator import Paginator
+from recipe_book.forms import AddOneRecipesV2, \
+                              AddOneCommentOnRecipe
+from django.utils.safestring import mark_safe
 from django.shortcuts import render, \
                              redirect, \
                              get_object_or_404
@@ -70,6 +68,8 @@ def recipe(request, id_recipe: int):
 
     desired_recipe = \
         get_object_or_404(Recipes, id=id_recipe)
+
+    #RecipeCategories.objects.all()
 
     description = preparing_text(text=
                                  desired_recipe.description)
@@ -216,71 +216,6 @@ def recipe_search(request,
     return render(request, 'recipe_book/recipe_search.html', context)
 
 
-def add_recipe(request):
-
-    if not request.user.is_authenticated:
-
-        message_error_for_user: str = \
-            "Оставить рецепт может только авторизованный, " \
-            "а значит зарегестрированный пользователь."
-        error(request, message_error_for_user)
-
-        return redirect('users:log_in_personal_account')
-
-    if request.method == 'POST':
-
-        form = AddOneRecipes(request.POST, request.FILES)
-
-        if form.is_valid():
-
-            title = form.cleaned_data["title"]
-            description = form.cleaned_data["description"]
-            cooking_steps = form.cleaned_data["cooking_steps"]
-            products = form.cleaned_data["products"]
-            cooking_time_in_minutes = form.cleaned_data["cooking_time_in_minutes"]
-
-            author = Users.objects.get(email=request.user.email)
-
-            recipe = Recipes(title=title,
-                             author=author,
-                             products=products,
-                             description=description,
-                             cooking_steps=cooking_steps,
-                             cooking_time_in_minutes=
-                             cooking_time_in_minutes)
-
-            recipe.save()
-
-            if 'image' in request.FILES:
-                image_file = request.FILES['image']
-                recipe.image.save(image_file.name, image_file)
-
-            recipe_categories = \
-                form.cleaned_data["recipe_categories"]
-
-            if recipe_categories:
-                recipe_category = \
-                    RecipeCategories.objects.get(title=recipe_categories)
-            else:
-                recipe_category = \
-                    RecipeCategories.objects.get(title='Без категории')
-
-            recipe_category.recipes.add(recipe)
-
-            form = AddOneRecipes()
-
-    else:
-
-        form = AddOneRecipes()
-
-    context = {
-        "title": f"Книга Рецептов Федора - Добавить рецепт",
-        "form": form
-    }
-
-    return render(request, 'recipe_book/add_recipe.html', context)
-
-
 def add_recipe_v2(request):
 
     if not request.user.is_authenticated:
@@ -295,6 +230,7 @@ def add_recipe_v2(request):
     if request.method == 'POST':
 
         form = AddOneRecipesV2(request.POST, request.FILES)
+        form.update_recipe_categories_choices()
 
         if form.is_valid():
 
@@ -325,15 +261,10 @@ def add_recipe_v2(request):
 
             lisl_recipe_categories: list = []
 
-            if recipe_categories:
-                for one_recipe_categories in recipe_categories:
-                    lisl_recipe_categories.append(
-                        RecipeCategories.objects.get(id=
-                                                     int(one_recipe_categories))
-                    )
-            else:
+            for one_recipe_categories in recipe_categories:
                 lisl_recipe_categories.append(
-                    RecipeCategories.objects.get(title='Без категории')
+                    RecipeCategories.objects.get(id=
+                                                 int(one_recipe_categories))
                 )
 
             for one_recipe_categories in lisl_recipe_categories:
@@ -344,6 +275,7 @@ def add_recipe_v2(request):
     else:
 
         form = AddOneRecipesV2()
+        form.update_recipe_categories_choices()
 
     context = {
         "title": f"Книга Рецептов Федора - Добавить рецепт",

@@ -334,6 +334,7 @@ fieldset {
     background-color: #FFFFFF;
 
     text-align: justify;
+    word-break: break-all;
 }
 
 .content-for-personal_account__form_choose_recipe__select_an_action {

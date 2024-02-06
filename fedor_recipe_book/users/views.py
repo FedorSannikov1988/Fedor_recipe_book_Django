@@ -25,8 +25,7 @@ from django.contrib.auth import login, \
                                 logout, \
                                 authenticate, \
                                 update_session_auth_hash
-from recipe_book.forms import AddOneRecipes, \
-                              AddOneRecipesV2, \
+from recipe_book.forms import AddOneRecipesV2, \
                               AddOneCommentOnRecipe
 from fedor_recipe_book.utilities import WorkingWithToken, \
                                         WorkingWithFiles, \
@@ -596,76 +595,6 @@ def exit_personal_account(request):
 
 
 @login_required
-def editing_recipe(request, recipe_id: int):
-
-    recipe = \
-        get_object_or_404(Recipes, id=recipe_id)
-
-    categories_recipe = \
-        RecipeCategories.objects.filter(recipes=recipe).first()
-
-    if request.method == 'POST':
-
-        form = \
-            AddOneRecipes(request.POST, request.FILES)
-
-        if form.is_valid():
-
-            recipe.title = form.cleaned_data["title"]
-            recipe.description = form.cleaned_data["description"]
-            recipe.cooking_steps = form.cleaned_data["cooking_steps"]
-            recipe.products = form.cleaned_data["products"]
-            recipe.cooking_time_in_minutes = form.cleaned_data["cooking_time_in_minutes"]
-
-            recipe.save()
-
-            if 'image' in request.FILES:
-                image_file = request.FILES['image']
-
-                if recipe.image:
-                    WorkingWithFiles(path_to_file=
-                                     recipe.image.path).delete_file()
-
-                recipe.image.save(image_file.name, image_file)
-
-            categories_recipe.recipes.remove(recipe)
-
-            recipe_categories = \
-                form.cleaned_data["recipe_categories"]
-
-            if recipe_categories:
-                categories_recipe = \
-                    RecipeCategories.objects.get(title=recipe_categories)
-            else:
-                categories_recipe = \
-                    RecipeCategories.objects.get(title='Без категории')
-
-            categories_recipe.recipes.add(recipe)
-
-            return redirect('users:personal_account')
-
-    else:
-
-        form = AddOneRecipes(
-            initial={
-                'recipe_categories': categories_recipe,
-                'title': recipe.title,
-                'description': recipe.description,
-                'cooking_steps': recipe.cooking_steps,
-                'products': recipe.products,
-                'cooking_time_in_minutes': recipe.cooking_time_in_minutes,
-            })
-
-    context = {
-        "title": "Книга Рецептов Федора - Личный кабинет - Редактирование рецепта",
-        "recipe_id": recipe_id,
-        "form": form
-    }
-
-    return render(request, 'users/editing_recipe.html', context)
-
-
-@login_required
 def editing_recipe_v2(request, recipe_id: int):
 
     recipe = \
@@ -706,16 +635,10 @@ def editing_recipe_v2(request, recipe_id: int):
 
             lisl_recipe_categories: list = []
 
-            if received_recipe_categories:
-                for one_recipe_categories in received_recipe_categories:
-                    lisl_recipe_categories.append(
-                        RecipeCategories.objects.get(id=
-                                                     int(one_recipe_categories))
-                    )
-            else:
+            for one_recipe_categories in received_recipe_categories:
                 lisl_recipe_categories.append(
-                    RecipeCategories.objects.get(title=
-                                                 'Без категории')
+                    RecipeCategories.objects.get(id=
+                                                 int(one_recipe_categories))
                 )
 
             for one_recipe_categories in lisl_recipe_categories:

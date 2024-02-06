@@ -1,6 +1,5 @@
 from django.urls import path
-from users.views import editing_recipe, \
-                        editing_recipe_v2, \
+from users.views import editing_recipe_v2, \
                         editing_comment, \
                         forgot_password, \
                         personal_account, \
@@ -30,14 +29,8 @@ urlpatterns = [
          personal_account, name='personal_account'),
     path("exit_personal_account/",
          exit_personal_account, name='exit_personal_account'),
-
-    #I made two versions on purpose:
-    #path("editing_recipe/<int:recipe_id>/",
-    #     editing_recipe, name='editing_recipe'),
-    #I'm using version #2:
     path("editing_recipe_v2/<int:recipe_id>/",
          editing_recipe_v2, name='editing_recipe_v2'),
-
     path("information_about_author/<int:user_id>/",
          information_about_author, name='information_about_author'),
     path("editing_comment/<int:comment_id>/",
