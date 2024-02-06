@@ -381,8 +381,9 @@ class ChooseRecipe(forms.Form):
             return []
 
     ACTION = [
-        ('delete_recipe', 'Удалить'),
+        ('go_over_recipe', 'Перейти'),
         ('change_recipe', 'Изменить'),
+        ('delete_recipe', 'Удалить'),
     ]
 
     select_an_action_for_recipe = \
@@ -429,8 +430,9 @@ class ChooseComment(forms.Form):
                str(one_comment_user.comment)[:30] + "..."
 
     ACTION = [
-        ('delete_comment', 'Удалить'),
+        ('go_over_comment', 'Перейти'),
         ('change_comment', 'Изменить'),
+        ('delete_comment', 'Удалить'),
     ]
 
     select_an_action_for_comment = \

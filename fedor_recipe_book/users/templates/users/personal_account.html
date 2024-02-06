@@ -157,21 +157,18 @@
                                 Удалить
                             </button>
                     </form>
-                </div>
 
-                {% if all_recipes_user %}
+                </div>
 
                     <div class="content-for-personal_account__form_choose_recipe">
 
                         <p class="content-for-personal_account__form_choose_recipe__title">
-                            Редактировать или удалить рецепт
+                            Ваши рецепты
                         </p>
 
                         <form action="{% url 'users:personal_account' %}" method="post">
 
                             {% csrf_token %}
-
-                            <p>{{ form_choose_recipe.choose_recipe.label }}</p>
 
                             <div class="content-for-personal_account__form_choose_recipe__choose_recipe__wrapper">
                                 {{ form_choose_recipe.choose_recipe }}
@@ -192,60 +189,30 @@
 
                     <div class="content-for-personal_account__form_choose_recipe">
 
-                        <p class="content-for-personal_account__form_choose_recipe__title">
-                            Cсылки на Ваши рецепты
-                        </p>
+                            <p class="content-for-personal_account__form_choose_recipe__title">
+                                Ваши комментарий
+                            </p>
 
-                        <div class="content-for-personal_account__form_choose_recipe__choose_recipe__wrapper">
+                            <form action="{% url 'users:personal_account' %}" method="post">
 
-                            <dl>
-                                {% for one_recipe_user in all_recipes_user %}
+                                {% csrf_token %}
 
-                                    <a class="content-for-personal_account__form_choose_recipe__choose_recipe__link"
-                                       href="{% url 'recipe' one_recipe_user.id %}">
+                                <div class="content-for-personal_account__form_choose_recipe__choose_recipe__wrapper">
+                                    {{ form_choose_comment.choose_comment }}
+                                </div>
 
-                                        <dd> {{ one_recipe_user.title }} </dd>
+                                  {{ form_choose_comment.select_an_action_for_comment }}
 
-                                    </a>
+                                <div class="content-for-personal_account__form_choose_recipe__button_submit__wrapper">
+                                    <button class="content-for-personal_account__form_choose_recipe__button_submit"
+                                            type="submit">
+                                        Выполнить
+                                    </button>
+                                </div>
 
-                                {% endfor %}
-                            </dl>
-
-                        </div>
+                            </form>
 
                     </div>
-
-                {% endif %}
-
-
-                <div class="content-for-personal_account__form_choose_recipe">
-
-                        <p class="content-for-personal_account__form_choose_recipe__title">
-                            Редактировать или удалить комментарий
-                        </p>
-
-                        <form action="{% url 'users:personal_account' %}" method="post">
-
-                            {% csrf_token %}
-
-                            <p>{{ form_choose_comment.choose_comment.label }}</p>
-
-                            <div class="content-for-personal_account__form_choose_recipe__choose_recipe__wrapper">
-                                {{ form_choose_comment.choose_comment }}
-                            </div>
-
-                              {{ form_choose_comment.select_an_action_for_comment }}
-
-                            <div class="content-for-personal_account__form_choose_recipe__button_submit__wrapper">
-                                <button class="content-for-personal_account__form_choose_recipe__button_submit"
-                                        type="submit">
-                                    Выполнить
-                                </button>
-                            </div>
-
-                        </form>
-
-                </div>
 
             </div>
 

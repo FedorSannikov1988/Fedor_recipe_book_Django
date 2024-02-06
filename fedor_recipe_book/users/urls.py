@@ -1,6 +1,7 @@
 from django.urls import path
 from users.views import editing_recipe, \
                         editing_recipe_v2, \
+                        editing_comment, \
                         forgot_password, \
                         personal_account, \
                         user_registration, \
@@ -39,4 +40,6 @@ urlpatterns = [
 
     path("information_about_author/<int:user_id>/",
          information_about_author, name='information_about_author'),
+    path("editing_comment/<int:comment_id>/",
+         editing_comment, name='editing_comment'),
 ]

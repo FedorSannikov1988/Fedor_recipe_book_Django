@@ -130,6 +130,44 @@
                     </div>
 
                 {% endif %}
+
+                {% if all_comments_user %}
+
+                    <div class="content-for-personal_account__form_choose_recipe">
+
+                        <p class="content-for-personal_account__form_choose_recipe__title">
+                            Комментарии пользователя
+                        </p>
+
+                        <div class="content-for-personal_account__form_choose_recipe__choose_recipe__wrapper">
+
+                            <dl>
+                                {% for one_comments_user in all_comments_user %}
+
+                                    <a class="content-for-personal_account__form_choose_recipe__choose_recipe__link"
+                                       href="{% url 'recipe' one_comments_user.recipe.id %}#id_comment_{{ one_comments_user.id }}">
+
+                                        <dd>
+
+                                            <strong>Рецепт:</strong> {{ one_comments_user.recipe.title }} <br>
+                                            <strong>Создан:</strong> {{ one_comments_user.date_creation }} <br>
+                                            <strong>Изминен:</strong> {{ one_comments_user.date_change }} <br>
+                                            <strong>Комментарий:</strong>
+                                            <p style="word-break: break-all;">{{ one_comments_user.comment }}</p><br><br>
+
+                                        </dd>
+
+                                    </a>
+
+                                {% endfor %}
+                            </dl>
+
+                        </div>
+
+                    </div>
+
+                {% endif %}
+
             </div>
 
         </div>
