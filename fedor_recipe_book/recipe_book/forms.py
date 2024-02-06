@@ -6,8 +6,7 @@ from recipe_book.models import RecipeCategories
 class AddOneRecipes(forms.Form):
 
     try:
-        for_queryset = \
-            RecipeCategories.objects.all()
+        for_queryset = RecipeCategories.objects.all()
 
     except OperationalError:
         for_queryset = RecipeCategories.objects.none()
