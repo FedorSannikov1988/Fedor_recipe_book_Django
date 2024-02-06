@@ -32,8 +32,8 @@ urlpatterns = [
          exit_personal_account, name='exit_personal_account'),
 
     #I made two versions on purpose:
-    path("editing_recipe/<int:recipe_id>/",
-         editing_recipe, name='editing_recipe'),
+    #path("editing_recipe/<int:recipe_id>/",
+    #     editing_recipe, name='editing_recipe'),
     #I'm using version #2:
     path("editing_recipe_v2/<int:recipe_id>/",
          editing_recipe_v2, name='editing_recipe_v2'),

@@ -52,7 +52,7 @@ urlpatterns = [
     path('users/', include('users.urls', namespace='users')),
 
     #I made two versions on purpose:
-    path('add_recipe/', add_recipe, name='add_recipe'),
+    #path('add_recipe/', add_recipe, name='add_recipe'),
     #I'm using version #2:
     path('add_recipe_v2/', add_recipe_v2, name='add_recipe_v2'),
 ]
