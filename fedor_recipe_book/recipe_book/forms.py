@@ -1,5 +1,6 @@
 from django import forms
 from django.db import OperationalError
+from django.db.utils import DatabaseError
 from recipe_book.models import RecipeCategories
 
 
@@ -10,7 +11,10 @@ class AddOneRecipesV2(forms.Form):
 
         all_categories_recipes_for_choices: list = \
             [(one_categories.pk, one_categories.title) for one_categories in all_categories_recipes]
-    except OperationalError:
+
+    #except DatabaseError:
+    except:
+
         all_categories_recipes_for_choices = []
 
     recipe_categories = forms.MultipleChoiceField(
