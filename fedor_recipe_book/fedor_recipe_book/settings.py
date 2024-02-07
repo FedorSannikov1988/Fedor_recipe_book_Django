@@ -36,6 +36,10 @@ ALLOWED_HOSTS = [
     '192.168.0.239',
 ]
 
+# INTERNAL_IPS = [
+#     '127.0.0.1',
+# ]
+
 #Email
 
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
@@ -62,9 +66,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'recipe_book',
     'users',
+    #'debug_toolbar',
 ]
 
 MIDDLEWARE = [
+    #'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -96,7 +102,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'fedor_recipe_book.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
@@ -106,7 +111,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

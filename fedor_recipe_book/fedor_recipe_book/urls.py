@@ -51,6 +51,7 @@ urlpatterns = [
     path('users/', include('users.urls', namespace='users')),
 
     path('add_recipe_v2/', add_recipe_v2, name='add_recipe_v2'),
+    #path('__debug__/', include("debug_toolbar.urls")),
 ]
 
 
