@@ -49,6 +49,7 @@ def user_registration(request):
                 form.save()
 
                 new_user = Users.objects.get(email=email)
+                new_user.username = email.split('@')[0]
                 new_user.is_active = False
                 new_user.save()
 
@@ -666,8 +667,7 @@ def editing_recipe_v2(request, recipe_id: int):
 
 def information_about_author(request, user_id: int):
 
-    user = \
-        get_object_or_404(Users, id=user_id)
+    user = get_object_or_404(Users, id=user_id)
 
     all_recipes_user = \
         Recipes.objects.filter(author=user).all()

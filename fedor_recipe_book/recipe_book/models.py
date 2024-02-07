@@ -22,6 +22,10 @@ class Recipes(models.Model):
                f'author: {self.author.email}' \
                f' )'
 
+    class Meta:
+        verbose_name_plural = "Рецепты"
+        verbose_name = "рецепт"
+
 
 class RecipeCategories(models.Model):
     title = models.CharField(validators=[MinLengthValidator(3)], max_length=100, unique=True)
@@ -29,6 +33,10 @@ class RecipeCategories(models.Model):
 
     def __str__(self):
         return f'{self.title}'
+
+    class Meta:
+        verbose_name_plural = "Категории рецептов"
+        verbose_name = "категории рецептов"
 
 
 class CommentsOnRecipe(models.Model):
@@ -39,4 +47,8 @@ class CommentsOnRecipe(models.Model):
     date_change = models.DateField(auto_now_add=True)
 
     def __str__(self):
-        return f'{self.comment} '
+        return f'{self.comment}'
+
+    class Meta:
+        verbose_name_plural = "Комментарии к рецептам"
+        verbose_name = "комментарии к рецептам"

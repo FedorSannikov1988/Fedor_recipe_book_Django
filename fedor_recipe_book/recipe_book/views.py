@@ -1,5 +1,6 @@
 import random
 from users.models import Users
+from django.conf import settings
 from recipe_book.models import Recipes, \
                                RecipeCategories, \
                                CommentsOnRecipe
@@ -13,8 +14,11 @@ from django.shortcuts import render, \
                              get_object_or_404
 
 
-NUMBER_CARDS_PER_PAGE: int = 6
-NUMBER_RECIPES_ON_MAIN_PAGE: int = 5
+NUMBER_CARDS_PER_PAGE = \
+    settings.NUMBER_CARDS_PER_PAGE
+
+NUMBER_RECIPES_ON_MAIN_PAGE = \
+    settings.NUMBER_RECIPES_ON_MAIN_PAGE
 
 
 def index(request):

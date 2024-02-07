@@ -18,7 +18,6 @@ load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -139,6 +138,11 @@ USE_I18N = True
 
 USE_TZ = True
 
+# Main page
+
+NUMBER_CARDS_PER_PAGE: int = 6
+
+NUMBER_RECIPES_ON_MAIN_PAGE: int = 5
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
@@ -175,6 +179,7 @@ DURATION_PASSWORD_RECOVERY_LINK_MINUTES: int = 60
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# LOG
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
