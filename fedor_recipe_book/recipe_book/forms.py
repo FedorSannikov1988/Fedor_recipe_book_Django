@@ -12,9 +12,9 @@ class AddOneRecipesV2(forms.Form):
         all_categories_recipes_for_choices: list = \
             [(one_categories.pk, one_categories.title) for one_categories in all_categories_recipes]
 
-    #except DatabaseError:
+    except DatabaseError or OperationalError:
+        all_categories_recipes_for_choices = []
     except:
-
         all_categories_recipes_for_choices = []
 
     recipe_categories = forms.MultipleChoiceField(
