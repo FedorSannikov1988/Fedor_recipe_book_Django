@@ -1,0 +1,10 @@
+asgiref==3.7.2
+Django==4.2.2
+django-debug-toolbar==4.3.0
+pillow==10.2.0
+PyJWT==2.8.0
+python-dotenv==1.0.0
+sqlparse==0.4.4
+typing_extensions==4.9.0
+tzdata==2023.4
+mysqlclient
