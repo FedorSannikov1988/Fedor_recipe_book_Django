@@ -27,4 +27,4 @@ ARG DJANGO_PORT
 EXPOSE $DJANGO_PORT
 
 # Define the command to run the Django application
-CMD ["./.venv/bin/python", "manage.py", "runserver", "0.0.0.0:$DJANGO_PORT"]
+CMD ["manage.py", "runserver", "0.0.0.0:$DJANGO_PORT"]
