@@ -7,4 +7,4 @@ python-dotenv
 sqlparse
 typing_extensions
 tzdata
-mysqlclient
+

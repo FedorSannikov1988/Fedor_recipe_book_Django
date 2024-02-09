@@ -3,6 +3,7 @@ version: '3.9'
 services:
   web:
     build:
+      context: ./Docker/app
       dockerfile: Dockerfile
     env_file: .env
     volumes:
