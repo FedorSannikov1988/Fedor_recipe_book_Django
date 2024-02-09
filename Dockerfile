@@ -16,8 +16,9 @@ RUN apt-get update && apt-get install -y pkg-config
 RUN apt-get install -y python3 python3-pip python3-venv libmariadb-dev-compat gcc && \
     rm -rf /var/lib/apt/lists/*
 RUN python -m venv .venv
-RUN .venv/bin/pip install --upgrade pip
-RUN .venv/bin/pip install -r requirements.txt
+# RUN .venv/bin/pip install --upgrade pip
+# RUN .venv/bin/pip install -r requirements.txt
+RUN pip install -r requirements.txt
 
 # Copy the project files into the container at /app
 COPY fedor_recipe_book/ /app/fedor_recipe_book
