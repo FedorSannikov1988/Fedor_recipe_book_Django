@@ -12,9 +12,6 @@ read DJANGO_PORT
 echo "Введите список разрешенных хостов (через запятую):"
 read ALLOWED_HOSTS
 
-echo "Хотите выключить режим отладки Django? (yes/no)"
-read DEBUG_MODE
-
 echo "SECRET_KEY Django"
 read SECRET_KEY
 
