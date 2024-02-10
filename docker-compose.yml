@@ -11,7 +11,6 @@ services:
       - "${DJANGO_PORT}:${DJANGO_PORT}"
     depends_on:
       - db
-    command: python manage.py runserver $IP_ADDRESS:$DJANGO_PORT
     restart: always 
 
   db:
