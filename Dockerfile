@@ -28,4 +28,4 @@ ARG DJANGO_PORT
 EXPOSE $DJANGO_PORT
 
 # Define the command to run the Django application
-CMD ["python3", "/app/manage.py", "runserver", "$IP_ADDRESS:$DJANGO_PORT"]
+CMD ["python3", "app/manage.py", "runserver"]
