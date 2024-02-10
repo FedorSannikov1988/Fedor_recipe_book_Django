@@ -1,12 +1,12 @@
 #!/bin/bash
 
-echo "Введите имя контейнера:"
+echo "Имя контейнера:"
 read CONTAINER_NAME
 
-echo "Введите IP адрес сервера:"
+echo "IP адрес сервера:"
 read IP_ADDRESS
 
-echo "Введите порт для Django:"
+echo "Порт Django:"
 read DJANGO_PORT
 
 echo "Введите список разрешенных хостов (через запятую):"
@@ -15,34 +15,38 @@ read ALLOWED_HOSTS
 echo "Хотите выключить режим отладки Django? (yes/no)"
 read DEBUG_MODE
 
-echo "Секретный код Django"
+echo "SECRET_KEY Django"
 read SECRET_KEY
 
-echo "Пароль DB"
-read DB_PWD
+echo "EMAIL_HOST Django"
+read EMAIL_HOST
 
-echo "Имя пользователя от ящика gmail.com"
-read MAIL_NAME
+echo "EMAIL_PORT Django"
+read EMAIL_PORT
 
-echo "Пароль от почты"
-read MAIL_PWD
+echo "EMAIL_HOST_USER Django"
+read EMAIL_HOST_USER
 
-if [ "$DEBUG_MODE" == "yes" ]; then
-    DJANGO_DEBUG="False"
-else
-    DJANGO_DEBUG="True"
-fi
+echo "EMAIL_HOST_PASSWORD Django"
+read EMAIL_HOST_PASSWORD
+
+echo "MYSQL_PASSWORD Django"
+read MYSQL_PASSWORD
 
 cat <<EOF > .env
 CONTAINER_NAME=$CONTAINER_NAME
 IP_ADDRESS=$IP_ADDRESS
 DJANGO_PORT=$DJANGO_PORT
 ALLOWED_HOSTS=$ALLOWED_HOSTS
-DJANGO_DEBUG=$DJANGO_DEBUG
-DJANGO_SECRET_KEY=$SECRET_KEY
-EMAIL_HOST_USER=$MAIL_NAME
-EMAIL_HOST_PASSWORD=$MAIL_PWD
-MYSQL_PASSWORD=$DB_PWD
+
+SECRET_KEY=$SECRET_KEY
+
+EMAIL_HOST=$EMAIL_HOST
+EMAIL_PORT=$EMAIL_PORT
+EMAIL_HOST_USER=$EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD=$EMAIL_HOST_PASSWORD
+
+MYSQL_PASSWORD=$MYSQL_PASSWORD
 EOF
 
-echo ".env файл успешно создан."
+echo ".env создан."

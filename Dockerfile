@@ -23,9 +23,6 @@ RUN pip install -r requirements.txt
 # Copy the project files into the container at /app
 COPY ./fedor_recipe_book/. /app/.
 
-# Expose the port on which the Django app will run
-ARG DJANGO_PORT
-EXPOSE $DJANGO_PORT
-
-# Define the command to run the Django application
-CMD ["python3", "app/manage.py", "runserver"]
+ENV IP_ADDRESS=${IP_ADDRESS}
+ENV DJANGO_PORT=${DJANGO_PORT}
+CMD python3 manage.py runserver ${IP_ADDRESS}:${DJANGO_PORT}
