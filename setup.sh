@@ -1,16 +1,10 @@
 #!/bin/bash
 
-echo "Имя контейнера:"
-read CONTAINER_NAME
-
 echo "IP адрес сервера:"
 read IP_ADDRESS
 
 echo "Порт Django:"
 read DJANGO_PORT
-
-echo "Введите список разрешенных хостов (через запятую):"
-read ALLOWED_HOSTS
 
 echo "SECRET_KEY Django"
 read SECRET_KEY
@@ -31,18 +25,13 @@ echo "MYSQL_PASSWORD Django"
 read MYSQL_PASSWORD
 
 cat <<EOF > .env
-CONTAINER_NAME=$CONTAINER_NAME
 IP_ADDRESS=$IP_ADDRESS
 DJANGO_PORT=$DJANGO_PORT
-ALLOWED_HOSTS=$ALLOWED_HOSTS
-
 SECRET_KEY=$SECRET_KEY
-
 EMAIL_HOST=$EMAIL_HOST
 EMAIL_PORT=$EMAIL_PORT
 EMAIL_HOST_USER=$EMAIL_HOST_USER
 EMAIL_HOST_PASSWORD=$EMAIL_HOST_PASSWORD
-
 MYSQL_PASSWORD=$MYSQL_PASSWORD
 EOF
 

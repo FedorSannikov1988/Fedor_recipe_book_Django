@@ -9,11 +9,11 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 from pathlib import Path
 import os
 
-load_dotenv()
+#load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,7 +38,7 @@ DOMAIN_NAME = "https://fedor.smartsoltech.kr"
 ALLOWED_HOSTS = [
     '127.0.0.1',
     '192.168.0.239',
-    'fedor.smartsoltech.kr'
+    'fedor.smartsoltech.kr',
     # 'FedorSannikov1988.pythonanywhere.com'
 ]
 
@@ -49,17 +49,17 @@ ALLOWED_HOSTS = [
 #Email
 
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-
-EMAIL_HOST: str = os.getenv('EMAIL_HOST')
-
-EMAIL_PORT: int = int(os.getenv('EMAIL_PORT'))
-
-EMAIL_HOST_USER: str = os.getenv('EMAIL_HOST_USER')
-
-EMAIL_HOST_PASSWORD: str = os.getenv('EMAIL_HOST_PASSWORD')
-
-EMAIL_USE_TLS = True
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+#
+# EMAIL_HOST: str = os.getenv('EMAIL_HOST')
+#
+# EMAIL_PORT: int = int(os.getenv('EMAIL_PORT'))
+#
+# EMAIL_HOST_USER: str = os.getenv('EMAIL_HOST_USER')
+#
+# EMAIL_HOST_PASSWORD: str = os.getenv('EMAIL_HOST_PASSWORD')
+#
+# EMAIL_USE_TLS = True
 
 # Application definition
 
