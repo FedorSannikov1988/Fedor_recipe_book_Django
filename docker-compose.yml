@@ -28,7 +28,6 @@ services:
       - web  # Гарантирует, что NGINX подождет готовности сервиса web
     networks:
       - app_network
-      -
 networks:
   app_network:
     driver: bridge
