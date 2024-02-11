@@ -12,7 +12,7 @@ WORKDIR /app
 COPY . .
 
 RUN apt-get update && apt-get install -y pkg-config
-RUN apt-get install -y python3 python3-pip python3-venv libmariadb-dev-compat gcc --fix-missing && \
+RUN apt-get install -y python3 python3-pip python3-venv libmariadb-dev-compat gcc --fix-missing &&  \
     rm -rf /var/lib/apt/lists/*
 RUN python -m venv .venv
 RUN python3 -m pip install --upgrade pip && pip install -r requirements.txt
