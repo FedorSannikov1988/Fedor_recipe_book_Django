@@ -18,7 +18,7 @@ RUN apt-get install -y python3 python3-pip python3-venv libmariadb-dev-compat gc
 RUN python -m venv .venv
 #RUN apt-get install -y certbot
 RUN python3 -m pip install --upgrade pip && pip install -r requirements.txt
-RUN python3 /app/fedor_recipe_book/manage.py collectstatic
+RUN python3 /app/fedor_recipe_book/manage.py collectstatic --noinput
 RUN python3 /app/fedor_recipe_book/manage.py migrate
 RUN python3 /app/fedor_recipe_book/manage.py loaddata /app/fedor_recipe_book/recipe_book/fixtures/RecipeCategories.json
 #RUN certbot certonly --standalone --agree-tos --email testmailforflaskappsfa1988@gmail.com -d fedor.smartsoltech.kr
