@@ -31,7 +31,7 @@ SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
 # DOMAIN_NAME = "http://127.0.0.1:8000"
-DOMAIN_NAME = "http://fedor.smartsoltech.kr"
+DOMAIN_NAME = "https://fedor.smartsoltech.kr"
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
