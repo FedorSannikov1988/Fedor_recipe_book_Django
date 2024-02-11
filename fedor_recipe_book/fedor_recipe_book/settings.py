@@ -30,14 +30,15 @@ DEBUG = False
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
-DOMAIN_NAME = "https://fedorsannikov1988.pythonanywhere.com"
-#DOMAIN_NAME = "http://127.0.0.1:8000"
+# DOMAIN_NAME = "https://fedorsannikov1988.pythonanywhere.com"
+DOMAIN_NAME = "http://127.0.0.1:8000"
 
 #ALLOWED_HOSTS = []
 ALLOWED_HOSTS = [
     '127.0.0.1',
     '192.168.0.239',
     'FedorSannikov1988.pythonanywhere.com'
+    '0.0.0.0:8000'
 ]
 
 # INTERNAL_IPS = [
@@ -119,10 +120,10 @@ WSGI_APPLICATION = 'fedor_recipe_book.wsgi.application'
 DATABASES = {
    'default': {
        'ENGINE': 'django.db.backends.mysql',
-       'NAME': 'FedorSannikov198$default',
-       'USER': 'FedorSannikov198',
-       'PASSWORD': os.getenv('MYSQL_PASSWORD'),
-       'HOST': 'FedorSannikov1988.mysql.pythonanywhere-services.com',
+       'NAME': 'fedor',
+       'USER': 'root',
+       'PASSWORD': 'R0sebud',
+       'HOST': '137.184.183.254',
        'OPTIONS': {
            'init_command': "SET NAMES 'utf8mb4';SET sql_mode='STRICT_TRANS_TABLES'",
            'charset': 'utf8mb4',
