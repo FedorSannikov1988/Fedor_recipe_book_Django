@@ -23,4 +23,4 @@ RUN python3 /app/fedor_recipe_book/manage.py loaddata /app/fedor_recipe_book/rec
 ARG DJANGO_PORT
 EXPOSE $DJANGO_PORT
 
-CMD ["python3", "/app/fedor_recipe_book/manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["python3", "/app/fedor_recipe_book/manage.py", "runserver", "127.0.0.1:8000"]
