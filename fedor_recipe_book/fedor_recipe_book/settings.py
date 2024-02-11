@@ -30,16 +30,14 @@ DEBUG = False
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
-DOMAIN_NAME = "https://fedor.smartsoltech.kr"
-# DOMAIN_NAME = "https://fedorsannikov1988.pythonanywhere.com"
 # DOMAIN_NAME = "http://127.0.0.1:8000"
+DOMAIN_NAME = "https://fedor.smartsoltech.kr"
 
-# ALLOWED_HOSTS = []
 ALLOWED_HOSTS = [
     '127.0.0.1',
     '192.168.0.239',
+    '157.230.119.233',
     'fedor.smartsoltech.kr',
-    # 'FedorSannikov1988.pythonanywhere.com'
 ]
 
 # INTERNAL_IPS = [
@@ -49,17 +47,17 @@ ALLOWED_HOSTS = [
 #Email
 
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-#
-# EMAIL_HOST: str = os.getenv('EMAIL_HOST')
-#
-# EMAIL_PORT: int = int(os.getenv('EMAIL_PORT'))
-#
-# EMAIL_HOST_USER: str = os.getenv('EMAIL_HOST_USER')
-#
-# EMAIL_HOST_PASSWORD: str = os.getenv('EMAIL_HOST_PASSWORD')
-#
-# EMAIL_USE_TLS = True
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_HOST: str = os.getenv('EMAIL_HOST')
+
+EMAIL_PORT: int = int(os.getenv('EMAIL_PORT'))
+
+EMAIL_HOST_USER: str = os.getenv('EMAIL_HOST_USER')
+
+EMAIL_HOST_PASSWORD: str = os.getenv('EMAIL_HOST_PASSWORD')
+
+EMAIL_USE_TLS = True
 
 # Application definition
 
@@ -118,19 +116,19 @@ DATABASES = {
     }
 }
 
-# DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.mysql',
-#        'NAME': 'FedorSannikov198$default',
-#        'USER': 'FedorSannikov198',
-#        'PASSWORD': os.getenv('MYSQL_PASSWORD'),
-#        'HOST': 'FedorSannikov1988.mysql.pythonanywhere-services.com',
-#        'OPTIONS': {
-#            'init_command': "SET NAMES 'utf8mb4';SET sql_mode='STRICT_TRANS_TABLES'",
-#            'charset': 'utf8mb4',
-#        },
-#    }
-# }
+DATABASES = {
+   'default': {
+       'ENGINE': 'django.db.backends.mysql',
+       'NAME': 'fedor',
+       'USER': 'root',
+       'PASSWORD': 'R0sebud',
+       'HOST': '137.184.183.254',
+       'OPTIONS': {
+           'init_command': "SET NAMES 'utf8mb4';SET sql_mode='STRICT_TRANS_TABLES'",
+           'charset': 'utf8mb4',
+       },
+   }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -195,8 +193,6 @@ UPPER_AGE_YEARS: int = 100
 TIME_TO_ACTIVATE_ACCOUNT_HOURS: int = 24
 
 DURATION_PASSWORD_RECOVERY_LINK_MINUTES: int = 60
-
-#DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

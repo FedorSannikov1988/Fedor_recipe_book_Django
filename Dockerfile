@@ -9,25 +9,21 @@ ENV PYTHONUNBUFFERED 1
 WORKDIR /app
 
 # Copy the requirements file into the container at /app
-COPY requirements.txt .
+COPY . .
 
 # Install any needed packages specified in requirements.txt
 RUN apt-get update && apt-get install -y pkg-config
 RUN apt-get install -y python3 python3-pip python3-venv libmariadb-dev-compat gcc && \
     rm -rf /var/lib/apt/lists/*
 RUN python -m venv .venv
+
+RUN python3 -m pip install --update pip && pip install -r requirements.txt
+RUN python3 /app/fedor_recipe_book/manage.py migrate
+RUN python3 /app/fedor_recipe_book/manage.py loaddata /app/fedor_recipe_book/recipe_book/fixtures/RecipeCategories.json
+
+ARG DJANGO_PORT
+EXPOSE $DJANGO_PORT
+
 RUN pip install -r requirements.txt
 
-# Copy the project files into the container at /app
-COPY ./fedor_recipe_book/. /app/.
-
-ENV IP_ADDRESS=${IP_ADDRESS}
-ENV DJANGO_PORT=${DJANGO_PORT}
-ENV SECRET_KEY=${SECRET_KEY}
-ENV EMAIL_HOST=${EMAIL_HOST}
-ENV EMAIL_PORT=${EMAIL_PORT}
-ENV EMAIL_HOST_USER=${EMAIL_HOST_USER}
-ENV EMAIL_HOST_PASSWORD=${EMAIL_HOST_PASSWORD}
-ENV MYSQL_PASSWORD=${MYSQL_PASSWORD}
-
-CMD ["python3", "manage.py", "runserver"]
+CMD ["python3", "/app/fedor_recipe_book/manage.py", "runserver", "0.0.0.0:8000"]
