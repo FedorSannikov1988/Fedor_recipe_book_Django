@@ -19,11 +19,9 @@ RUN python3 -m pip install --upgrade pip && pip install -r requirements.txt
 RUN python3 /app/fedor_recipe_book/manage.py collectstatic --noinput
 RUN python3 /app/fedor_recipe_book/manage.py migrate
 RUN python3 /app/fedor_recipe_book/manage.py loaddata /app/fedor_recipe_book/recipe_book/fixtures/RecipeCategories.json
-RUN mkdir /app/fedor_recipe_book/media
-RUN mkdir /app/fedor_recipe_book/media/photos_cooked_recipes
-RUN mkdir /app/fedor_recipe_book/media/users_images
+RUN mkdir /app/fedor_recipe_book/media && mkdir /app/fedor_recipe_book/media/photos_cooked_recipes && mkdir /app/fedor_recipe_book/media/users_images
 
 ARG DJANGO_PORT
 EXPOSE $DJANGO_PORT
 
-CMD ["python3", "/app/fedor_recipe_book/manage.py", "runserver", "127.0.0.1:8000"]
+CMD ["python3", "/app/fedor_recipe_book/manage.py", "runserver", "0.0.0.0:8000"]

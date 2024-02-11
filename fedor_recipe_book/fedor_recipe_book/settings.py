@@ -34,7 +34,8 @@ CSRF_COOKIE_SECURE = True
 DOMAIN_NAME = "https://fedor.smartsoltech.kr"
 
 ALLOWED_HOSTS = [
-    '127.0.0.1'
+    '127.0.0.1',
+    'fedor.smartsoltech.kr',
 ]
 
 # INTERNAL_IPS = [
@@ -144,6 +145,7 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
