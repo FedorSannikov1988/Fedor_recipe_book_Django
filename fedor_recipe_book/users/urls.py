@@ -9,7 +9,8 @@ from users.views import editing_recipe_v2, \
                         entering_new_password, \
                         log_in_personal_account, \
                         information_about_author
-
+from django.conf import settings
+from django.conf.urls.static import static
 
 app_name = 'users'
 
@@ -35,4 +36,4 @@ urlpatterns = [
          information_about_author, name='information_about_author'),
     path("editing_comment/<int:comment_id>/",
          editing_comment, name='editing_comment'),
-]
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

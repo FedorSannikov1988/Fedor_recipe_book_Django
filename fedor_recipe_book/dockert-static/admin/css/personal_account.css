@@ -1,0 +1,423 @@
+.content-for-personal_account {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.content-for-personal_account__title {
+    color: #7eb651;
+    font-family: "Cousine-Bold";
+    font-size: 50px;
+    font-weight: 700;
+    line-height: normal;
+
+    margin-top: 50px;
+    margin-bottom: 50px;
+
+    word-break: break-all;
+    text-align: center;
+}
+
+.wrapper-for-personal_account__img {
+    border-radius: 50%;
+    border: 2px solid #000000;
+
+    overflow: hidden;
+    width: 350px;
+    height: 350px;
+
+    margin-bottom: 50px;
+}
+
+.content-for-personal_account__img {
+    width:100%;
+    height:100%;
+    object-fit: cover;
+}
+
+.content-for-personal_account__operations_with_photos {
+    display: flex;
+    margin-bottom: 25px;
+}
+
+.form_user_personal_account_upload_user_photo {
+    color: transparent;
+    width: 125px;
+}
+
+.form_user_personal_account_upload_user_photo::-webkit-file-upload-button {
+  visibility: hidden;
+}
+
+.form_user_personal_account_upload_user_photo::before {
+    font-family: "Cousine-Regular";
+    font-size: 12px;
+    font-weight: 400;
+    line-height: normal;
+
+    content: 'Выберите файл';
+    color: black;
+    display: inline-block;
+    background: -webkit-linear-gradient(top, #ffffff, #ffffff);
+    border: 1px solid #000000;
+    border-radius: 4px;
+    padding: 5px 8px;
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    cursor: pointer;
+}
+
+.form_user_personal_account_upload_user_photo:hover::before {
+    border-color: #7eb651;
+    background: -webkit-linear-gradient(top, #7eb651, #7eb651);
+    color: white;
+}
+
+.form_user_personal_account_upload_user_photo:active {
+    outline: 0;
+}
+
+.form_user_personal_account_upload_user_photo:active::before {
+    background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
+
+.form_user_personal_account_upload_user_photo__button {
+    color: black;
+    font-family: "Cousine-Regular";
+    font-size: 12px;
+    font-weight: 400;
+
+    background: white;
+    border: 1px solid #000000;
+    border-radius: 4px;
+    padding: 5px 8px;
+    cursor: pointer;
+}
+
+.form_user_personal_account_upload_user_photo__button_delete {
+    color: black;
+    font-family: "Cousine-Regular";
+    font-size: 12px;
+    font-weight: 400;
+
+    background: white;
+    border: 1px solid #000000;
+    border-radius: 4px;
+    padding: 5px 8px;
+    cursor: pointer;
+    margin-left: 20px;
+}
+
+.form_user_personal_account_upload_user_photo__button_delete:hover {
+    border-color: #e71313;
+    background: #e71313;
+    color: white;
+}
+
+.form_user_personal_account_upload_user_photo__button {
+    color: black;
+    font-family: "Cousine-Regular";
+    font-size: 12px;
+    font-weight: 400;
+
+    background: white;
+    border: 1px solid #000000;
+    border-radius: 4px;
+    padding: 5px 8px;
+    cursor: pointer;
+}
+
+.form_user_personal_account_upload_user_photo__button:hover {
+    border-color: #7eb651;
+    background: #7eb651;
+    color: white;
+}
+
+.content-for-personal_account__information_about_user {
+    color: #000000;
+    font-family: "Cousine-Regular";
+    font-size: 12px;
+    font-weight: 400;
+    line-height: normal;
+
+    display: grid;
+    grid-template-columns: repeat(2, 320px);
+    grid-column-gap: 25px;
+    grid-row-gap: 25px;
+
+    margin-top: 50px;
+    margin-bottom: 150px;
+}
+
+.content-for-personal_account__personal_information {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.content-for-personal_account__personal_information__title {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.form_user_personal_account_сhange_user_information {
+    display: block;
+    width: 300px;
+    height: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 15px;
+}
+
+fieldset {
+    margin-bottom: 15px;
+}
+
+.form_user_personal_account_сhange_user_information_birthday {
+    display: block;
+    width: 200px;
+    height: 30px;
+    padding-left: 110px;
+    padding-right: 10px;
+    margin-bottom: 15px;
+}
+
+.content-for-personal_account__personal_information__button_submit {
+    color: #000;
+
+    font-family: "Cousine-Regular";
+    font-size: 12px;
+    font-weight: 400;
+    line-height: normal;
+
+    width: 100px;
+    height: 20px;
+
+    background: #F8F8F8FF;
+    border: 1px solid #000000;
+    border-radius: 5px 5px 5px 5px;
+
+    cursor: pointer;
+
+    transition: 500ms;
+
+    margin-left: 110px;
+}
+
+.content-for-personal_account__personal_information__button_submit:hover {
+    color: white;
+    background: #7eb651;
+    border: none;
+}
+
+.content-for-personal_account__сontact_information {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.content-for-personal_account__сontact_information__title {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.content-for-personal_account__change_password {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.content-for-personal_account__change_password__title {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.form_user_personal_account_change_user_password {
+    display: block;
+    width: 300px;
+    height: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 15px;
+}
+
+.content-for-personal_account__change_password__button_submit {
+    color: #000;
+
+    font-family: "Cousine-Regular";
+    font-size: 12px;
+    font-weight: 400;
+    line-height: normal;
+
+    width: 100px;
+    height: 20px;
+
+    background: #F8F8F8FF;
+    border: 1px solid #000000;
+    border-radius: 5px 5px 5px 5px;
+
+    cursor: pointer;
+
+    transition: 500ms;
+
+    margin-left: 110px;
+}
+
+.content-for-personal_account__change_password__button_submit:hover {
+    color: white;
+    background: #7eb651;
+    border: none;
+}
+
+.content-for-personal_account__delete_an_account {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.content-for-personal_account__delete_an_account__title {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.content-for-personal_account__delete_an_account__button_submit {
+    color: #000;
+
+    width: 100px;
+    height: 20px;
+
+    background: #F8F8F8FF;
+    border: 1px solid #000000;
+    border-radius: 5px 5px 5px 5px;
+
+    cursor: pointer;
+
+    transition: 500ms;
+}
+
+.content-for-personal_account__delete_an_account__button_submit:hover {
+    color: white;
+    background: #e71313;
+    border: 1px solid #e71313;
+}
+
+.content-for-log_in_personal_account__alert_message {
+    width: 350px;
+    margin-bottom: 50px;
+    margin-top: 50px;
+}
+
+
+.content-for-personal_account__form_choose_recipe__title {
+    font-size: 16px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.content-for-personal_account__form_choose_recipe__choose_recipe__wrapper {
+    border: 1px solid #000000;
+    height: 200px;
+    overflow-y: scroll;
+    width: 292px;
+    padding: 15px;
+
+    color: #000000;
+
+    font-family: "Cousine-Regular";
+    font-size: 12px;
+    font-weight: 400;
+    line-height: normal;
+    background-color: #FFFFFF;
+
+    text-align: justify;
+    word-break: break-all;
+}
+
+.content-for-personal_account__form_choose_recipe__select_an_action {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    margin-top: 10px;
+}
+
+.content-for-personal_account__form_choose_recipe__button_submit__wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+}
+
+.content-for-personal_account__form_choose_recipe__button_submit {
+    color: #000;
+
+    width: 100px;
+    height: 20px;
+
+    background: #F8F8F8FF;
+    border: 1px solid #000000;
+    border-radius: 5px 5px 5px 5px;
+
+    cursor: pointer;
+
+    transition: 500ms;
+}
+
+.content-for-personal_account__form_choose_recipe__button_submit:hover {
+    color: white;
+    background: #7eb651;
+    border: none;
+}
+
+.content-for-personal_account__form_choose_recipe__choose_recipe__wrapper:last-child {
+    margin-top: 34px;
+}
+
+.content-for-personal_account__form_choose_recipe__choose_recipe__link {
+    text-decoration: none;
+    color: inherit;
+    transition: 250ms;
+}
+
+.content-for-personal_account__form_choose_recipe__choose_recipe__link:hover {
+    color: #e71313;
+}
+
+.content-for-personal_account__form_choose_recipe__choose_recipe__wrapper dl a dd {
+    margin-bottom: 3px;
+}
+
+
+/* 768px - 1439px */
+
+@media screen and (max-width: 1439px) {
+
+}
+
+/* 375px - 767px */
+
+@media screen and (max-width: 767px) {
+
+    .content-for-personal_account__title {
+        font-size: 25px;
+    }
+
+    .content-for-personal_account__operations_with_photos {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .form_user_personal_account_upload_user_photo__button_delete {
+        margin-left: 0;
+    }
+
+    .content-for-personal_account__information_about_user {
+        grid-template-columns: repeat(1, 320px);
+        margin-top: 0;
+    }
+
+}

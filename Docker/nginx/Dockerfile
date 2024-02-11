@@ -5,10 +5,7 @@ FROM nginx:latest
 RUN rm /etc/nginx/conf.d/default.conf
 
 # Copy the custom NGINX configuration file to the container
-COPY nginx.conf /etc/nginx/conf.d
-
-# Create symbolic link to sites-available
-RUN ln -s /etc/nginx/conf.d /etc/nginx/sites-available
+COPY default.conf /etc/nginx/conf.d/default.conf
 
 # Expose ports
 EXPOSE 80

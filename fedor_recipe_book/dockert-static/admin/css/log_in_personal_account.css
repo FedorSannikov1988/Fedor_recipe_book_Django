@@ -1,0 +1,121 @@
+.content-for-log_in_personal_account {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.content-for-log_in_personal_account__title {
+    color: #7eb651;
+    font-family: "Cousine-Bold";
+    font-size: 50px;
+    font-weight: 700;
+    line-height: normal;
+
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.content-for-log_in_personal_account__form {
+    color: #000;
+    font-family: "Cousine-Regular";
+    font-size: 14px;
+    font-weight: 400;
+    line-height: normal;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 350px;
+    height: 245px;
+
+    border: 1px solid #7eb651;
+    border-radius: 10px;
+    background-color: white;
+
+    --box-shadow:
+		0 16px 24px 2px rgba(33,37,41,.04),
+		0 6px 30px 5px rgba(33,37,41,.08),
+		0 8px 10px -5px rgba(33,37,41,.3);
+    box-shadow: var(--box-shadow);
+}
+
+.form_user_log_in_personal_account {
+    display: block;
+    width: 300px;
+    height: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 15px;
+}
+
+.content-for-log_in_personal_account__form__link {
+    text-decoration: none;
+    color: black;
+
+    font-family: "Cousine-Regular";
+    font-size: 14px;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.content-for-log_in_personal_account__form__link:hover {
+    color: #7eb651;
+    #background: #7eb651;
+}
+
+.content-for-log_in_personal_account__form__button {
+    color: #000;
+
+    font-family: "Cousine-Regular";
+    font-size: 12px;
+    font-weight: 400;
+    line-height: normal;
+
+    width: 150px;
+    height: 35px;
+
+    background: #F8F8F8FF;
+    border: 1px solid #000000;
+    border-radius: 40px 40px 40px 40px;
+
+    cursor: pointer;
+
+    transition: 500ms;
+
+    margin-left: 85px;
+    margin-top: 30px;
+}
+
+.content-for-log_in_personal_account__form__button:hover {
+    color: white;
+    background: #7eb651;
+    border: none;
+}
+
+.content-for-log_in_personal_account__alert_message {
+    width: 360px;
+    margin-top: 50px;
+}
+
+/* 768px - 1439px */
+
+@media screen and (max-width: 1439px) {
+
+    .content-for-log_in_personal_account__title {
+        font-size: 40px;
+    }
+}
+
+/* 375px - 767px */
+
+@media screen and (max-width: 767px) {
+
+    .content-for-log_in_personal_account__title {
+        font-size: 23px;
+        width: 360px;
+        text-align: center;
+    }
+}

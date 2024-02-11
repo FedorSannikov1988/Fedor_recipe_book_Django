@@ -52,7 +52,7 @@ urlpatterns = [
 
     path('add_recipe_v2/', add_recipe_v2, name='add_recipe_v2'),
     #path('__debug__/', include("debug_toolbar.urls")),
-]
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 
 if settings.DEBUG:
