@@ -21,9 +21,9 @@ RUN python3 /app/fedor_recipe_book/manage.py migrate
 RUN python3 /app/fedor_recipe_book/manage.py loaddata /app/fedor_recipe_book/recipe_book/fixtures/RecipeCategories.json
 RUN mkdir /app/fedor_recipe_book/media && mkdir /app/fedor_recipe_book/media/photos_cooked_recipes && mkdir /app/fedor_recipe_book/media/users_images
 
-RUN chown -R nginx:nginx /app/fedor_recipe_book/static
+RUN chown -R root:root /app/fedor_recipe_book/static
 RUN chmod -R 755 /app/fedor_recipe_book/static
-RUN chown -R nginx:nginx /app/fedor_recipe_book/media
+RUN chown -R root:root /app/fedor_recipe_book/media
 RUN chmod -R 755 /app/fedor_recipe_book/media
 
 ARG DJANGO_PORT
