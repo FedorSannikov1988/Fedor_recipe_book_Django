@@ -1,14 +1,6 @@
 # Use an official NGINX image as a parent image
-FROM nginx:latest
+FROM nginx:1.19-alpine
 
-# Remove the default NGINX configuration file
-RUN rm /etc/nginx/conf.d/default.conf
 
-# Copy the custom NGINX configuration file to the container
-COPY config/nginx.conf /etc/nginx/conf.d
-
-# Expose ports
-EXPOSE 80
-
-# Command to start NGINX
-CMD ["nginx", "-g", "daemon off;"]
+# Копируем файл конфигурации внутрь контейнера---<<<
+COPY ./conf.d/default.conf /etc/nginx/conf.d/default.conf

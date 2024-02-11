@@ -12,7 +12,7 @@ WORKDIR /app
 COPY . .
 
 # Install any needed packages specified in requirements.txt
-RUN apt-get update && apt-get install -y pkg-config
+RUN apt-get update && apt-get install -y pkg-conf.d
 RUN apt-get install -y python3 python3-pip python3-venv libmariadb-dev-compat gcc && \
     rm -rf /var/lib/apt/lists/*
 RUN python -m venv .venv

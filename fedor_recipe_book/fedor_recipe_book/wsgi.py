@@ -1,5 +1,5 @@
 """
-WSGI config for fedor_recipe_book project.
+WSGI conf.d for fedor_recipe_book project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 

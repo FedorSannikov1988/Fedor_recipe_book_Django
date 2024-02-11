@@ -1,5 +1,5 @@
 """
-ASGI config for fedor_recipe_book project.
+ASGI conf.d for fedor_recipe_book project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
