@@ -16,15 +16,13 @@ RUN apt-get update && apt-get install -y pkg-config
 RUN apt-get install -y python3 python3-pip python3-venv libmariadb-dev-compat gcc && \
     rm -rf /var/lib/apt/lists/*
 RUN python -m venv .venv
-#RUN apt-get install -y certbot
+
 RUN python3 -m pip install --upgrade pip && pip install -r requirements.txt
 RUN python3 /app/fedor_recipe_book/manage.py collectstatic --noinput
 RUN python3 /app/fedor_recipe_book/manage.py migrate
 RUN python3 /app/fedor_recipe_book/manage.py loaddata /app/fedor_recipe_book/recipe_book/fixtures/RecipeCategories.json
-#RUN certbot certonly --standalone --agree-tos --email testmailforflaskappsfa1988@gmail.com -d fedor.smartsoltech.kr
 
 ARG DJANGO_PORT
 EXPOSE $DJANGO_PORT
 
 CMD ["python3", "/app/fedor_recipe_book/manage.py", "runserver", "0.0.0.0:8000"]
-#CMD ["certbot", "certbot", "certonly", "--standalone", "--agree-tos", "--email", "testmailforflaskappsfa1988@gmail.com", "-d", "fedor.smartsoltech.kr", "--standalone-supported-challenges", "http-01", "--http-01-port", "8000", "--deploy-hook", "python3", "/app/fedor_recipe_book/manage.py", "runserver", "0.0.0.0:8000"]
