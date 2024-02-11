@@ -15,14 +15,12 @@ services:
       - app_network
 
   nginx:
-    build: 
-      context: ./Docker/nginx
-      dockerfile: Dockerfile
+    image: nginx:latest
     ports:
       - "80:80"
       - "443:443"
     volumes:
-      - ./Docker/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
+      - ./default.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - web  # Гарантирует, что NGINX подождет готовности сервиса web
     networks:

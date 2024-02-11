@@ -27,7 +27,7 @@ SECRET_KEY: str = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
-DEBUG = True
+DEBUG = False
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
@@ -186,7 +186,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Пример: BASE_DIR / 
 
 MEDIA_URL = 'media/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_ROOT = BASE_DIR / 'media/'
 
 # Model user in Project:
 

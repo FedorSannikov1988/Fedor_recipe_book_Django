@@ -16,8 +16,7 @@ import os
 load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-# BASE_DIR = Path(__file__).resolve().parent.parent
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -27,7 +26,7 @@ SECRET_KEY: str = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
-DEBUG = True
+DEBUG = False
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
@@ -92,7 +91,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, 'templates'),  # Используем os.path.join()
+            BASE_DIR / 'templates',
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -171,22 +170,17 @@ NUMBER_RECIPES_ON_MAIN_PAGE: int = 5
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-# Настройки для статических файлов
-STATIC_URL = '/static/'
+STATIC_URL = '/app/fedor_recipe_book//static/'
 
-# Добавляем каталоги со статическими файлами вашего приложения
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),  # Пример: BASE_DIR / 'static'
-]
+STATIC_ROOT = BASE_DIR / '/static/'
 
-# Каталог, в который Django будет собирать статические файлы
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Пример: BASE_DIR / 'staticfiles'
+#STATICFILES_DIRS = [BASE_DIR / 'static/', ]
 
 # Media files:
 
 MEDIA_URL = 'media/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_ROOT = BASE_DIR / 'media/'
 
 # Model user in Project:
 

@@ -10,10 +10,7 @@ services:
     volumes:
       - .:/app
     ports:
-      - "${DJANGO_PORT}:8000"  
-    networks:
-      - app_network
-
+      - "8000:8000"
   nginx:
     build: 
       context: ./Docker/nginx
@@ -22,12 +19,12 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./Docker/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
-    depends_on:
-      - web  # Гарантирует, что NGINX подождет готовности сервиса web
+      - ./default.conf:/etc/nginx/conf.d/
     networks:
       - app_network
-
 networks:
   app_network:
     driver: bridge
+
+volumes:
+  nginx_certs:

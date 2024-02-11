@@ -1,0 +1,10 @@
+asgiref
+Django
+django-debug-toolbar
+pillow
+PyJWT
+python-dotenv
+sqlparse
+typing_extensions
+tzdata
+mysqlclient

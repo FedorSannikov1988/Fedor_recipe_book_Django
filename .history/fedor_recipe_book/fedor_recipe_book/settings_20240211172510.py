@@ -27,7 +27,7 @@ SECRET_KEY: str = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
-DEBUG = True
+DEBUG = False
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
@@ -92,7 +92,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, 'templates'),  # Используем os.path.join()
+            BASE_DIR / 'templates',
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -171,22 +171,26 @@ NUMBER_RECIPES_ON_MAIN_PAGE: int = 5
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-# Настройки для статических файлов
 STATIC_URL = '/static/'
 
-# Добавляем каталоги со статическими файлами вашего приложения
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),  # Пример: BASE_DIR / 'static'
+    BASE_DIR / 'static',  # Добавьте каталог со статическими файлами вашего приложения, если он есть
 ]
 
-# Каталог, в который Django будет собирать статические файлы
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Пример: BASE_DIR / 'staticfiles'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+ # Укажите каталог, куда будут собраны все статические файлы
+
+
+# STATIC_ROOT = BASE_DIR / 'static/'
+
+# STATICFILES_DIRS = [BASE_DIR / 'static/', ]
 
 # Media files:
 
 MEDIA_URL = 'media/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_ROOT = BASE_DIR / 'media/'
 
 # Model user in Project:
 
