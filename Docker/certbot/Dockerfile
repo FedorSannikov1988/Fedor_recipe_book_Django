@@ -1,0 +1,2 @@
+FROM certbot:latest
+
