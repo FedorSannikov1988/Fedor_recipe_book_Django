@@ -25,4 +25,4 @@ ARG DJANGO_PORT
 EXPOSE $DJANGO_PORT
 
 # Define the command to run the Django application
-CMD ["python3", "/app/fedor_recipe_book/manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["python3", "/app/fedor_recipe_book/manage.py", "runserver"]
