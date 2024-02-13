@@ -27,6 +27,7 @@ services:
       - ./Docker/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
       - static_volume:/app/fedor_recipe_book/static
       - media_volume:/app/fedor_recipe_book/media
+      - /etc/letsencrypt/archive/:/etc/letsencrypt/archive/
     depends_on:
       - web
     networks:
